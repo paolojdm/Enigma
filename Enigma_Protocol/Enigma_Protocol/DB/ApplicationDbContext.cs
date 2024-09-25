@@ -70,17 +70,21 @@ namespace Enigma_Protocol.DB
             entity.Property(e => e.CreatedAt).IsRequired();
             entity.Property(e => e.Quantity).IsRequired();
 
-            // Foreign keys
-            entity.HasOne(e => e.User)
-                  .WithMany(u => u.Carts)
-                  .HasForeignKey(e => e.UserID);
+            // Explicitly configure the foreign key for Inventory
             entity.HasOne(e => e.Inventory)
-                  .WithMany()
-                  .HasForeignKey(e => e.InventoryID);
+                    .WithMany()  // If Inventory does not have a navigation property for Cart
+                    .HasForeignKey(e => e.InventoryID)  // Use only InventoryID as the FK
+                    .OnDelete(DeleteBehavior.Cascade);  // Cascade delete behavior
+
+            // Explicitly configure the foreign key for User
+            entity.HasOne(e => e.User)
+                    .WithMany(u => u.Carts)  // Assuming User has a collection of Carts
+                    .HasForeignKey(e => e.UserID)
+                    .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // Configure Order entity
-        modelBuilder.Entity<Order>(entity =>
+            // Configure Order entity
+            modelBuilder.Entity<Order>(entity =>
         {
             entity.ToTable("Orders");
             entity.HasKey(e => e.Id);
