@@ -2,26 +2,29 @@
 {
     public class OrderDetails
     {
-        public OrderDetails(int orderDetailId, int orderID, Order order, int productId, Product product, int quantity, double unitPrice)
+        // Parameterless constructor
+        public OrderDetails() { }
+
+        // Constructor with parameters
+        public OrderDetails(int orderDetailId, int orderID, Order order, int productID, Product product, int quantity, double unitPrice)
         {
             OrderDetailId = orderDetailId;
             OrderID = orderID;
             Order = order;
-            ProductId = productId;
+            ProductID = productID;
             Product = product;
             Quantity = quantity;
             UnitPrice = unitPrice;
         }
 
-        public int OrderDetailId { get; set; }
-        public int OrderID { get; set; }  // Foreign Key to Order
-        public Order Order { get; set; }  // Proprietà di navigazione a Order
-
-        public int ProductId { get; set; }  // Foreign Key to Product
-        public Product Product { get; set; }  // Proprietà di navigazione a Product
-
-        public int Quantity { get; set; }  // Quantità del prodotto ordinato
-        public double UnitPrice { get; set; }  
+        // Properties
+    public int OrderDetailId { get; set; } // Primary Key
+    public int OrderID { get; set; } // Foreign Key to Order
+    public Order Order { get; set; } // Navigation property to Order
+    public int ProductID { get; set; } // Foreign Key to Product
+    public Product Product { get; set; } // Navigation property to Product
+    public int Quantity { get; set; } // Quantity of the product ordered
+    public double UnitPrice { get; set; }
     }
 }
 

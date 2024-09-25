@@ -2,17 +2,28 @@
 {
     public class Room
     {
-        public Room(int roomId, string name, string description, List<Puzzle> puzzles)
+        // Parameterless constructor for EF
+        public Room()
+        {
+            Puzzles = new List<Puzzle>(); // Initialize the collection to prevent null references
+            PlayerProgresses = [];
+        }
+
+        public Room(int roomId, string name, string description)
         {
             RoomId = roomId;
             Name = name;
             Description = description;
-            Puzzles = puzzles;
+            Puzzles = new List<Puzzle>(); // Initialize with an empty collection
+            PlayerProgresses = [];
         }
 
         public int RoomId { get; set; }  // Primary Key
         public string Name { get; set; }  // e.g., "Mysterious Lab"
         public string Description { get; set; }  // Short description of the room
-        public List<Puzzle> Puzzles { get; set; }  // One-to-many relationship with puzzles
+
+        // Change List<Puzzle> to ICollection<Puzzle> for EF compatibility
+        public ICollection<Puzzle> Puzzles { get; set; }  // One-to-many relationship with puzzles
+        public ICollection<PlayerProgress> PlayerProgresses { get; set; }  // One-to-many relationship with puzzles
     }
 }
