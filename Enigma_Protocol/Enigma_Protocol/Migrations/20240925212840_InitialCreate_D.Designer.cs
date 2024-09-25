@@ -4,16 +4,19 @@ using Enigma_Protocol.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Enigma_Protocol.Migrations
 {
-    [DbContext(typeof(EscapeRoomDbContext))]
-    partial class EscapeRoomDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20240925212840_InitialCreate_D")]
+    partial class InitialCreate_D
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,16 +27,19 @@ namespace Enigma_Protocol.Migrations
 
             modelBuilder.Entity("Enigma_Protocol.Models.Cart", b =>
                 {
-                    b.Property<int>("CartId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("InventoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InventoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -42,25 +48,24 @@ namespace Enigma_Protocol.Migrations
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.HasKey("CartId");
+                    b.HasKey("Id");
 
                     b.HasIndex("InventoryID");
 
+                    b.HasIndex("InventoryId");
+
                     b.HasIndex("UserID");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Inventory", b =>
                 {
-                    b.Property<int>("InventoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryId"));
-
-                    b.Property<int?>("InventoryId1")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
@@ -68,51 +73,47 @@ namespace Enigma_Protocol.Migrations
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProductType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("QuantityAvailable")
                         .HasColumnType("int");
 
                     b.Property<int>("QuantityReserved")
                         .HasColumnType("int");
 
-                    b.HasKey("InventoryId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("InventoryId1");
+                    b.HasIndex("ProductID");
 
-                    b.HasIndex("ProductID")
-                        .IsUnique();
-
-                    b.ToTable("Inventories");
+                    b.ToTable("Inventory", (string)null);
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ShippingAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("ShippingStatus")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<double>("TotalAmount")
                         .HasColumnType("float");
 
                     b.Property<string>("TrackingNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -120,25 +121,25 @@ namespace Enigma_Protocol.Migrations
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
-            modelBuilder.Entity("Enigma_Protocol.Models.OrderDetails", b =>
+            modelBuilder.Entity("Enigma_Protocol.Models.OrderDetail", b =>
                 {
-                    b.Property<int>("OrderDetailId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("OrderID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductID")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -147,166 +148,163 @@ namespace Enigma_Protocol.Migrations
                     b.Property<double>("UnitPrice")
                         .HasColumnType("float");
 
-                    b.HasKey("OrderDetailId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderID");
 
-                    b.HasIndex("ProductID");
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.PlayerProgress", b =>
                 {
-                    b.Property<int>("PlayerProgressId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlayerProgressId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CurrentRoomId")
                         .HasColumnType("int");
 
                     b.Property<string>("PlayerName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("PlayerProgressId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CurrentRoomId");
 
-                    b.ToTable("PlayerProgresses");
+                    b.ToTable("PlayerProgress", (string)null);
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<string>("ProductDescription")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(MAX)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("ProductType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Puzzle", b =>
                 {
-                    b.Property<int>("PuzzleId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PuzzleId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Answer")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("NVARCHAR(MAX)");
 
                     b.Property<string>("Question")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("NVARCHAR(MAX)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.HasKey("PuzzleId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Puzzles");
+                    b.ToTable("Puzzles", (string)null);
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Room", b =>
                 {
-                    b.Property<int>("RoomId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("RoomDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("NVARCHAR(MAX)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("RoomName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("RoomId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("ShippingAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("PlayerProgressPuzzle", b =>
-                {
-                    b.Property<int>("SolvedByPlayersPlayerProgressId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SolvedPuzzlesPuzzleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SolvedByPlayersPlayerProgressId", "SolvedPuzzlesPuzzleId");
-
-                    b.HasIndex("SolvedPuzzlesPuzzleId");
-
-                    b.ToTable("PlayerProgressPuzzle");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Cart", b =>
                 {
                     b.HasOne("Enigma_Protocol.Models.Inventory", "Inventory")
-                        .WithMany("Carts")
+                        .WithMany()
                         .HasForeignKey("InventoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Enigma_Protocol.Models.Inventory", null)
+                        .WithMany("Carts")
+                        .HasForeignKey("InventoryId");
 
                     b.HasOne("Enigma_Protocol.Models.User", "User")
                         .WithMany("Carts")
@@ -321,13 +319,9 @@ namespace Enigma_Protocol.Migrations
 
             modelBuilder.Entity("Enigma_Protocol.Models.Inventory", b =>
                 {
-                    b.HasOne("Enigma_Protocol.Models.Inventory", null)
-                        .WithMany("InventoryEntries")
-                        .HasForeignKey("InventoryId1");
-
                     b.HasOne("Enigma_Protocol.Models.Product", "Product")
-                        .WithOne("Inventory")
-                        .HasForeignKey("Enigma_Protocol.Models.Inventory", "ProductID")
+                        .WithMany("Inventories")
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -345,17 +339,17 @@ namespace Enigma_Protocol.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Enigma_Protocol.Models.OrderDetails", b =>
+            modelBuilder.Entity("Enigma_Protocol.Models.OrderDetail", b =>
                 {
                     b.HasOne("Enigma_Protocol.Models.Order", "Order")
-                        .WithMany("OrdersDetails")
+                        .WithMany("OrderDetails")
                         .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Enigma_Protocol.Models.Product", "Product")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("ProductID")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -369,7 +363,7 @@ namespace Enigma_Protocol.Migrations
                     b.HasOne("Enigma_Protocol.Models.Room", "CurrentRoom")
                         .WithMany()
                         .HasForeignKey("CurrentRoomId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CurrentRoom");
@@ -386,37 +380,19 @@ namespace Enigma_Protocol.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("PlayerProgressPuzzle", b =>
-                {
-                    b.HasOne("Enigma_Protocol.Models.PlayerProgress", null)
-                        .WithMany()
-                        .HasForeignKey("SolvedByPlayersPlayerProgressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Enigma_Protocol.Models.Puzzle", null)
-                        .WithMany()
-                        .HasForeignKey("SolvedPuzzlesPuzzleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Enigma_Protocol.Models.Inventory", b =>
                 {
                     b.Navigation("Carts");
-
-                    b.Navigation("InventoryEntries");
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Order", b =>
                 {
-                    b.Navigation("OrdersDetails");
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Product", b =>
                 {
-                    b.Navigation("Inventory")
-                        .IsRequired();
+                    b.Navigation("Inventories");
 
                     b.Navigation("OrderDetails");
                 });
