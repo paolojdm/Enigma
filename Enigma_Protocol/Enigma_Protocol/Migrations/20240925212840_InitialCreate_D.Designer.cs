@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Enigma_Protocol.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240925214022_InitialCreate_D2")]
-    partial class InitialCreate_D2
+    [Migration("20240925212840_InitialCreate_D")]
+    partial class InitialCreate_D
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

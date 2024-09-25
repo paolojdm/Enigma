@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Enigma_Protocol.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate_D2 : Migration
+    public partial class InitialCreate_D : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -156,6 +156,7 @@ namespace Enigma_Protocol.Migrations
                     InventoryID = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
+                    InventoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -166,6 +167,11 @@ namespace Enigma_Protocol.Migrations
                         principalTable: "Inventory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Carts_Inventory_InventoryId",
+                        column: x => x.InventoryId,
+                        principalTable: "Inventory",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Carts_Users_UserID",
                         column: x => x.UserID,
@@ -201,6 +207,11 @@ namespace Enigma_Protocol.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_InventoryId",
+                table: "Carts",
+                column: "InventoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_InventoryID",
