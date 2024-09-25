@@ -1,19 +1,13 @@
-using Enigma_Protocol.DB; // Adjust this based on your actual namespace
+using Enigma_Protocol.DB;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Add services to the container.
 builder.Services.AddDbContext<EscapeRoomDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
-builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

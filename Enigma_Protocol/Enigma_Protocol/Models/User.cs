@@ -7,15 +7,8 @@ namespace Enigma_Protocol.Models
 {
     public class User
     {
-        // Parameterless constructor
-        public User()
-        {
-            Orders = new List<Order>();
-            Carts = new List<Cart>();
-        }
-
         public User(int userId, string userName, string passwordHash, string email,
-            string shippingAddress, DateTime createdAt)
+            string shippingAddress, DateTime createdAt, List<Order> orders, List<Cart> carts)
         {
             UserId = userId;
             UserName = userName;
@@ -23,10 +16,8 @@ namespace Enigma_Protocol.Models
             Email = email;
             ShippingAddress = shippingAddress;
             CreatedAt = createdAt;
-
-            Orders = new List<Order>();
-            Carts = new List<Cart>();
-
+            Orders = orders;
+            Carts = carts;
         }
 
         public int UserId { get; set; } 
@@ -35,10 +26,8 @@ namespace Enigma_Protocol.Models
         public string Email { get; set; }
         public string ShippingAddress { get; set; }
         public DateTime CreatedAt { get; set; }
-
-        // Navigation properties
-        public virtual ICollection<Order> Orders { get; set; } // Navigation to Orders
-        public virtual ICollection<Cart> Carts { get; set; }  // Navigation to Carts
+        public List<Order> Orders { get; set; }
+        public List<Cart> Carts { get; set; }
 
     }
 }
