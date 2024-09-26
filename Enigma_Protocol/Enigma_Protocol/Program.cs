@@ -17,6 +17,10 @@ builder.Services.AddAuthentication("MyCookieAuth")
     .AddCookie("MyCookieAuth", options =>
     {
         options.LoginPath = "/Account/Login";
+        //options.LogoutPath = "/Account/Logout";
+        options.SlidingExpiration = true; // Optional: Extend the expiration on each request
+        options.ExpireTimeSpan = TimeSpan.FromDays(30); // Set the default expiration time
+
     });
 
 builder.Services.AddControllersWithViews();

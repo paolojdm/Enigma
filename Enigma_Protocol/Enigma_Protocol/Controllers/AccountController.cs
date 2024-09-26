@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System;
 using Enigma_Protocol.DB;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Enigma_Protocol.Controllers
 {
@@ -30,7 +31,9 @@ namespace Enigma_Protocol.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
+            // This will clear the authentication cookie
+            await HttpContext.SignOutAsync("MyCookieAuth");  // Use your custom scheme
+
             return RedirectToAction("Login", "Account");
         }
         [HttpPost]
@@ -51,15 +54,21 @@ namespace Enigma_Protocol.Controllers
                 {
                     // Create authentication cookie
                     var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-                };
+                    {
+                        new Claim(ClaimTypes.Name, user.UserName),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                    };
 
                     var claimsIdentity = new ClaimsIdentity(claims, "login");
                     var principal = new ClaimsPrincipal(claimsIdentity);
 
-                    await HttpContext.SignInAsync(principal);
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = model.RememberMe,  // Set persistence based on Remember Me
+                        ExpiresUtc = model.RememberMe ? DateTimeOffset.UtcNow.AddDays(30) : null // Optional: Set expiration if needed
+                    };
+
+                    await HttpContext.SignInAsync(principal, authProperties);
 
                     return RedirectToAction("Index", "Home");
                 }

@@ -22,10 +22,16 @@
     <hr />
 
     <!-- Links to Cart and Edit Profile pages -->
-    <div>
+    <div class="account-btns">
+		<form>
         <a class="btn btn-primary" href="/Cart">View Cart</a>
-        <a class="btn btn-secondary" href="/EditProfile">Edit Profile</a>
-        <a class="btn btn-secondary" asp-action="EditProfile" asp-controller="Account">Edit Profile (razor)</a>
+        </form>
+		<form>
+        <a class="btn btn-secondary" asp-action="EditProfile" asp-controller="Account">Edit Profile</a>
+        </form>
+        <form class="btn-lgt" asp-action="Logout" asp-controller="Account" method="post">
+            <button type="submit" class="btn btn-secondary">Logout</button>
+        </form>
     </div>
 </body>
 </html>

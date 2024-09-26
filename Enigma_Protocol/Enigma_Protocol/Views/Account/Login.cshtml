@@ -27,6 +27,11 @@
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
+        <div>
+            <input asp-for="RememberMe" type="checkbox" />
+            <label asp-for="RememberMe">Remember Me</label>
+        </div>
+
         <button type="submit">Login</button>
         <p>Don't have an account? <a href="@Url.Action("Register", "Account")">Register here</a></p>
     </form>
