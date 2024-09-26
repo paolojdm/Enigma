@@ -143,11 +143,18 @@ namespace Enigma_Protocol.Controllers
                 return NotFound();
             }
             // Fetch the PlayerProfile by matching PlayerName to UserName
+
+
             var playerProgress = await _context.PlayerProgresses
-                                              .FirstOrDefaultAsync(p => p.PlayerID == user.Id);
+                                    .Include(p => p.User) // Ensure User is included
+                                    .FirstOrDefaultAsync(p => p.User.Id == user.Id);
 
             // Fetch solved puzzles from PlayerProgress (example statistic)
-            var solvedPuzzlesCount = playerProgress.SolvedPuzzles;
+            var solvedPuzzlesCount = 0;
+            if (playerProgress != null)
+            {
+                solvedPuzzlesCount = playerProgress.SolvedPuzzles;
+            }
 
             var model = new MyAccountViewModel
             {

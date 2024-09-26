@@ -4,6 +4,7 @@ using Enigma_Protocol.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Enigma_Protocol.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240926113412_PlayerProgress_Add_PlayerID")]
+    partial class PlayerProgress_Add_PlayerID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,11 +174,16 @@ namespace Enigma_Protocol.Migrations
                     b.Property<int>("SolvedPuzzles")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CurrentRoomId");
 
                     b.HasIndex("PlayerID");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("PlayerProgress", (string)null);
                 });
@@ -366,10 +374,14 @@ namespace Enigma_Protocol.Migrations
                         .IsRequired();
 
                     b.HasOne("Enigma_Protocol.Models.User", "User")
-                        .WithMany("playerProgresses")
+                        .WithMany()
                         .HasForeignKey("PlayerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Enigma_Protocol.Models.User", null)
+                        .WithMany("playerProgresses")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("CurrentRoom");
 

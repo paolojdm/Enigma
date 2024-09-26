@@ -6,6 +6,6 @@
         public string Email { get; set; }
         public string? ShippingAddress { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int SolvedPuzzlesCount { get; set; } // Statistic for solved puzzles
+        public int? SolvedPuzzlesCount { get; set; } // Statistic for solved puzzles
     }
 }

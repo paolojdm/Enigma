@@ -156,7 +156,7 @@ namespace Enigma_Protocol.DB
                   .HasForeignKey(e => e.CurrentRoomId);
             // Foreign key to Player
             entity.HasOne(e => e.User)
-                  .WithMany()
+                  .WithMany(p => p.playerProgresses)
                   .HasForeignKey(e => e.PlayerID);
         });
 
