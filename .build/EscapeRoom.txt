@@ -143,9 +143,7 @@ public class PlayerService
     public Player GetPlayerProfile(int id)
     {
         return _context.Players.Find(id);
-    }
-
-    
+    } 
 }
 
 

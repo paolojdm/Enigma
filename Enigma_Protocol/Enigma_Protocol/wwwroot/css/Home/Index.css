@@ -6,6 +6,7 @@ body {
     color: #D3D3D3; /* Light gray for contrast */
     height: 100vh; /* Ensure the body takes up full viewport height */
     position: relative; /* Make sure the body is positioned to contain the ::before element */
+    
 }
 
     body::before {
