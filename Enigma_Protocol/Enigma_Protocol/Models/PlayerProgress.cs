@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public string PlayerName { get; set; }
         public int CurrentRoomId { get; set; }
+        public int SolvedPuzzles { get; set; }
 
         // Navigation Properties
         public Room CurrentRoom { get; set; }

@@ -149,6 +149,8 @@ namespace Enigma_Protocol.DB
             entity.ToTable("PlayerProgress");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.PlayerName).IsRequired().HasMaxLength(255);
+            entity.Property(e => e.SolvedPuzzles).IsRequired();
+
 
             // Foreign key to Room
             entity.HasOne(e => e.CurrentRoom)
