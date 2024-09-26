@@ -1,0 +1,30 @@
+﻿@model MyAccountViewModel
+@{
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h2>My Account</h2>
+
+    <div>
+        <p><strong>Username:</strong> @Model.UserName</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Shipping Address:</strong> @(string.IsNullOrEmpty(Model.ShippingAddress) ? "Not Provided" : Model.ShippingAddress)</p>
+        <p><strong>Member Since:</strong> @Model.CreatedAt.ToShortDateString()</p>
+        <p><strong>Solved Puzzles:</strong> @Model.SolvedPuzzlesCount</p>
+    </div>
+
+    <hr />
+
+    <!-- Links to Cart and Edit Profile pages -->
+    <div>
+        <a class="btn btn-primary" href="/Cart">View Cart</a>
+        <a class="btn btn-secondary" href="/Account/EditProfile">Edit Profile</a>
+    </div>
+</body>
+</html>
