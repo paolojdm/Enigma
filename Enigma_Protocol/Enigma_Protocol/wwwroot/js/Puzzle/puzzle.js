@@ -85,3 +85,28 @@ function dragEnd() {
         document.getElementById("turns").innerText = turns;
     }
 }
+document.addEventListener('DOMContentLoaded', () => {
+    let timeLeft = 60; // Time in seconds
+    const timerElement = document.getElementById('timer');
+    const puzzleElement = document.getElementById('puzzle'); // Replace with your actual puzzle element ID
+
+    function updateTimer() {
+        if (timeLeft > 0) {
+            timeLeft--;
+            timerElement.innerText = `Tempo rimasto: ${timeLeft} s`; // Update displayed time
+        } else {
+            clearInterval(timerInterval);
+            alert('Tempo scaduto! Il puzzle non è stato completato in tempo.');
+
+            // Optional: Add any logic to handle the end of the game here
+            // For example, you might want to hide the puzzle or show a game over screen
+            // puzzleElement.style.display = 'none'; // Uncomment if you want to hide the puzzle
+        }
+    }
+
+    // Start the timer interval
+    const timerInterval = setInterval(updateTimer, 1000); // Update the timer every second
+
+    // Initial display update
+    timerElement.innerText = `Tempo rimasto: ${timeLeft} s`; // Ensure initial display shows the starting time
+});

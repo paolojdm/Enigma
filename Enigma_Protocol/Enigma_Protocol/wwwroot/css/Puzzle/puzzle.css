@@ -1,4 +1,4 @@
-﻿body {
+﻿/*body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     color: #0c67ae;
@@ -8,27 +8,83 @@
     min-height: fit-content;
     flex-direction: column;
     margin: 0;
-}
-
+    background-image: url("/Images/Castello1_Prova.jpg");*/ /* Background image */
+    /*background-repeat:no-repeat;
+    
+    
+}*/
+/* Make the title image smaller and center it */
 #title {
-    height: 150px;
-    width: 360px;
+    display: block;
+    margin: 0 auto; /* Centers the image horizontally */
+    width: 200px; /* Adjust the size as needed */
+    height: auto; /* Keeps the aspect ratio intact */
 }
 
+/* Center the board and adjust its appearance */
 #board {
     width: 360px;
     height: 360px;
     background-color: lightblue;
     border: 10px solid #0c67ae;
     padding: 5px;
-    margin: 5px;
+    margin: 20px auto; /* Centers the board horizontally */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-    #board img {
-        width: 100px;
-        height: 100px;
-        border: none; 
+/* Style the board images */
+#board img {
+    width: 110px;
+    height: 111px;
+    border: none; 
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Crimson Text', serif;
+    color: #D3D3D3; /* Light gray for contrast /*/
+    height: 100vh; 
+}
+
+h1 {
+    align-content: center;
+    text-align: center;
+    text-decoration-color: inherit;
+    font-family: 'Press Start 2P', cursive; /* Font in stile retro /*/
+    font-size: 48px;
+    color: #00ff00;
+    text-shadow: 2px 2px 0 #000, 4px 4px 0 #ff0000;
+    background-color: #000;
+    padding: 10px;
+    border: 2px solid #ff0000;
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+
+
+}
+
+    body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        background-image: url("/Images/Castello1_Prova.jpg"); /* Background image */
+        background-size: cover;
+        align-items: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1;
     }
+
+.container {
+    text-align: center;
+
+}
