@@ -169,5 +169,18 @@ namespace Enigma_Protocol.Controllers
         }
 
         #endregion MyAccount
+
+        #region EditProfile
+
+        // GET: /Account/EditProfile
+        public IActionResult EditProfile()
+        {
+            // Logic to retrieve and return the EditProfile view
+            return View();
+        }
+
+        #endregion EditProfile
+
+
     }//end public class
 }

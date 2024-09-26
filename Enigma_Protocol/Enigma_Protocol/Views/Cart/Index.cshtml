@@ -1,0 +1,51 @@
+﻿@using Enigma_Protocol.Models;
+
+@model IEnumerable<Enigma_Protocol.Models.CartViewModel>
+@{
+    Layout = "_Layout";  // Use your layout
+    ViewData["Title"] = "Your Cart";  // Set the page title
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Your Cart</title>
+</head>
+<body>
+    <h2>Your Cart</h2>
+
+    @if (Model.Any())  // Check if there are any items in the cart
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>User Name</th>
+                    <th>Quantity</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.CreatedAt.ToString("g")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Your cart is empty.</p>
+    }
+
+    <p>
+        <a href="@Url.Action("Index", "Home")">Continue Shopping</a>  <!-- Link back to home or products page -->
+    </p>
+</body>
+</html>
