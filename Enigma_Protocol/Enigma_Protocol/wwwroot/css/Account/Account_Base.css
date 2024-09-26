@@ -1,0 +1,133 @@
+﻿/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1c1c1c; /* Dark background for mystery */
+    color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h2 {
+    color: #ffc107; /* Eye-catching golden color for titles */
+    border-bottom: 2px solid #ffc107;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #2c2c2c; /* Slightly lighter box for contrast */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group, .table {
+    margin-bottom: 20px;
+}
+
+label {
+    color: #e1e1e1;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="checkbox"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #3a3a3a;
+    color: #fff;
+}
+
+input:disabled {
+    background-color: #444;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+.text-danger {
+    color: #ff6b6b; /* Red for errors */
+}
+
+.account-btns {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Button Styles */
+button, .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-logout {
+    background-color: #e83d3d;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Specific Styles */
+.account-btns form {
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    border-color: #444;
+    margin: 20px 0;
+}
+
+a {
+    color: #ffc107;
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* Footer */
+footer {
+    background-color: #292929;
+    padding: 20px;
+    text-align: center;
+    color: #9a9a9a;
+    margin-top: auto;
+}
+/*
+#logoutbtn {
+    background-color: #ee4343;
+}*/

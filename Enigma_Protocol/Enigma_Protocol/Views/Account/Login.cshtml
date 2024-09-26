@@ -8,6 +8,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Login</title>
+    <link rel="stylesheet" href="~/css/Account/Account_Base.css">
 </head>
 <body>
 
@@ -15,24 +16,25 @@
     <h2>Login</h2>
 
     <form asp-action="Login" method="post">
-        <div>
+        <div class="table">
             <label asp-for="UserName"></label>
             <input asp-for="UserName" />
             <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
 
-        <div>
+        <div class="table">
             <label asp-for="Password"></label>
             <input asp-for="Password" type="password" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
-        <div>
+        <div class="table">
             <input asp-for="RememberMe" type="checkbox" />
             <label asp-for="RememberMe">Remember Me</label>
         </div>
-
-        <button type="submit">Login</button>
+        <div class="account-btns">
+            <button type="submit">Login</button>
+        </div>
         <p>Don't have an account? <a href="@Url.Action("Register", "Account")">Register here</a></p>
     </form>
 

@@ -8,41 +8,41 @@
 <head>
     <meta charset="utf-8" />
     <title>Register</title>
+    <link rel="stylesheet" href="~/css/Account/Account_Base.css">
 </head>
 <body>
+    <div class="container">
     <h2>Register</h2>
 
     <form asp-action="Register" method="post">
-        <div>
+        <div class="table">
             <label asp-for="UserName"></label>
             <input asp-for="UserName" />
             <span asp-validation-for="UserName" class="text-danger"></span>
-        </div>
+        </div >
 
-        <div>
+        <div class="table">
             <label asp-for="Email"></label>
             <input asp-for="Email" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
-        <div>
+        <div class="table">
             <label asp-for="Password"></label>
             <input asp-for="Password" type="password" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
-        <div>
+        <div class="table">
             <label asp-for="ConfirmPassword"></label>
             <input asp-for="ConfirmPassword" type="password" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
-
-        <button type="submit">Register</button>
+        <div class="account-btns">
+            <button type="submit">Register</button>
+        </div>
     </form>
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
-    }
+    @section Scripts {@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}}
+    </div>
 </body>
 </html>
