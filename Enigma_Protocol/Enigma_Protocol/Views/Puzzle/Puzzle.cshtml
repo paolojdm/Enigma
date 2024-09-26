@@ -1,19 +1,24 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Slide Puzzle</title>
 	<link rel="stylesheet" href="/css/Puzzle/puzzle.css">
-	<script src="/js/Puzzle/puzzle.js"></script>
+	<script src="/js/Puzzle/puzzle.js" defer></script> <!-- Use defer to load the script after the DOM -->
 </head>
 
 <body>
 	<div class="container">
-		<img id="title" src="./logo.png">
-		<div id="board">
+		<h1 id="timer">Tempo rimasto: 60 s</h1> <!-- Fixed initial display -->
+		<div id="puzzle">
+			<!-- Qui va il tuo puzzle -->
+			<img id="title" src="/Images/Designer1.jpg">
+			<div id="board">
+				<!-- Puzzle board content goes here -->
+			</div>
+			<h1>Turns: <span id="turns">0</span></h1>
 		</div>
 	</div>
-	<h1>Turns: <span id="turns">0</span></h1>
 </body>
 </html>
