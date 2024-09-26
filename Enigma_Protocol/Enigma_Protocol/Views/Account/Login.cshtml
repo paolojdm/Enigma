@@ -1,0 +1,38 @@
+﻿<!-- File: Views/Account/Login.cshtml -->
+@model LoginViewModel
+@{
+    Layout = "_Layout";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+
+    <h2>Login</h2>
+
+    <form asp-action="Login" method="post">
+        <div>
+            <label asp-for="UserName"></label>
+            <input asp-for="UserName" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit">Login</button>
+        <p>Don't have an account? <a href="@Url.Action("Register", "Account")">Register here</a></p>
+    </form>
+
+    
+</body>
+</html>
