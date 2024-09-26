@@ -12,5 +12,6 @@
         // Navigation Properties
         public ICollection<Cart> Carts { get; set; }
         public ICollection<Order> Orders { get; set; }
+        public ICollection<PlayerProgress> playerProgresses { get; set; }
     }
 }
