@@ -59,6 +59,10 @@ namespace Enigma_Protocol.Controllers
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                     };
 
+                    // Add role claim
+                    string role = user.IsAdmin ? "Admin" : "User";
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+
                     var claimsIdentity = new ClaimsIdentity(claims, "login");
                     var principal = new ClaimsPrincipal(claimsIdentity);
 

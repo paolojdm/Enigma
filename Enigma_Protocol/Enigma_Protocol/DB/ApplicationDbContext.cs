@@ -15,9 +15,10 @@ namespace Enigma_Protocol.DB
     public DbSet<Room> Rooms { get; set; }
     public DbSet<Puzzle> Puzzles { get; set; }
     public DbSet<PlayerProgress> PlayerProgresses { get; set; }
+    public DbSet<Review> Reviews { get; set; }
 
-    // Constructor
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        // Constructor
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }

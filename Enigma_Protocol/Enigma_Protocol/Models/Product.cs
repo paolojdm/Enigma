@@ -12,5 +12,6 @@
         // Navigation Properties
         public ICollection<Inventory> Inventories { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
+        public ICollection<Review> Reviews { get; set; }  // Add this line
     }
 }

@@ -14,5 +14,6 @@
         public ICollection<Cart> Carts { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<PlayerProgress> playerProgresses { get; set; }
+        public ICollection<Review> Reviews { get; set; }  // Add this line
     }
 }
