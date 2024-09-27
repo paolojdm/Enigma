@@ -8,6 +8,7 @@
         public string Email { get; set; }
         public string? ShippingAddress { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool IsAdmin { get; set; }
 
         // Navigation Properties
         public ICollection<Cart> Carts { get; set; }
