@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CatalogViewModel>
+
+@{
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <h2>Product Catalog</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Quantity Available</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.ProductDescription</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.ProductType</td>
+                    <td>@item.QuantityAvailable</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</body>
+</html>
