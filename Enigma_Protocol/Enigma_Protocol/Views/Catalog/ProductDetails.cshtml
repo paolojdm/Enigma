@@ -1,0 +1,27 @@
+﻿@model ProductDetailsViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/product-details.css" rel="stylesheet" />
+    <title>@Model.ProductName</title>
+</head>
+<body>
+    <div class="product-details-container">
+        <div class="product-image">
+            <img src="@Model.ImageUrl" alt="@Model.ProductName" />
+        </div>
+        <div class="product-info">
+            <h1>@Model.ProductName</h1>
+            <span class="price">$@Model.Price</span>
+            <p class="description">@Model.ProductDescription</p>
+
+            <h3>Available Stock: @Model.QuantityAvailable</h3>
+
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+</body>
+</html>

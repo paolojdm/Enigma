@@ -30,5 +30,29 @@ namespace Enigma_Protocol.Controllers
 
             return View(catalogItems);
         }
+
+        public async Task<IActionResult> ProductDetails(int id)
+        {
+            var product = await _context.Inventories
+                .Include(i => i.Product)
+                .Where(i => i.Product.Id == id)
+                .Select(i => new ProductDetailsViewModel
+                {
+                    ProductId = i.Product.Id,
+                    ProductName = i.Product.ProductName,
+                    ProductDescription = i.Product.ProductDescription,
+                    Price = i.Product.Price,
+                    ProductType = i.Product.ProductType,
+                    QuantityAvailable = i.QuantityAvailable,
+                    ImageUrl = "/Images/Designer1.jpg"  // You can change this dynamically later
+                }).FirstOrDefaultAsync();
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
     }
 }
