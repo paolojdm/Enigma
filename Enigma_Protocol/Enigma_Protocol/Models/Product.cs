@@ -7,6 +7,7 @@
         public string ProductDescription { get; set; }
         public double Price { get; set; }
         public string ProductType { get; set; }
+        public string ImageUrl {  get; set; }
 
         // Navigation Properties
         public ICollection<Inventory> Inventories { get; set; }
