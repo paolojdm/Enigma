@@ -1,0 +1,11 @@
+﻿body {
+    background-image: url("../../Images/Castello1_Prova.jpg");
+    background-repeat: no-repeat;
+}
+.container {
+    text-align: center;
+}
+img {
+    width: 310px;
+    height: 400px;
+}

@@ -13,5 +13,9 @@ namespace Enigma_Protocol.Controllers
         {
             return View();
         }
+        public IActionResult LetteraScrivania()
+        {
+            return View();
+        }
     }
 }
