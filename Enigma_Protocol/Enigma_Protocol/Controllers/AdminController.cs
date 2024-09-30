@@ -3,6 +3,12 @@ using Enigma_Protocol.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 
 namespace Enigma_Protocol.Controllers
 {
@@ -224,10 +230,13 @@ namespace Enigma_Protocol.Controllers
 
             if (ModelState.IsValid)
             {
+                int v = 0;
+                var adminUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                v = int.Parse(adminUserId!);
                 var adminComment = new Review
                 {
                     ProductId = model.ProductId,
-                    UserId = /* Admin UserId */,
+                    UserId = v,
                     Comment = model.AdminComment,
                     CreatedAt = DateTime.Now
                 };
