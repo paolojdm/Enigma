@@ -1,0 +1,14 @@
+﻿@model Enigma_Protocol.Models.Inventory;
+
+<form asp-action="EditInventory" method="post">
+    <input type="hidden" asp-for="ProductID" />
+    <div>
+        <label asp-for="QuantityAvailable"></label>
+        <input type="number" asp-for="QuantityAvailable" />
+    </div>
+    <div>
+        <label asp-for="QuantityReserved"></label>
+        <input type="number" asp-for="QuantityReserved" />
+    </div>
+    <button type="submit">Update Inventory</button>
+</form>
