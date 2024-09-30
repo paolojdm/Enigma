@@ -1,0 +1,44 @@
+﻿@model Enigma_Protocol.Models.Inventory
+
+@{
+    ViewData["Title"] = "Edit Inventory";
+}
+
+<h1>Edit Inventory</h1>
+
+<form asp-action="EditInventory" method="post">
+    <div class="form-group">
+        <label asp-for="ProductID"></label>
+        <input asp-for="ProductID" class="form-control" readonly />
+        <span asp-validation-for="ProductID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="QuantityAvailable"></label>
+        <input asp-for="QuantityAvailable" class="form-control" />
+        <span asp-validation-for="QuantityAvailable" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="QuantityReserved"></label>
+        <input asp-for="QuantityReserved" class="form-control" />
+        <span asp-validation-for="QuantityReserved" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastUpdated"></label>
+        <input asp-for="LastUpdated" class="form-control" readonly />
+        <span asp-validation-for="LastUpdated" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="InventoryList" class="btn btn-secondary">Cancel</a>
+</form>
+
+<div>
+    <h3>Current Inventory Status</h3>
+    <p>Quantity Available: @Model.QuantityAvailable</p>
+    <p>Quantity Reserved: @Model.QuantityReserved</p>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

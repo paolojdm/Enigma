@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Enigma_Protocol.Models.Inventory>
+
+<h2>Inventory Management</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity Available</th>
+            <th>Quantity Reserved</th>
+            <th>Last Updated</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product.ProductName</td>
+                <td>@item.QuantityAvailable</td>
+                <td>@item.QuantityReserved</td>
+                <td>@item.LastUpdated.ToString("g")</td> <!-- Formats the date/time -->
+                <td>
+                    <a asp-action="EditInventory" asp-route-productId="@item.ProductID">Edit</a>
+                    <a asp-action="DeleteInventory" asp-route-productId="@item.ProductID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="AddInventory">Add New Inventory</a>

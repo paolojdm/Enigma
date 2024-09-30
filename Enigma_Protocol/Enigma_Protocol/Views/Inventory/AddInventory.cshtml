@@ -1,0 +1,21 @@
+﻿@model Enigma_Protocol.Models.Inventory
+
+<h2>Add/Edit Inventory</h2>
+
+<form asp-action="AddInventory" method="post">
+    <div>
+        <label asp-for="ProductID"></label>
+        <select asp-for="ProductID" asp-items="@(new SelectList(ViewBag.Products, "Id", "ProductName"))">
+            <option value="">Select a Product</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="QuantityAvailable"></label>
+        <input asp-for="QuantityAvailable" />
+    </div>
+    <div>
+        <label asp-for="QuantityReserved"></label>
+        <input asp-for="QuantityReserved" />
+    </div>
+    <button type="submit">Save</button>
+</form>

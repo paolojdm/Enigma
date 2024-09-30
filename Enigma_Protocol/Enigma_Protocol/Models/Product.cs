@@ -10,8 +10,8 @@
         public string ImageUrl {  get; set; }
 
         // Navigation Properties
-        public ICollection<Inventory> Inventories { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
-        public ICollection<Review> Reviews { get; set; }  // Add this line
+        public ICollection<Inventory> Inventories { get; set; } = [];
+        public ICollection<OrderDetail> OrderDetails { get; set; } = [];
+        public ICollection<Review> Reviews { get; set; } = [];  // Add this line
     }
 }

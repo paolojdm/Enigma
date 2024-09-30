@@ -147,7 +147,12 @@ public class PlayerService
 }
 
 
+Parte Admin:
+Aggiustare le view per farle piu' belle, Aggiungere la foto del prodotto nella Product List.
 
+Parte Client:
+Aggiungere la funzionalita' del carrello, per potere aggiungere il metodo di pagamento e salvarlo.
+Aggiungere la navigazione dal carrello al catalogo.
 
 
 
