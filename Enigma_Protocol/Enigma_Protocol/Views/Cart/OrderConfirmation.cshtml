@@ -1,0 +1,36 @@
+﻿@model Enigma_Protocol.Models.Order
+
+@{
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/Account/Account_Base.css">
+</head>
+<body>
+
+
+<h2>Order Confirmation</h2>
+
+<p>Thank you for your order! Here are the details:</p>
+
+<ul>
+    @foreach (var detail in Model.OrderDetails)
+    {
+        <li>
+            @detail.Quantity x @detail.Product.ProductName - $@detail.UnitPrice each
+        </li>
+    }
+</ul>
+
+<p>Total Amount: $@Model.TotalAmount</p>
+<p>Order Date: @Model.OrderDate.ToShortDateString()</p>
+<p>Shipping Address: @Model.ShippingAddress</p>
+<p>Shipping Status: @Model.ShippingStatus</p>
+<p>Tracking Number: @Model.TrackingNumber</p>
+
+</body>
+</html>

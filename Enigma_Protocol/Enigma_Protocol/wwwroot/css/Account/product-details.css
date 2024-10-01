@@ -1,0 +1,89 @@
+﻿/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1c1c1c; /* Dark background */
+    color: #f1f1f1;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #ffc107; /* Golden color for product name */
+    margin: 0;
+    font-size: 2.5em; /* Larger font size for product name */
+}
+
+.price {
+    font-size: 1.5em; /* Larger font size for price */
+    color: #28a745; /* Green color for price */
+    margin-top: 10px; /* Space above price */
+}
+
+.description {
+    font-size: 1.1em; /* Slightly larger font for description */
+    margin-top: 15px; /* Space above description */
+}
+
+/* Product Details Container */
+.product-details-container {
+    display: flex; /* Flexbox layout for image and info side by side */
+    max-width: 1200px; /* Maximum width for larger displays */
+    margin: 0 auto; /* Centering the container */
+    background-color: #2c2c2c; /* Darker background for contrast */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Inner spacing */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow effect */
+}
+
+/* Product Image Styles */
+.product-image {
+    flex: 1; /* Take up 1 part of the flex space */
+    margin-right: 20px; /* Space between image and info */
+}
+
+    .product-image img {
+        width: 100%; /* Full width of the container */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 5px; /* Rounded corners for image */
+    }
+
+/* Product Info Styles */
+.product-info {
+    flex: 2; /* Take up 2 parts of the flex space */
+}
+
+    .product-info h3 {
+        margin-top: 20px; /* Space above available stock */
+        color: #ffc107; /* Golden color for available stock */
+    }
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+    margin-top: 20px; /* Space above the button */
+}
+
+.btn-success {
+    background-color: #28a745; /* Green for add to cart */
+    color: white;
+}
+
+    .btn-success:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-details-container {
+        flex-direction: column; /* Stack image and info vertically */
+    }
+
+    .product-image {
+        margin-right: 0; /* Remove margin on smaller screens */
+        margin-bottom: 20px; /* Space below the image */
+    }
+}

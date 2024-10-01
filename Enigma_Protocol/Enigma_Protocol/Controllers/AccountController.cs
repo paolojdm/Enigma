@@ -186,10 +186,30 @@ namespace Enigma_Protocol.Controllers
         #region EditProfile
 
         // GET: /Account/EditProfile
-        public IActionResult EditProfile()
+        public async Task<IActionResult> EditProfile()
         {
-            // Logic to retrieve and return the EditProfile view
-            return View();
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Get the logged-in user's ID
+            var user = await _context.Users.FindAsync(userId); // Fetch the user from the database
+
+            if (user == null)
+            {
+                return NotFound(); // Handle case where user is not found
+            }
+
+            // Initialize the EditProfileViewModel with the user's current data
+            var model = new EditProfileViewModel
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                ShippingAddress = user.ShippingAddress,
+                CardType = user.CardType,
+                CardOwner = user.CardOwner,
+                CardNumber = user.CardNumber,
+                CardCVC = user.CardCVC,
+                ExpirationDate = user.ExpirationDate
+            };
+
+            return View(model); // Pass the view model to the view
         }
 
         [HttpPost]
@@ -199,9 +219,14 @@ namespace Enigma_Protocol.Controllers
             {
                 var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
                 var user = await _context.Users.FindAsync(userId);
-
-                if (user != null)
+                if (user == null)
                 {
+                    ModelState.AddModelError("", "User not found.");
+                    return View(model);
+                }
+                else
+                {
+
                     // Update user profile information
                     user.ShippingAddress = model.ShippingAddress;
 
@@ -212,17 +237,30 @@ namespace Enigma_Protocol.Controllers
                     user.CardCVC = model.CardCVC;
                     user.ExpirationDate = model.ExpirationDate;
 
-                    await _context.SaveChangesAsync();
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log or handle the exception
+                        Console.WriteLine(ex.Message);
+                    }
 
                     // Redirect to MyAccount page after successful edit
                     return RedirectToAction("MyAccount", "Account");
                 }
             }
-
+            if (!ModelState.IsValid)
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage); // Or use a logger
+                }
+                return View(model);
+            }
             return View(model);
         }
         #endregion EditProfile
-
-
     }//end public class
 }

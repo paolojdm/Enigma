@@ -1,43 +1,117 @@
-﻿@model Enigma_Protocol.Models.User
-
+﻿@model Enigma_Protocol.Models.CheckoutViewModel
 @{
     Layout = "_Layout";
 }
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Login</title>
+        <link rel="stylesheet" href="~/css/Account/Account_Base.css">
+    </head>
+    <body>
 
-<h2>Checkout</h2>
+        <h2>Checkout</h2>
 
-<form method="post" asp-action="Checkout">
-    <div>
-        <label for="CardType">Card Type:</label>
-        <input type="text" name="CardType" required />
-    </div>
-    <div>
-        <label for="CardOwner">Card Owner:</label>
-        <input type="text" name="CardOwner" required />
-    </div>
-    <div>
-        <label for="CardNumber">Card Number:</label>
-        <input type="text" name="CardNumber" required />
-    </div>
-    <div>
-        <label for="CardCVC">Card CVC:</label>
-        <input type="text" name="CardCVC" required />
-    </div>
-    <div>
-        <label for="ExpirationDate">Expiration Date (dd-mm-yyyy):</label>
-        <input type="date" name="ExpirationDate" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Confirm Payment</button>
-</form>
+        <!-- Cart items table -->
+        <h3>Your Cart</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-@if (Model.CardType != null)
-{
-    <h3>Existing Payment Information</h3>
-    <p><strong>Card Type:</strong> @Model.CardType</p>
-    <p><strong>Card Owner:</strong> @Model.CardOwner</p>
-    <p><strong>Card Number:</strong> @Model.CardNumber</p>
-    <p><strong>Expiration Date:</strong> @Model.ExpirationDate?.ToString("dd-MM-yyyy")</p>
-    <form method="post" asp-action="ConfirmPayment">
-        <button type="submit" class="btn btn-success">Confirm Existing Payment Method</button>
-    </form>
-}
+        <!-- Shipping Address -->
+        <h3>Shipping Address</h3>
+        <p>@Model.User.ShippingAddress</p>
+
+        @if (string.IsNullOrEmpty(Model.User.CardNumber))
+        {
+            <!-- Payment Form -->
+            <form method="post" asp-action="Checkout">
+                <div>
+                    <label for="CardType">Card Type:</label>
+                    <input type="text" name="CardType" required />
+                </div>
+                <div>
+                    <label for="CardOwner">Card Owner:</label>
+                    <input type="text" name="CardOwner" required />
+                </div>
+                <div>
+                    <label for="CardNumber">Card Number:</label>
+                    <input type="text" name="CardNumber" required />
+                </div>
+                <div>
+                    <label for="CardCVC">Card CVC:</label>
+                    <input type="text" name="CardCVC" required />
+                </div>
+                <div>
+                    <label for="ExpirationDate">Expiration Date (dd-mm-yyyy):</label>
+                    <input type="date" name="ExpirationDate" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Confirm Payment</button>
+            </form>
+        }
+        else
+        {
+            <!-- Confirm Existing Payment Method -->
+            <h3>Payment Method</h3>
+            <p><strong>Card Type:</strong> @Model.User.CardType</p>
+            <p><strong>Card Owner:</strong> @Model.User.CardOwner</p>
+            <p><strong>Card Number:</strong> @Model.User.CardNumber</p>
+            <p><strong>Expiration Date:</strong> @Model.User.ExpirationDate?.ToString("dd-MM-yyyy")</p>
+
+            <form asp-action="PlaceOrder" method="post">
+                <button type="submit" class="btn btn-success">Place Order</button>
+            </form>
+
+            <form method="post" asp-action="ConfirmPayment">
+                <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#editPaymentForm">Edit Payment Method</button>
+            </form>
+
+            <!-- Edit Payment Method Form -->
+            <div id="editPaymentForm" class="collapse mt-3">
+                <h4>Edit Payment Method</h4>
+                <form method="post" asp-action="EditPaymentMethod">
+                    <div>
+                        <label for="EditCardType">Card Type:</label>
+                        <input type="text" name="EditCardType" value="@Model.User.CardType" required />
+                    </div>
+                    <div>
+                        <label for="EditCardOwner">Card Owner:</label>
+                        <input type="text" name="EditCardOwner" value="@Model.User.CardOwner" required />
+                    </div>
+                    <div>
+                        <label for="EditCardNumber">Card Number:</label>
+                        <input type="text" name="EditCardNumber" value="@Model.User.CardNumber" required />
+                    </div>
+                    <div>
+                        <label for="EditCardCVC">Card CVC:</label>
+                        <input type="text" name="EditCardCVC" required />
+                    </div>
+                    <div>
+                        <label for="EditExpirationDate">Expiration Date (dd-mm-yyyy):</label>
+                        <input type="date" name="EditExpirationDate" value="@Model.User.ExpirationDate?.ToString("yyyy-MM-dd")" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Payment Method</button>
+                </form>
+            </div>
+        }
+
+
+    </body>
+</html>

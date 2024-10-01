@@ -131,3 +131,30 @@ footer {
 #logoutbtn {
     background-color: #ee4343;
 }*/
+
+/* Table Styles */
+body .table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse; /* Ensures borders are neat */
+}
+
+body .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #3a3a3a; /* Alternate row color for contrast */
+}
+
+body .table th, .table td {
+    padding: 10px;
+    border: 1px solid #444;
+    text-align: left; /* Align text to the left */
+    color: #fff !important; /* Set text color to white */
+}
+
+body .table th {
+    background-color: #444; /* Background color for headers */
+    color: #ffc107 !important; /* Header text color for contrast */
+}
+
+body .table tr:hover {
+    background-color: #555; /* Add hover effect for rows */
+}

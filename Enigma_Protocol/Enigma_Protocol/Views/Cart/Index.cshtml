@@ -1,53 +1,70 @@
 ﻿@model IEnumerable<Enigma_Protocol.Models.CartViewModel>
-
 @{
     Layout = "_Layout";
 }
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Login</title>
+        <link rel="stylesheet" href="~/css/Account/Account_Base.css">
+    </head>
+    <body>
 
-<h2>Your Cart</h2>
+        <h2>Your Cart</h2>
 
-@if (Model.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th>Actions</th> <!-- New header for actions -->
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.ProductName</td>
-                    <td>
-                        <form method="post" action="@Url.Action("UpdateQuantity", "Cart", new { productId = item.Id })" style="display:inline;">
-                            <input type="number" name="quantity" value="@item.Quantity" min="0" required style="width: 60px;" />
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </form>
-                    </td>
-                    <td>@item.Price.ToString("C")</td>
-                    <td>@((item.Quantity * item.Price).ToString("C"))</td>
-                    <td>
-                        <a href="@Url.Action("ProductDetails", "Catalog", new { id = item.Id })" class="btn btn-info">
-                            View Details
-                        </a>
-                        <!-- Add Delete Button -->
-                        <form method="post" action="@Url.Action("RemoveFromCart", "Cart", new { productId = item.Id })" style="display:inline;">
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this item from the cart?');">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Your cart is empty.</p>
-}
+        @if (Model.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>
+                                <form method="post" action="@Url.Action("UpdateQuantity", "Cart", new { productId = item.Id })" style="display:inline;">
+                                    <input type="number" name="quantity" value="@item.Quantity" min="0" required style="width: 60px;" />
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
+                            </td>
+                            <td>@item.Price.ToString("C")</td>
+                            <td>@((item.Quantity * item.Price).ToString("C"))</td>
+                            <td>
+                                <a href="@Url.Action("ProductDetails", "Catalog", new { id = item.Id })" class="btn btn-info">
+                                    View Details
+                                </a>
+                                <!-- Add Delete Button -->
+                                <form method="post" action="@Url.Action("RemoveFromCart", "Cart", new { productId = item.Id })" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this item from the cart?');">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- Proceed to Checkout Button -->
+            <div>
+                <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">
+                    Proceed to Checkout
+                </a>
+            </div>
+        }
+        else
+        {
+            <p>Your cart is empty.</p>
+        }
 
-<a href="@Url.Action("Index", "Catalog")" class="btn btn-primary">Continue Shopping</a>
+        <a href="@Url.Action("Index", "Catalog")" class="btn btn-primary">Continue Shopping</a>
+
+
+    </body>
+</html>

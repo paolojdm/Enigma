@@ -142,18 +142,48 @@ namespace Enigma_Protocol.Controllers
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var user = await _context.Users.FindAsync(userId);
 
-            return View(user);
+            // Get cart items for the user
+            var cartItems = await _context.Carts
+                .Include(c => c.Product)
+                .Where(c => c.UserID == userId)
+                .Select(c => new CartViewModel
+                {
+                    ProductName = c.Product.ProductName,
+                    Quantity = c.Quantity,
+                    Price = c.Product.Price
+                })
+                .ToListAsync();
+
+            var checkoutModel = new CheckoutViewModel
+            {
+                User = user,
+                CartItems = cartItems
+            };
+
+            return View(checkoutModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Checkout(User updatedUser)
         {
-            if (ModelState.IsValid)
-            {
-                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-                var user = await _context.Users.FindAsync(userId);
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var user = await _context.Users.FindAsync(userId);
 
-                // Update user payment information
+            // Get cart items for the user
+            var cartItems = await _context.Carts
+                .Include(c => c.Product)
+                .Where(c => c.UserID == userId)
+                .Select(c => new CartViewModel
+                {
+                    ProductName = c.Product.ProductName,
+                    Quantity = c.Quantity,
+                    Price = c.Product.Price
+                })
+                .ToListAsync();
+
+            // If user has no payment method saved, update payment information
+            if (ModelState.IsValid && string.IsNullOrEmpty(user.CardNumber))
+            {
                 user.CardType = updatedUser.CardType;
                 user.CardOwner = updatedUser.CardOwner;
                 user.CardNumber = updatedUser.CardNumber;
@@ -161,24 +191,132 @@ namespace Enigma_Protocol.Controllers
                 user.ExpirationDate = updatedUser.ExpirationDate;
 
                 await _context.SaveChangesAsync();
-
-                // Redirect to order confirmation or cart index
-                return RedirectToAction("Index"); // You can change this to an order confirmation view
             }
 
-            return View(updatedUser);
+            // Pass both user and cart items to the view
+            var checkoutModel = new CheckoutViewModel
+            {
+                User = user,
+                CartItems = cartItems
+            };
+
+            return View(checkoutModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> ConfirmPayment()
         {
-            // Logic for confirming the existing payment method (if needed)
-            // Redirect to a confirmation page or cart index
-            return RedirectToAction("Index");
+            // Logic for confirming existing payment method (if needed)
+            return RedirectToAction("OrderConfirmation"); // Redirect to an order confirmation page
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditPaymentMethod(EditPaymentMethodViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                var user = await _context.Users.FindAsync(userId);
+
+                if (user != null)
+                {
+                    // Update payment information
+                    user.CardType = model.EditCardType;
+                    user.CardOwner = model.EditCardOwner;
+                    user.CardNumber = model.EditCardNumber;
+                    user.CardCVC = int.Parse(model.EditCardCVC);
+                    user.ExpirationDate = model.EditExpirationDate;
+
+                    await _context.SaveChangesAsync();
+
+                    // Optionally, redirect or return a success message
+                    return RedirectToAction("Checkout"); // Or appropriate action
+                }
+            }
+
+            // If we got this far, something failed; redisplay the form.
+            return View(model); // Adjust based on your needs
+        }
+
+        public async Task<IActionResult> OrderConfirmation()
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            // You can retrieve the latest order for this user or any necessary information
+            var lastOrder = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .Where(o => o.UserID == userId)
+                .OrderByDescending(o => o.OrderDate)
+                .FirstOrDefaultAsync();
+
+            return View(lastOrder); // Pass the order to the view for display
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> PlaceOrder()
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
 
+
+            // Get cart items for the user
+            var cartItems = await _context.Carts
+                .Include(c => c.Product)
+                .Where(c => c.UserID == userId)
+                .ToListAsync();
+
+            // Check if cart is empty
+            if (cartItems.Count == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Your cart is empty. Please add items before placing an order.");
+                return RedirectToAction("Index"); // No items in the cart
+            }
+
+            // Get the user's shipping address
+            var user = await _context.Users.FindAsync(userId); // Retrieve user to access shipping address
+            var shippingAddress = user?.ShippingAddress;
+            if (string.IsNullOrEmpty(shippingAddress))
+            {
+                ModelState.AddModelError(string.Empty, "Shipping address is required. Please update your profile.");
+                return RedirectToAction("EditProfile", "Account"); // Redirect to profile edit if address is missing
+            }
+
+            // Create a new order
+            var order = new Order
+            {
+                UserID = userId,
+                OrderDate = DateTime.Now,
+                ShippingAddress = shippingAddress, // Use the retrieved shipping address
+                ShippingStatus = "Pending",
+                TrackingNumber = Guid.NewGuid().ToString(), // Example tracking number
+                UpdatedAt = DateTime.Now,
+                TotalAmount = cartItems.Sum(c => c.Quantity * c.Product.Price), // Calculate total amount
+                OrderDetails = new List<OrderDetail>()
+            };
+
+            // Create OrderDetails for each cart item
+            foreach (var item in cartItems)
+            {
+                var orderDetail = new OrderDetail
+                {
+                    ProductId = item.ProductID,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.Product.Price
+                };
+                order.OrderDetails.Add(orderDetail);
+            }
+
+            // Add the order to the database
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            // Clear the cart after placing the order
+            _context.Carts.RemoveRange(cartItems);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("OrderConfirmation"); // Redirect to order confirmation page
+        }
     }
 }

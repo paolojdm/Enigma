@@ -9,55 +9,37 @@
 <head>
     <meta charset="utf-8" />
     <title>Product Catalog</title>
+    <link rel="stylesheet" href="~/css/Account/ProductCatalog.css">
 </head>
 <body>
 
     <h2>Product Catalog</h2>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Image</th> <!-- New header for the product image -->
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Type</th>
-                <th>Quantity Available</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <img src="@item.ImageUrl" alt="@item.ProductName" style="width: 100px; height: auto;" /> <!-- Product image -->
-                    </td>
-                    <td>@item.ProductName</td>
-                    <td>@item.ProductDescription</td>
-                    <td>@item.Price.ToString("C")</td>
-                    <td>@item.ProductType</td>
-                    <td>@item.QuantityAvailable</td>
-                    <td>
-                        <!-- Bottone per i dettagli del prodotto -->
-                        <a href="@Url.Action("ProductDetails", "Catalog", new { id = item.ProductId })" class="btn btn-info">
-                            View Details
-                        </a>
+    <div class="product-container">
+        @foreach (var item in Model)
+        {
+            <div class="product-card">
+                <img src="@item.ImageUrl" alt="@item.ProductName" />
+                <h3>@item.ProductName</h3>
+                <p>@item.ProductDescription</p>
+                <p>Price: @item.Price.ToString("C")</p>
+                <p>Type: @item.ProductType</p>
+                <p>Available Quantity: @item.QuantityAvailable</p>
+                <div class="product-actions">
+                    <a href="@Url.Action("ProductDetails", "Catalog", new { id = item.ProductId })" class="btn btn-info">
+                        View Details
+                    </a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" action="@Url.Action("AddToCart", "Cart", new { productId = item.ProductId })" style="display:inline;">
+                            <button type="submit" class="btn btn-success">Add to Cart</button>
+                        </form>
+                    }
+                </div>
+            </div>
+        }
+    </div>
 
-                    <td>
-                        <!-- Add "Add to Cart" button visible only if the user is logged in -->
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                            <form method="post" action="@Url.Action("AddToCart", "Cart", new { productId = item.ProductId })">
-                                <button type="submit" class="btn btn-success">Add to Cart</button>
-                            </form>
-                            }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
 </body>
 </html>
-
 
