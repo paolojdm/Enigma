@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Prologo</title>
+    <link href="~/css/PrologoeFinale/Prologo.css" rel="stylesheet" />
+</head>
+<body>
+    <video autoplay muted>
+  <source src="~/video/Prologo.mp4"  type="video/mp4" />
+</video>
+    <audio id="myAudio" autoplay>
+        <source src="~/audio/Prologo.mp3" type="audio/mp3">
+    </audio>
+    <script>
+        var video = document.getElementById('myVideo');
+        var audio = document.getElementById('myAudio');
+
+        video.onplay = function () {
+            audio.play();
+        };
+    </script>
+</body>
+</html>
