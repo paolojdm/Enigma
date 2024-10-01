@@ -23,4 +23,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Images\Napkin1.jpg" />
+  </ItemGroup>
+
 </Project>
