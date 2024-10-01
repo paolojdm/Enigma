@@ -49,7 +49,10 @@ namespace Enigma_Protocol.Controllers
         [HttpGet]
         public async Task<IActionResult> EditInventory(int productId)
         {
-            var inventory = await _context.Inventories.FirstOrDefaultAsync(i => i.ProductID == productId);
+            var inventory = await _context.Inventories
+                .Include(i => i.Product) // Make sure to include the product
+                .FirstOrDefaultAsync(i => i.ProductID == productId);
+
             if (inventory == null)
             {
                 return NotFound();

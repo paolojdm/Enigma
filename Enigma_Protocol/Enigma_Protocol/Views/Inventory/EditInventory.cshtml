@@ -10,7 +10,7 @@
     <!-- Display the Product Name as read-only -->
     <div class="form-group">
         <label>Product Name</label>
-        <input type="text" value="@Model.Product.ProductName" class="form-control" readonly />
+        <input type="text" value="@(Model.Product != null ? Model.Product.ProductName : "N/A")" class="form-control" readonly />
     </div>
 
     <div class="form-group">

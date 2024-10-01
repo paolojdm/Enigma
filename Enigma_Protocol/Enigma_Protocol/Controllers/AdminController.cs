@@ -140,5 +140,9 @@ namespace Enigma_Protocol.Controllers
         #endregion
 
 
+        public async Task<IActionResult> Index()
+        {
+                return View();
+        }
     }
 }
