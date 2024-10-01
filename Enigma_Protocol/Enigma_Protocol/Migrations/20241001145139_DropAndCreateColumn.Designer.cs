@@ -4,6 +4,7 @@ using Enigma_Protocol.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Enigma_Protocol.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241001145139_DropAndCreateColumn")]
+    partial class DropAndCreateColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +36,9 @@ namespace Enigma_Protocol.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("InventoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
@@ -43,6 +49,8 @@ namespace Enigma_Protocol.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InventoryId");
 
                     b.HasIndex("ProductID");
 
@@ -330,6 +338,10 @@ namespace Enigma_Protocol.Migrations
 
             modelBuilder.Entity("Enigma_Protocol.Models.Cart", b =>
                 {
+                    b.HasOne("Enigma_Protocol.Models.Inventory", null)
+                        .WithMany("Carts")
+                        .HasForeignKey("InventoryId");
+
                     b.HasOne("Enigma_Protocol.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductID")
@@ -435,6 +447,11 @@ namespace Enigma_Protocol.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Enigma_Protocol.Models.Inventory", b =>
+                {
+                    b.Navigation("Carts");
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Order", b =>

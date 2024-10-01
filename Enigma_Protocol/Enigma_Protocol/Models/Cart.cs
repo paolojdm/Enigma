@@ -4,12 +4,12 @@
     {
         public int Id { get; set; }
         public int UserID { get; set; }
-        public int InventoryID { get; set; }
+        public int ProductID { get; set; } // Changed from InventoryID to ProductID
         public DateTime CreatedAt { get; set; }
         public int Quantity { get; set; }
 
         // Navigation Properties
         public User User { get; set; }
-        public Inventory Inventory { get; set; }
+        public Product Product { get; set; } // Changed from Inventory to Product
     }
 }

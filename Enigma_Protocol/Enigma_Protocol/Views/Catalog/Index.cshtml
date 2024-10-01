@@ -1,91 +1,59 @@
 ﻿@model IEnumerable<CatalogViewModel>
 
-    @{
-        Layout = "_Layout";
-    }
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Product Catalog</title>
+@{
+    Layout = "_Layout";
+}
 
-    </head>
-    <body>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Product Catalog</title>
+</head>
+<body>
 
-        <h2>Product Catalog</h2>
+    <h2>Product Catalog</h2>
 
-        <table class="table table-striped">
-            <thead>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Quantity Available</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <th>Product Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Type</th>
-                    <th>Quantity Available</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.ProductName</td>
-                        <td>@item.ProductDescription</td>
-                        <td>@item.Price.ToString("C")</td>
-                        <td>@item.ProductType</td>
-                        <td>@item.QuantityAvailable</td>
-                        <!-- Qui agigungere bottone che aggiunge al carrello il prodotto (lo fa vedere solo se l'utente e' loggato.).
-                             Aggiungere inoltre un poccolo popup o conferma che il prodotto e' stato aggiunto al carrello. -->
-                        <!-- Qui agigungere bottone che porta alla pagina ProductDetail.cshtml del prodotto.-->
-                        <td>
-                            <!-- Bottone per i dettagli del prodotto -->
-                            <a href="@Url.Action("ProductDetails", "Catalog", new { id = item.ProductId })" class="btn btn-info">
-                                View Details
-                            </a>
+                    <td>@item.ProductName</td>
+                    <td>@item.ProductDescription</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.ProductType</td>
+                    <td>@item.QuantityAvailable</td>
+                    <td>
+                        <!-- Bottone per i dettagli del prodotto -->
+                        <a href="@Url.Action("ProductDetails", "Catalog", new { id = item.ProductId })" class="btn btn-info">
+                            View Details
+                        </a>
 
-                            <!-- Bottone "Aggiungi al Carrello" visibile solo se l'utente è loggato -->
-                            @if (User.Identity.IsAuthenticated)  // Controlla se l'utente è loggato
+                    <td>
+                        <!-- Add "Add to Cart" button visible only if the user is logged in -->
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                <button class="btn btn-success" onclick="addToCart(@item.ProductId)">
-                                    Add to Cart
-                                </button>
+                            <form method="post" action="@Url.Action("AddToCart", "Cart", new { productId = item.ProductId })">
+                                <button type="submit" class="btn btn-success">Add to Cart</button>
+                            </form>
                             }
-                        </td>
-
-
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <!-- Popup di conferma aggiunta al carrello -->
-        <div id="cartPopup" class="popup">
-            <span id="popupMessage"></span>
-            <button onclick="closePopup()">Close</button>
-        </div>
-
-    <script>
-        function addToCart(productId) {
-            // Effettua una richiesta AJAX per aggiungere il prodotto al carrello
-            $.post('@Url.Action("AddToCart", "Cart")', { productId: productId }, function (response) {
-                if (response.success) {
-                    // Mostra il popup di conferma se l'aggiunta al carrello ha avuto successo
-                    document.getElementById("popupMessage").innerText = "Product added to cart successfully!";
-                    document.getElementById("cartPopup").style.display = "block";
-                } else {
-                    // In caso di errore, visualizza un messaggio appropriato
-                    document.getElementById("popupMessage").innerText = "Failed to add product to cart.";
-                    document.getElementById("cartPopup").style.display = "block";
-                }
-            });
-        }
-
-        function closePopup() {
-            document.getElementById("cartPopup").style.display = "none";
-        }
-    </script>
-
-
-    </body>
-
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
 </html>
 
 

@@ -10,6 +10,5 @@
 
         // Navigation Properties
         public Product Product { get; set; }
-        public ICollection<Cart> Carts { get; set; }
     }
 }
