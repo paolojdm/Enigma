@@ -62,27 +62,30 @@
             <button onclick="closePopup()">Close</button>
         </div>
 
+    <script>
+        function addToCart(productId) {
+            // Effettua una richiesta AJAX per aggiungere il prodotto al carrello
+            $.post('@Url.Action("AddToCart", "Cart")', { productId: productId }, function (response) {
+                if (response.success) {
+                    // Mostra il popup di conferma se l'aggiunta al carrello ha avuto successo
+                    document.getElementById("popupMessage").innerText = "Product added to cart successfully!";
+                    document.getElementById("cartPopup").style.display = "block";
+                } else {
+                    // In caso di errore, visualizza un messaggio appropriato
+                    document.getElementById("popupMessage").innerText = "Failed to add product to cart.";
+                    document.getElementById("cartPopup").style.display = "block";
+                }
+            });
+        }
+
+        function closePopup() {
+            document.getElementById("cartPopup").style.display = "none";
+        }
+    </script>
+
 
     </body>
+
 </html>
 
-<script>
-    function addToCart(productId) {
-        // Effettua una richiesta AJAX per aggiungere il prodotto al carrello
-        $.post('@Url.Action("AddToCart", "Cart")', { productId: productId }, function (response) {
-            if (response.success) {
-                // Mostra il popup di conferma se l'aggiunta al carrello ha avuto successo
-                document.getElementById("popupMessage").innerText = "Product added to cart successfully!";
-                document.getElementById("cartPopup").style.display = "block";
-            } else {
-                // In caso di errore, visualizza un messaggio appropriato
-                document.getElementById("popupMessage").innerText = "Failed to add product to cart.";
-                document.getElementById("cartPopup").style.display = "block";
-            }
-        });
-    }
 
-    function closePopup() {
-        document.getElementById("cartPopup").style.display = "none";
-    }
-</script>
