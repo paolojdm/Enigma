@@ -56,13 +56,14 @@ else
     <button type="submit" class="btn btn-primary">
         @if (Model.Id != 0)
         {
-            <text>Edit Product</text>
+            <text>Save Changes</text>
         }
         else
         {
             <text>Add Product</text>
         }
     </button>
+    <a asp-action="ProductList" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {

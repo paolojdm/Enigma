@@ -70,6 +70,21 @@ namespace Enigma_Protocol.Controllers
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
 
+
+                // Create a new inventory record for the product
+                var inventory = new Inventory
+                {
+                    ProductID = product.Id, // Assuming product.Id is populated after saving
+                    QuantityAvailable = 0,
+                    QuantityReserved = 0,
+                    LastUpdated = DateTime.Now
+                };
+
+                // Add the inventory to the context
+                _context.Inventories.Add(inventory);
+                await _context.SaveChangesAsync(); // Save changes to the database
+
+
                 return RedirectToAction("ProductList"); // Redirect to a page listing all products
             }
 
@@ -113,7 +128,9 @@ namespace Enigma_Protocol.Controllers
                     }
 
                     // Define a unique name for the file based on product name
-                    var fileName = $"{Path.GetFileNameWithoutExtension(product.ProductName)}_{DateTime.Now:yyyyMMddHHmmss}{Path.GetExtension(ImageFile.FileName)}";
+                    //replace the spaces in the product name (if existent)
+                    string productname_new = product.ProductName.Replace(" ", "_");
+                    var fileName = $"{Path.GetFileNameWithoutExtension(productname_new)}_{DateTime.Now:yyyyMMddHHmmss}{Path.GetExtension(ImageFile.FileName)}";
                     var filePath = Path.Combine(imageDirectory, fileName);
 
                     // Save the new image file

@@ -15,16 +15,16 @@ namespace Enigma_Protocol.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var catalogItems = await _context.Inventories
-                .Include(i => i.Product)
-                .Select(i => new CatalogViewModel
+            var catalogItems = await _context.Products
+                .Select(p => new CatalogViewModel
                 {
-                    ProductId = i.Product.Id,
-                    ProductName = i.Product.ProductName,
-                    ProductDescription = i.Product.ProductDescription,
-                    Price = i.Product.Price,
-                    ProductType = i.Product.ProductType,
-                    QuantityAvailable = i.QuantityAvailable
+                    ProductId = p.Id,
+                    ProductName = p.ProductName,
+                    ProductDescription = p.ProductDescription,
+                    Price = p.Price,
+                    ProductType = p.ProductType,
+                    QuantityAvailable = p.Inventories
+                        .Any() ? p.Inventories.Sum(i => i.QuantityAvailable) : 0 // Calculate total quantity available from inventories
                 })
                 .ToListAsync();
 

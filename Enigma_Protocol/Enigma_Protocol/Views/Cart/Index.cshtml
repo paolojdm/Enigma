@@ -1,36 +1,29 @@
-﻿@using Enigma_Protocol.Models;
-
-@model IEnumerable<Enigma_Protocol.Models.CartViewModel>
+﻿@model IEnumerable<Enigma_Protocol.Models.CatalogViewModel>
 @{
     Layout = "_Layout";  // Use your layout
-    ViewData["Title"] = "Your Cart";  // Set the page title
+    ViewData["Title"] = "Product List";  // Set the page title
 }
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Your Cart</title>
+    <title>Product List</title>
     <link rel="stylesheet" href="~/css/Account/Account_Base.css">
 </head>
 <body>
-    <h2>Your Cart</h2>
+    <h2>Product List</h2>
 
-    <!-- Se l'utente non ha un metodo di pagamento salvato, prima di procedere al checkout, bisogna portarlo alla pagina "aggiungi metodo di pagamento".
-            in modo da poterlo poi riportare al checkout con il metodo di pagamento aggiornato.
-    -->
-
-    <!-- Bisogna creare una pagina di checout con il contenuto del carrello e poter controllare il metodo di pagamento (con bottone: aggiorna metodo di pagamento/aggiungi) -->
-
-    @if (Model.Any())  // Check if there are any items in the cart
+    @if (Model.Any())  // Check if there are any products
     {
         <table class="table">
             <thead>
                 <tr>
                     <th>Product Name</th>
-                    <th>User Name</th>
-                    <th>Quantity</th>
-                    <th>Created At</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Type</th>
+                    <th>Quantity Available</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,9 +31,10 @@
                 {
                     <tr>
                         <td>@item.ProductName</td>
-                        <td>@item.UserName</td>
-                        <td>@item.Quantity</td>
-                        <td>@item.CreatedAt.ToString("g")</td>
+                        <td>@item.ProductDescription</td>
+                        <td>@item.Price.ToString("C")</td> <!-- Format as currency -->
+                        <td>@item.ProductType</td>
+                        <td>@item.QuantityAvailable</td>
                     </tr>
                 }
             </tbody>
@@ -48,12 +42,11 @@
     }
     else
     {
-        <p>Your cart is empty.</p>
+        <p>No products available.</p>
     }
 
-    <!-- per esempio qui si potrebbe aggiungere il bottone "CHECKOUT" per procedere al pagamento. -->
     <p>
-        <a href="@Url.Action("Index", "Home")">Continue Shopping</a>  <!-- Link back to home or products page -->
+        <a href="@Url.Action("Index", "Catalog")">Continue Shopping</a>  <!-- Link back to home or products page -->
     </p>
 </body>
 </html>
