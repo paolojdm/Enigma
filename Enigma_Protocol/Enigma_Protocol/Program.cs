@@ -48,3 +48,13 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+//Parte Admin:
+//Aggiustare le view per farle piu' belle, Aggiungere la foto del prodotto nella Product List.
+//Aggiungere navigazione per le varie liste (inventory e Product).
+
+//----
+
+//Parte Client:
+//Aggiungere la funzionalita' del carrello, per potere aggiungere il metodo di pagamento e salvarlo.
+//Aggiungere la navigazione dal carrello al catalogo.

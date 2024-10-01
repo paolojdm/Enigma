@@ -37,20 +37,7 @@ namespace Enigma_Protocol.Controllers
         }
 
         [HttpPost]
-        //public async Task<IActionResult> AddProduct(Product product)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Products.Add(product);
-        //        await _context.SaveChangesAsync();
-
-        //        // After saving the product, redirect to EditInventory for this product
-        //        return RedirectToAction("EditInventory", new { productId = product.Id });
-        //    }
-        //    return View("ProductList", product); // Return to the product form if ModelState is not valid
-        //}
-        [HttpPost]
-        public async Task<IActionResult> AddProduct(Product product, int quantityAvailable, int quantityReserved)
+        public async Task<IActionResult> AddProduct(Product product, int quantityAvailable, int quantityReserved, IFormFile ImageFile)
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +73,7 @@ namespace Enigma_Protocol.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditProduct(int id)
+        public async Task<IActionResult> EditProduct(int id, IFormFile ImageFile)
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null)
@@ -97,7 +84,7 @@ namespace Enigma_Protocol.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditProduct(Product product)
+        public async Task<IActionResult> EditProduct(Product product, IFormFile ImageFile)
         {
             if (ModelState.IsValid)
             {
@@ -111,12 +98,22 @@ namespace Enigma_Protocol.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products
+                .Include(p => p.Inventories) // Include inventories to be deleted
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (product != null)
             {
+                // Remove the associated inventory records
+                _context.Inventories.RemoveRange(product.Inventories);
+
+                // Remove the product itself
                 _context.Products.Remove(product);
+
+                // Save changes to the database
                 await _context.SaveChangesAsync();
             }
+
             return RedirectToAction("ProductList");
         }
 

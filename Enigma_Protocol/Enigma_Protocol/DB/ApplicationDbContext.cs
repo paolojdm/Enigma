@@ -37,19 +37,25 @@ namespace Enigma_Protocol.DB
             entity.Property(e => e.CreatedAt).IsRequired();
         });
 
-        // Configure Product entity
-        modelBuilder.Entity<Product>(entity =>
-        {
-            entity.ToTable("Products");
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.ProductName).IsRequired().HasMaxLength(255);
-            entity.Property(e => e.ProductDescription).HasColumnType("NVARCHAR(MAX)");
-            entity.Property(e => e.Price).IsRequired();
-            entity.Property(e => e.ProductType).IsRequired().HasMaxLength(255);
-        });
+            // Configure Product entity
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.ToTable("Products");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ProductName).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.ProductDescription).HasColumnType("NVARCHAR(MAX)");
+                entity.Property(e => e.Price).IsRequired();
+                entity.Property(e => e.ProductType).IsRequired().HasMaxLength(255);
 
-        // Configure Inventory entity
-        modelBuilder.Entity<Inventory>(entity =>
+                // Configure the one-to-many relationship with Inventory and enable cascade delete
+                entity.HasMany(p => p.Inventories)
+                      .WithOne(i => i.Product)
+                      .HasForeignKey(i => i.ProductID)
+                      .OnDelete(DeleteBehavior.Cascade); // Enable cascade delete for inventories
+            });
+
+            // Configure Inventory entity
+            modelBuilder.Entity<Inventory>(entity =>
         {
             entity.ToTable("Inventory");
             entity.HasKey(e => e.Id);

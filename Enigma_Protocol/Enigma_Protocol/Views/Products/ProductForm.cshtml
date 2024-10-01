@@ -1,9 +1,25 @@
-﻿
-@model Enigma_Protocol.Models.Product
+﻿@model Enigma_Protocol.Models.Product
 
-<h2>Add Product</h2>
+<!-- Determine if this is an Edit or Add operation based on the Product ID -->
+@if (Model.Id != 0)
+{
+    <h2>Edit Product</h2>
+}
+else
+{
+    <h2>Add Product</h2>
+}
 
-<form asp-action="AddProduct" method="post">
+<!-- Show the existing product image if editing and the ImageUrl is available -->
+@if (Model.Id != 0 && !string.IsNullOrEmpty(Model.ImageUrl))
+{
+    <div>
+        <label>Current Image:</label>
+        <img src="@Model.ImageUrl" alt="Product Image" style="width: 100px; height: 100px;" />
+    </div>
+}
+
+<form asp-action="@((Model.Id != 0) ? "EditProduct" : "AddProduct")" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="ProductName"></label>
         <input asp-for="ProductName" class="form-control" />
@@ -19,31 +35,48 @@
         <input asp-for="ProductType" class="form-control" />
         <span asp-validation-for="ProductType" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="ImageUrl"></label>
         <input asp-for="ImageUrl" class="form-control" />
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
+
+        <!-- Image Upload Section for adding or updating the product image -->
+        <label>Upload Image</label>
+        <input type="file" name="ImageFile" class="form-control-file" />
     </div>
+
     <div class="form-group">
         <label asp-for="ProductDescription"></label>
-        <input asp-for="ProductDescription" class="form-control" />
+        <textarea asp-for="ProductDescription" class="form-control"></textarea>
         <span asp-validation-for="ProductDescription" class="text-danger"></span>
     </div>
 
     <!-- Inventory Fields -->
-    <div>
+    <div class="form-group">
         <label>Quantity Available</label>
-        <input type="number" name="QuantityAvailable" />
+        <input type="number" name="QuantityAvailable" class="form-control" />
     </div>
-    <div>
+    <div class="form-group">
         <label>Quantity Reserved</label>
-        <input type="number" name="QuantityReserved" />
+        <input type="number" name="QuantityReserved" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Add Product</button>
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">
+        @if (Model.Id != 0)
+        {
+            <text>Edit Product</text>
+        }
+        else
+        {
+            <text>Add Product</text>
+        }
+    </button>
 </form>
 
-<!-- Optional: Validation Scripts -->
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

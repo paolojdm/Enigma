@@ -16,6 +16,12 @@
 <body>
     <h2>Your Cart</h2>
 
+    <!-- Se l'utente non ha un metodo di pagamento salvato, prima di procedere al checkout, bisogna portarlo alla pagina "aggiungi metodo di pagamento".
+            in modo da poterlo poi riportare al checkout con il metodo di pagamento aggiornato.
+    -->
+
+    <!-- Bisogna creare una pagina di checout con il contenuto del carrello e poter controllare il metodo di pagamento (con bottone: aggiorna metodo di pagamento/aggiungi) -->
+
     @if (Model.Any())  // Check if there are any items in the cart
     {
         <table class="table">
@@ -45,6 +51,7 @@
         <p>Your cart is empty.</p>
     }
 
+    <!-- per esempio qui si potrebbe aggiungere il bottone "CHECKOUT" per procedere al pagamento. -->
     <p>
         <a href="@Url.Action("Index", "Home")">Continue Shopping</a>  <!-- Link back to home or products page -->
     </p>

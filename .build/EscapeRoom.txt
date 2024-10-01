@@ -158,6 +158,18 @@ Aggiungere la funzionalita' del carrello, per potere aggiungere il metodo di pag
 Aggiungere la navigazione dal carrello al catalogo.
 
 
+step:
+
+Il metodo di pagamento non esiste come property nello user, quindi bisognerebbe aggiungerlo. Forse e' meglio creare una tabella con i metodi di pagamento con FK dello UserID (la classe User ovviamente deve avere la navigation property, perche' potra avere piu di una carta.)
+aggiungere nel MyAccount un bottone per visualizzare il metodo di pagamento esistente (se non c'e', il bottone deve dire "aggiungi metodo di pagamento" invece di visualizza)
+
+una volta che abbiamo un metodo di pagamento, aggiungere i bottoni nel catalogo, per potere aggiungere i prodotti nel carrello, e visualizzare i dettagli del prodotto.
+
+
+
+
+
+
 
 
 
