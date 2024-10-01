@@ -2,17 +2,23 @@
 
 namespace Enigma_Protocol.Controllers
 {
-    public class PrologoeFinaleController : Controller
+    public class RoomController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult Prologo()
+        public IActionResult Room1()
         {
             return View();
         }
-        public IActionResult Fine()
+
+        public IActionResult Room2()
+        {
+            return View();
+        }
+
+        public IActionResult Room3()
         {
             return View();
         }

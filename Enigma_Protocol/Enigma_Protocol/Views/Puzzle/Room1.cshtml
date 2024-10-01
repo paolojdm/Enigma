@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="~/css/Rooms/Room1.css">
+</head>
+   
+<body>
+    <audio id="bgm" src="/Music/Prologo.mp3" loop autoplay></audio>
+    <div class="background-container">
+        <button onclick="mostraImmagine()" id="button0">Mostra Immagine</button>
+        <form method="post" action="/Puzzle/Lettera">
+            <button type="submit" id="button1">Mostra Indizio</button>
+        </form>
+        <form action="/Puzzle/MostraCassaforte" method="post">
+        <button onclick="mostraIndizio1()" id="button2">Mostra Cassaforte</button>
+        </form>
+        <form action="/Puzzle/MostraBaule" method="post">
+        <button onclick="mostraIndizio1()" id="button2">Mostra Baule</button>    
+        </form>
+        <a href="../Images/giphy.gif" id="immagine">
+            <img src="../Images/giphy.gif" alt="Descrizione dell'immagine">
+        </a>
+    </div>
+    
+</body>
+</html>
+<style>
+    #immagine {
+        display: none; 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%; 
+        height: 100%; 
+        z-index: 1000;
+    }
+
+        #immagine img {
+            width: 100%; /* Set the image to take the full width of the viewport */
+            height: 100%; /* Set the image to take the full height of the viewport */
+            object-fit: cover; /* Ensures the image covers the entire area without distortion */
+            z-index: 1000;
+        }
+
+
+    button#button0 {
+        opacity: 0; /* Rende il pulsante invisibile ma cliccabile */
+        height: 10%;
+        width: 20%;
+        position: absolute;
+        bottom: 15%; /* Abbassa il pulsante ancora di più */
+        right: 30%; /* Mantieni la posizione a destra o regola a piacere */
+        left: 65%; /* Regola per centrare sotto il letto, o usa 'right' se preferisci */
+        transform: translateX(-50%); /* Centra il pulsante orizzontalmente */
+    }
+</style>
+<script>
+    function handleClick() 
+    {
+        alert("Immagine mostrata!");
+        document.getElementById("mostraImmagine").style.display = 'none'; // Rimuove il pulsante
+    }
+        
+                
+    
+
+    function mostraImmagine() 
+    {
+        let mySound = new Audio("/Music/scream2.mp3");
+        // Mostra l'immagine
+        document.getElementById('immagine').style.display = 'block';
+      
+        
+        // Nasconde l'immagine dopo 2 secondi
+        setTimeout(nascondiImmagine, 2000);
+        mySound.play()
+
+        // Disabilita il pulsante per evitare ulteriori clic
+        document.getElementById('button0').disabled = true;
+
+    }
+   
+ 
+
+    function nascondiImmagine() 
+    {
+        document.getElementById('immagine').style.display = 'none';
+    }
+</script>

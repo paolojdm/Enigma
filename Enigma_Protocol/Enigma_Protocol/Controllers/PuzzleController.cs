@@ -8,17 +8,27 @@ namespace Enigma_Protocol.Controllers
         {
             return View();
         }
-        public IActionResult Puzzle()
+       
+        public IActionResult Lettera()
         {
-            return View();
+            return RedirectToAction("LetteraScrivania");
         }
+
         public IActionResult LetteraScrivania()
         {
             return View();
         }
+        public IActionResult MostraBaule()
+        {
+            return RedirectToAction("Baule");
+        }
         public IActionResult Baule()
         {
             return View();
+        }
+        public IActionResult MostraCassaforte()
+        {
+            return RedirectToAction("Cassaforte");
         }
         public IActionResult Cassaforte()
         {
@@ -45,9 +55,22 @@ namespace Enigma_Protocol.Controllers
                 return Redirect("/Puzzle/Cassaforte");
             }
         }
+        public IActionResult Puzzle()
+        {
+            return View();
+        }
+        
+        public IActionResult MostraPrimopiatto()
+        {
+            return RedirectToAction("Primopiatto");
+        }
         public IActionResult Primopiatto()
         {
             return View();
+        }
+        public IActionResult MostraSecondopiatto()
+        {
+            return RedirectToAction("Secondopiatto");
         }
         public IActionResult Secondopiatto()
         {
@@ -59,24 +82,40 @@ namespace Enigma_Protocol.Controllers
 
             if (word.ToLower() == correctWord.ToLower())
             {
-                return Redirect("/Puzzle/Puzzle"); 
+                return Redirect("/Puzzle/Room3"); 
             }
             else
             {
                 return Redirect("/Puzzle/Secondopiatto"); 
             }
         }
-        public IActionResult LetteraVaso()
+        public IActionResult MostraLetteravaso()
+        {
+            return RedirectToAction("Letteravaso");
+        }
+        public IActionResult Letteravaso()
         {
             return View();
+        }
+        public IActionResult TrovaSpada()
+        {
+            return RedirectToAction("Spada");
         }
         public IActionResult Spada()
         {
             return View();
         }
+        public IActionResult MostraArmatura()
+        {
+            return RedirectToAction("Armor");
+        }
         public IActionResult Armor()
         {
             return View();
+        }
+        public IActionResult MostraScudo()
+        {
+            return RedirectToAction("Scudo");
         }
         public IActionResult Scudo()
         {
@@ -88,12 +127,24 @@ namespace Enigma_Protocol.Controllers
 
             if (word.ToLower() == correctWord.ToLower())
             {
-                return Redirect("/Puzzle/Puzzle");
+                return Redirect("/PrologoeFinale/Fine");
             }
             else
             {
-                return Redirect("/Puzzle/Secondopiatto");
+                return Redirect("/Puzzle/Scudo");
             }
+        }
+        public IActionResult Room1()
+        {
+            return View();
+        }
+        public IActionResult Room2()
+        {
+            return View();
+        }
+        public IActionResult Room3()
+        {
+            return View();
         }
     }
 }

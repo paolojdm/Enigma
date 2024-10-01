@@ -1,0 +1,36 @@
+﻿
+    /*body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        background-image: url("/Images/Castello1_Prova.jpg");*/ /* Background image */
+        /*background-size: cover;
+        align-items: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1;
+    }*/
+
+/* Imposta un contenitore per l'immagine di sfondo */
+.background-container {
+    top: 0;
+    left: 0;
+    content: '';
+    position: absolute; /* Necessario per posizionare eventuali elementi all'interno */
+    width: 100%; /* Larghezza del contenitore */
+    height: 100%; /* Altezza del contenitore */
+    background-image: url('/Images/Castello1_Prova.jpg'); /* Percorso dell'immagine di sfondo */
+    background-size: cover; /* L'immagine copre completamente l'area del contenitore */
+    background-position: center; /* Centra l'immagine all'interno del contenitore */
+    color: white; /* Colore del testo */
+    display: flex; /* Permette di centrare il contenuto */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra orizzontalmente */
+    text-align: center; /* Centra il testo */
+    background-repeat: no-repeat;
+    z-index: -1;
+}

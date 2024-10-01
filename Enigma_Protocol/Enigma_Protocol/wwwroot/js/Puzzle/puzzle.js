@@ -83,10 +83,11 @@ function dragEnd() {
 
         turns += 1;
         document.getElementById("turns").innerText = turns;
+        checkIfPuzzleSolved();
     }
 }
 document.addEventListener('DOMContentLoaded', () => {
-    let timeLeft = 60; // Time in seconds
+    let timeLeft = 180; // Time in seconds
     const timerElement = document.getElementById('timer');
     const puzzleElement = document.getElementById('puzzle'); // Replace with your actual puzzle element ID
 
@@ -110,3 +111,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial display update
     timerElement.innerText = `Tempo rimasto: ${timeLeft} s`; // Ensure initial display shows the starting time
 });
+function checkIfPuzzleSolved() {
+    let tiles = document.querySelectorAll("#board img"); // Seleziona tutte le immagini del puzzle
+    for (let i = 0; i < tiles.length; i++) {
+        if (!tiles[i].src.includes(correctOrder[i])) {
+            return; // Se una tessera non è nell'ordine corretto, esce
+        }
+    }
+
+    // Se il puzzle è risolto, fai il redirect a Room2
+    alert("Puzzle completato!");
+    window.location.href = '/Puzzle/Room2';
+}
