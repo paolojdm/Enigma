@@ -82,6 +82,103 @@ namespace Enigma_Protocol.Controllers
             return RedirectToAction("Index", "Catalog"); // Redirect to cart index after adding
         }
 
+        public async Task<IActionResult> RemoveFromCart(int productId)
+        {
+            // Get the current user ID (assuming you're using Identity)
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            // Find the cart item for the current user
+            var cartItem = await _context.Carts
+                .FirstOrDefaultAsync(c => c.UserID == userId && c.ProductID == productId);
+
+            if (cartItem == null)
+            {
+                return NotFound(); // Item not found in the cart
+            }
+
+            // Remove the item from the cart
+            _context.Carts.Remove(cartItem);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index"); // Redirect to the cart index after removing
+        }
+
+        public async Task<IActionResult> UpdateQuantity(int productId, int quantity)
+        {
+            // Get the current user ID (assuming you're using Identity)
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            // Find the cart item for the current user
+            var cartItem = await _context.Carts
+                .FirstOrDefaultAsync(c => c.UserID == userId && c.ProductID == productId);
+
+            if (cartItem == null)
+            {
+                return NotFound(); // Item not found in the cart
+            }
+
+            // Update the quantity
+            if (quantity <= 0)
+            {
+                // If quantity is 0 or less, remove the item from the cart
+                _context.Carts.Remove(cartItem);
+            }
+            else
+            {
+                // Otherwise, update the quantity
+                cartItem.Quantity = quantity;
+                _context.Carts.Update(cartItem);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index"); // Redirect to the cart index after updating
+        }
         // Add other actions like Create, Edit, Delete as needed
+
+        [HttpGet]
+        public async Task<IActionResult> Checkout()
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var user = await _context.Users.FindAsync(userId);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(User updatedUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                var user = await _context.Users.FindAsync(userId);
+
+                // Update user payment information
+                user.CardType = updatedUser.CardType;
+                user.CardOwner = updatedUser.CardOwner;
+                user.CardNumber = updatedUser.CardNumber;
+                user.CardCVC = updatedUser.CardCVC;
+                user.ExpirationDate = updatedUser.ExpirationDate;
+
+                await _context.SaveChangesAsync();
+
+                // Redirect to order confirmation or cart index
+                return RedirectToAction("Index"); // You can change this to an order confirmation view
+            }
+
+            return View(updatedUser);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmPayment()
+        {
+            // Logic for confirming the existing payment method (if needed)
+            // Redirect to a confirmation page or cart index
+            return RedirectToAction("Index");
+        }
+
+
+
+
     }
 }

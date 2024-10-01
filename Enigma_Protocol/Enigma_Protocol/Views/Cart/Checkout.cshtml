@@ -1,0 +1,43 @@
+﻿@model Enigma_Protocol.Models.User
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Checkout</h2>
+
+<form method="post" asp-action="Checkout">
+    <div>
+        <label for="CardType">Card Type:</label>
+        <input type="text" name="CardType" required />
+    </div>
+    <div>
+        <label for="CardOwner">Card Owner:</label>
+        <input type="text" name="CardOwner" required />
+    </div>
+    <div>
+        <label for="CardNumber">Card Number:</label>
+        <input type="text" name="CardNumber" required />
+    </div>
+    <div>
+        <label for="CardCVC">Card CVC:</label>
+        <input type="text" name="CardCVC" required />
+    </div>
+    <div>
+        <label for="ExpirationDate">Expiration Date (dd-mm-yyyy):</label>
+        <input type="date" name="ExpirationDate" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm Payment</button>
+</form>
+
+@if (Model.CardType != null)
+{
+    <h3>Existing Payment Information</h3>
+    <p><strong>Card Type:</strong> @Model.CardType</p>
+    <p><strong>Card Owner:</strong> @Model.CardOwner</p>
+    <p><strong>Card Number:</strong> @Model.CardNumber</p>
+    <p><strong>Expiration Date:</strong> @Model.ExpirationDate?.ToString("dd-MM-yyyy")</p>
+    <form method="post" asp-action="ConfirmPayment">
+        <button type="submit" class="btn btn-success">Confirm Existing Payment Method</button>
+    </form>
+}

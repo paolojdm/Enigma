@@ -1,7 +1,9 @@
 ﻿@model EditProfileViewModel
+
 @{
     Layout = "_Layout";
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +30,31 @@
             <input asp-for="ShippingAddress" class="form-control" />
             <span asp-validation-for="ShippingAddress" class="text-danger"></span>
         </div>
+
+        <!-- Payment Information Section -->
+        <h3>Payment Information</h3>
+
+        <div class="form-group">
+            <label asp-for="CardType"></label>
+            <input asp-for="CardType" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CardOwner"></label>
+            <input asp-for="CardOwner" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CardNumber"></label>
+            <input asp-for="CardNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CardCVC"></label>
+            <input asp-for="CardCVC" type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ExpirationDate"></label>
+            <input asp-for="ExpirationDate" type="date" class="form-control" />
+        </div>
+
         <div class="account-btns">
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>

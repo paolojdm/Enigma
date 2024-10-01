@@ -10,6 +10,14 @@
         public DateTime CreatedAt { get; set; }
         public bool IsAdmin { get; set; }
 
+        // Payment Information
+        public string? CardType { get; set; }
+        public string? CardOwner { get; set; }
+        public string? CardNumber { get; set; }
+        public int? CardCVC { get; set; }
+        public DateTime? ExpirationDate { get; set; }
+
+
         // Navigation Properties
         public ICollection<Cart> Carts { get; set; }
         public ICollection<Order> Orders { get; set; }

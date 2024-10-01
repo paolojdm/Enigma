@@ -18,6 +18,7 @@ namespace Enigma_Protocol.Controllers
             var catalogItems = await _context.Products
                 .Select(p => new CatalogViewModel
                 {
+                    ImageUrl = p.ImageUrl,
                     ProductId = p.Id,
                     ProductName = p.ProductName,
                     ProductDescription = p.ProductDescription,

@@ -9,5 +9,6 @@
         public double Price { get; set; }
         public string ProductType { get; set; }
         public int QuantityAvailable { get; set; }
+        public string ImageUrl { get; set; } // Ensure this property is present
     }
 }

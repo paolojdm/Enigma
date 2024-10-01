@@ -17,6 +17,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Image</th> <!-- New header for the product image -->
                 <th>Product Name</th>
                 <th>Description</th>
                 <th>Price</th>
@@ -29,6 +30,9 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        <img src="@item.ImageUrl" alt="@item.ProductName" style="width: 100px; height: auto;" /> <!-- Product image -->
+                    </td>
                     <td>@item.ProductName</td>
                     <td>@item.ProductDescription</td>
                     <td>@item.Price.ToString("C")</td>

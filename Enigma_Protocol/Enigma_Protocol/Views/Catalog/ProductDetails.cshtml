@@ -20,7 +20,13 @@
 
             <h3>Available Stock: @Model.QuantityAvailable</h3>
 
-            <button class="add-to-cart">Add to Cart</button>
+                <!-- Add "Add to Cart" button visible only if the user is logged in -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form method="post" action="@Url.Action("AddToCart", "Cart", new { productId = Model.ProductId })">
+                        <button type="submit" class="btn btn-success">Add to Cart</button>
+                    </form>
+                }
         </div>
     </div>
 </body>

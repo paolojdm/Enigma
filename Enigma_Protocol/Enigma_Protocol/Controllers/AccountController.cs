@@ -192,6 +192,35 @@ namespace Enigma_Protocol.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(EditProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                var user = await _context.Users.FindAsync(userId);
+
+                if (user != null)
+                {
+                    // Update user profile information
+                    user.ShippingAddress = model.ShippingAddress;
+
+                    // Update payment information
+                    user.CardType = model.CardType;
+                    user.CardOwner = model.CardOwner;
+                    user.CardNumber = model.CardNumber;
+                    user.CardCVC = model.CardCVC;
+                    user.ExpirationDate = model.ExpirationDate;
+
+                    await _context.SaveChangesAsync();
+
+                    // Redirect to MyAccount page after successful edit
+                    return RedirectToAction("MyAccount", "Account");
+                }
+            }
+
+            return View(model);
+        }
         #endregion EditProfile
 
 
