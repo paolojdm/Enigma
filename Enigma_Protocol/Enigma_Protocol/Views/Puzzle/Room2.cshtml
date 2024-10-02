@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="/css/Rooms/Room2.css">
+</head>
+<body>
+
+    <!-- Contenitore dell'immagine di sfondo -->
+    <div class="background-container">
+        <button onclick="mostraImmagine()" id="button0">Mostra Immagine</button>
+        <form action="/Puzzle/MostraPrimopiatto" method="post">
+        <button onclick="mostraIndizio()" id="button1">Mostra Primo Indizio</button>
+        </form>
+        <button onclick="mostraIndizio1()" id="button2">Bevi il vino</button>
+        <form action="/Puzzle/MostraSecondopiatto" method="post">
+        <button onclick="mostraPuzzle()" id="button3">Scrivi Soluzione</button>
+        </form>
+        <a href="../Images/jumpscare02.gif" id="immagine">
+            <img src="../Images/jumpscare02.gif" alt="Descrizione dell'immagine">
+        </a>
+    </div>
+
+</body>
+</html>
+<style>
+    #immagine {
+        display: none; /* Hide the image initially */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%; /* Set the width to cover the entire screen */
+        height: 100%; /* Set the height to cover the entire screen */
+        z-index: 1000; /* Ensure the image is above other elements */
+    }
+
+        #immagine img {
+            width: 100%; /* Set the image to take the full width of the viewport */
+            height: 100%; /* Set the image to take the full height of the viewport */
+            object-fit: cover; /* Ensures the image covers the entire area without distortion */
+            z-index: 1000; /* Ensure the image is above other elements */
+        }
+
+
+    button#button0 {
+        opacity: 0; /* Rende il pulsante invisibile ma cliccabile */
+        height: 40%;
+        width: 3%;
+        position: absolute;
+        bottom: 80%; /* Abbassa il pulsante ancora di più */
+        right: 20%; /* Mantieni la posizione a destra o regola a piacere */
+        left: 29%; /* Regola per centrare sotto il letto, o usa 'right' se preferisci */
+        transform: translateX(-50%); /* Centra il pulsante orizzontalmente */
+    }
+</style>
+<script>
+    function handleClick() {
+        alert("Immagine mostrata!");
+        document.getElementById("mostraImmagine").style.display = 'none'; // Rimuove il pulsante
+    }
+
+
+
+
+    function mostraImmagine() {
+        let mySound = new Audio("/Music/Prova_Scream.mp3");
+        // Mostra l'immagine
+        document.getElementById('immagine').style.display = 'block';
+
+
+        // Nasconde l'immagine dopo 2 secondi
+        setTimeout(nascondiImmagine, 2000);
+        mySound.play()
+
+        // Disabilita il pulsante per evitare ulteriori clic
+        document.getElementById('button0').disabled = true;
+
+    }
+
+
+
+    function nascondiImmagine() {
+        document.getElementById('immagine').style.display = 'none';
+    }
+</script>

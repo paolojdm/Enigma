@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cassaforte</title>
+    <link href="~/css/Puzzle/Cassaforte.css" rel="stylesheet" />
+    <script src="~/js/Puzzle/Cassaforte.js"></script>
+</head>
+<body>
+    <form id="cassaforteForm" method="post" action="/Puzzle/ValidaCode">
+        <div id="cassaforte">
+            <div id="display">
+                <input type="text" id="codeDisplay" name="Code" readonly />
+            </div>
+            <div id="keypad">
+                <button type="button" onclick="enterDigit(1)">1</button>
+                <button type="button" onclick="enterDigit(2)">2</button>
+                <button type="button" onclick="enterDigit(3)">3</button>
+                <button type="button" onclick="enterDigit(4)">4</button>
+                <button type="button" onclick="enterDigit(5)">5</button>
+                <button type="button" onclick="enterDigit(6)">6</button>
+                <button type="button" onclick="enterDigit(7)">7</button>
+                <button type="button" onclick="enterDigit(8)">8</button>
+                <button type="button" onclick="enterDigit(9)">9</button>
+                <button type="button" onclick="clearCode()">Clear</button>
+                <button type="button" onclick="enterDigit(0)">0</button>
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

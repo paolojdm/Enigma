@@ -1,0 +1,19 @@
+﻿/* Stile per il contenitore */
+.background-container {
+    content: '';
+    position: absolute; /* Necessario per posizionare eventuali elementi all'interno */
+    width: 100%; /* Larghezza del contenitore */
+    height: 100%; /* Altezza del contenitore */
+    background-image: url('/Images/OIG2.T37JKRVn1UHYq.jpg'); /* Percorso dell'immagine di sfondo */
+    background-size: cover; /* L'immagine copre completamente l'area del contenitore */
+    background-position: center; /* Centra l'immagine all'interno del contenitore */
+    color: white; /* Colore del testo */
+    display: flex; /* Permette di centrare il contenuto */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra orizzontalmente */
+    text-align: center; /* Centra il testo */
+    z-index: -1;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+}
