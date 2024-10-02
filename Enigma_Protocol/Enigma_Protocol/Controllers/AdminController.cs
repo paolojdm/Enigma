@@ -25,7 +25,7 @@ namespace Enigma_Protocol.Controllers
 
         //Admin/ManagingOrders
         #region
-        // GET: /Admin/Orders
+        // GET: /Admin/Orders //NON IMPLEMENTATO / NON FUNZIONANTE / DA RIFARE
         public async Task<IActionResult> Orders()
         {
             var orders = await _context.Orders.Include(o => o.User).ToListAsync();
@@ -33,7 +33,7 @@ namespace Enigma_Protocol.Controllers
         }
 
         // GET: /Admin/OrderDetails/5
-        public async Task<IActionResult> OrderDetails(int? id)
+        public async Task<IActionResult> OrderDetails(int? id) //NON IMPLEMENTATO / NON FUNZIONANTE / DA RIFARE
         {
             if (id == null) return NotFound();
 
@@ -50,7 +50,7 @@ namespace Enigma_Protocol.Controllers
 
         #endregion
 
-        //Admin/ManagingReviews
+        //Admin/ManagingReviews //NON IMPLEMENTATO / NON FUNZIONANTE / DA RIFARE
         #region
         // GET: /Admin/Reviews
         public async Task<IActionResult> Reviews()
