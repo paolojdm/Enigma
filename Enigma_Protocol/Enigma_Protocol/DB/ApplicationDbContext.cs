@@ -168,6 +168,29 @@ namespace Enigma_Protocol.DB
             });
 
             base.OnModelCreating(modelBuilder);
+
+
+            // Seed data for the Room entity
+            modelBuilder.Entity<Room>().HasData(
+                new Room
+                {
+                    Id = 1,
+                    RoomName = "Bedroom",
+                    RoomDescription = "A misterious bedroom."
+                },
+                new Room
+                {
+                    Id = 2,
+                    RoomName = "Dining room",
+                    RoomDescription = "A strange dining room."
+                },
+                new Room
+                {
+                    Id = 3,
+                    RoomName = "Armoury",
+                    RoomDescription = "An ancient armoury."
+                }
+            );
         }
     }
 }
