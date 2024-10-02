@@ -1,6 +1,7 @@
 ﻿using Enigma_Protocol.DB;
 using Enigma_Protocol.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Timers;
 
