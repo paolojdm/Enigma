@@ -69,12 +69,12 @@ namespace Enigma_Protocol.Controllers
             // Update room time one last time
             playerProgress.CurrentRoomTime = DateTime.Now;
 
-            // Check if time limit exceeded
-            if ((playerProgress.CurrentRoomTime - playerProgress.RoomStartTime).TotalMinutes > 10)
-            {
-                ViewBag.Message = "You Failed! Time exceeded 10 minutes.";
-                return RedirectToAction("Fail"); // Redirect to fail view
-            }
+            //// Check if time limit exceeded
+            //if ((playerProgress.CurrentRoomTime - playerProgress.RoomStartTime).TotalMinutes > 10)
+            //{
+            //    ViewBag.Message = "You Failed! Time exceeded 10 minutes.";
+            //    return RedirectToAction("Fail"); // Redirect to fail view
+            //}
 
             // Validate the puzzle
             string correctCode = "4359"; // Correct code
@@ -83,7 +83,7 @@ namespace Enigma_Protocol.Controllers
                 playerProgress.SolvedPuzzles++; // Increment solved puzzles count
                 _context.PlayerProgresses.Update(playerProgress); // Update player progress in DB
                 await _context.SaveChangesAsync(); // Save changes to DB
-                return RedirectToAction("PuzzleSolved"); // Redirect to solved puzzle view
+                return RedirectToAction("Puzzle"); // Redirect to solved puzzle view
             }
             else
             {
@@ -204,7 +204,7 @@ namespace Enigma_Protocol.Controllers
 
             if (word.ToLower() == correctWord.ToLower())
             {
-                return Redirect("/Puzzle/Puzzle"); // Correct word, proceed
+                return Redirect("/Puzzle/Room3"); // Correct word, proceed
             }
             else
             {
