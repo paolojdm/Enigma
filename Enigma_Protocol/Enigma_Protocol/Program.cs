@@ -43,6 +43,14 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "room",
+        pattern: "Puzzle/EnterRoom/{roomId}",
+        defaults: new { controller = "Puzzle", action = "EnterRoom" });
+});
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

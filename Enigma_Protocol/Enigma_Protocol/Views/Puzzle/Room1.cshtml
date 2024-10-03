@@ -1,94 +1,82 @@
-﻿@model Enigma_Protocol.Models.CurrentRoomViewModel
-
-
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <link rel="stylesheet" href="~/css/Rooms/Room1.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Game</title>
+    <link rel="stylesheet" href="/css/room1/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-   
 <body>
-    <audio id="bgm" src="/Music/Prologo.mp3" loop autoplay></audio>
-    <div class="background-container">
-        <button onclick="mostraImmagine()" id="button0">Mostra Immagine</button>
-        <form method="post" action="/Puzzle/LetteraScrivania">
-            <button type="submit" id="button1">Mostra Indizio</button>
-        </form>
-        <form action="/Puzzle/Cassaforte" method="post">
-        <button onclick="mostraIndizio1()" id="button2">Mostra Cassaforte</button>
-        </form>
-        <form action="/Puzzle/Baule" method="post">
-        <button onclick="mostraIndizio1()" id="button2">Mostra Baule</button>
-        </form>
-        <a href="../Images/giphy.gif" id="immagine">
-            <img src="../Images/giphy.gif" alt="Descrizione dell'immagine">
-        </a>
+    <div class="container">
+        <h1>Puzzle Game</h1>
+        <button id="openChestButton" class="btn btn-primary">Open Chest</button>
+        <button id="wardrobeButton" class="btn btn-secondary" style="display: none;">Open Wardrobe</button>
     </div>
-    
+
+    <!-- Chest Modal -->
+    <div class="modal fade" id="chestModal" tabindex="-1" role="dialog" aria-labelledby="chestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chestModalLabel">Chest</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You found a key!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Safe Code Modal (for the safe puzzle) -->
+    <div class="modal fade" id="safeModal" tabindex="-1" role="dialog" aria-labelledby="safeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="safeModalLabel">Safe Code Puzzle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="cassaforteForm" method="post" action="/Puzzle/ValidaCode">
+                        <div id="cassaforte">
+                            <div id="display">
+                                <input type="text" id="codeDisplay" name="Code" readonly />
+                            </div>
+                            <div id="keypad" class="text-center">
+                                <button type="button" onclick="enterDigit(1)">1</button>
+                                <button type="button" onclick="enterDigit(2)">2</button>
+                                <button type="button" onclick="enterDigit(3)">3</button>
+                                <button type="button" onclick="enterDigit(4)">4</button>
+                                <button type="button" onclick="enterDigit(5)">5</button>
+                                <button type="button" onclick="enterDigit(6)">6</button>
+                                <button type="button" onclick="enterDigit(7)">7</button>
+                                <button type="button" onclick="enterDigit(8)">8</button>
+                                <button type="button" onclick="enterDigit(9)">9</button>
+                                <button type="button" onclick="clearCode()">Clear</button>
+                                <button type="button" onclick="enterDigit(0)">0</button>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/room1/script.js"></script>
 </body>
 </html>
-<style>
-    #immagine {
-        display: none; 
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%; 
-        height: 100%; 
-        z-index: 1000;
-    }
-
-        #immagine img {
-            width: 100%; /* Set the image to take the full width of the viewport */
-            height: 100%; /* Set the image to take the full height of the viewport */
-            object-fit: cover; /* Ensures the image covers the entire area without distortion */
-            z-index: 1000;
-        }
-
-
-    button#button0 {
-        opacity: 0; /* Rende il pulsante invisibile ma cliccabile */
-        height: 10%;
-        width: 20%;
-        position: absolute;
-        bottom: 15%; /* Abbassa il pulsante ancora di più */
-        right: 30%; /* Mantieni la posizione a destra o regola a piacere */
-        left: 65%; /* Regola per centrare sotto il letto, o usa 'right' se preferisci */
-        transform: translateX(-50%); /* Centra il pulsante orizzontalmente */
-    }
-</style>
-<script>
-    function handleClick() 
-    {
-        alert("Immagine mostrata!");
-        document.getElementById("mostraImmagine").style.display = 'none'; // Rimuove il pulsante
-    }
-        
-                
-    
-
-    function mostraImmagine() 
-    {
-        let mySound = new Audio("/Music/scream2.mp3");
-        // Mostra l'immagine
-        document.getElementById('immagine').style.display = 'block';
-      
-        
-        // Nasconde l'immagine dopo 2 secondi
-        setTimeout(nascondiImmagine, 2000);
-        mySound.play()
-
-        // Disabilita il pulsante per evitare ulteriori clic
-        document.getElementById('button0').disabled = true;
-
-    }
-   
- 
-
-    function nascondiImmagine() 
-    {
-        document.getElementById('immagine').style.display = 'none';
-    }
-</script>

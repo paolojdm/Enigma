@@ -63,27 +63,14 @@ namespace Enigma_Protocol.Controllers
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var playerProgress = await GetPlayerProgressAsync(userId);
 
-            // Stop the timer
-            _timer.Stop();
-
-            // Update room time one last time
-            playerProgress.CurrentRoomTime = DateTime.Now;
-
-            //// Check if time limit exceeded
-            //if ((playerProgress.CurrentRoomTime - playerProgress.RoomStartTime).TotalMinutes > 10)
-            //{
-            //    ViewBag.Message = "You Failed! Time exceeded 10 minutes.";
-            //    return RedirectToAction("Fail"); // Redirect to fail view
-            //}
-
-            // Validate the puzzle
             string correctCode = "4359"; // Correct code
+
             if (code == correctCode)
             {
                 playerProgress.SolvedPuzzles++; // Increment solved puzzles count
-                _context.PlayerProgresses.Update(playerProgress); // Update player progress in DB
-                await _context.SaveChangesAsync(); // Save changes to DB
-                return RedirectToAction("Puzzle"); // Redirect to solved puzzle view
+                _context.PlayerProgresses.Update(playerProgress);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Puzzle"); // Proceed to the next puzzle
             }
             else
             {
@@ -106,29 +93,20 @@ namespace Enigma_Protocol.Controllers
             }
         }
 
-        // Asynchronous method to get player progress from the database
+
+        #region GetOBJECT for Views
+
         private async Task<PlayerProgress> GetPlayerProgressAsync(int userId)
         {
             var pp = await _context.PlayerProgresses
                 .Include(p => p.CurrentRoom)  // Include navigation property for the room
                 .Include(p => p.User)         // Include navigation property for the user
-                .FirstOrDefaultAsync(p => p.PlayerID == userId);
+                .FirstOrDefaultAsync(p => p.PlayerID == userId); //cerco un player progress gia' esistente
 
             if (pp == null)
             {
-                //// Fetch the list of all PlayerProgress Ids
-                //var playerProgressIds = await _context.PlayerProgresses
-                //    .Select(pp => pp.Id)
-                //    .ToListAsync();  // Execute the query and get the list
-
-                // Calculate the max Id safely in memory
-                //int maxIdValue = playerProgressIds.DefaultIfEmpty(0).Max();
-
-                //Console.WriteLine($"\n\n\n\n\nID OF PLAYER PROGRESS = {maxIdValue}\n\n\n\n\n");
-
                 pp = new PlayerProgress
                 {
-                    //Id = maxIdValue + 1,
                     CurrentRoomId = 1,
                     SolvedPuzzles = 0,
                     PlayerID = userId,
@@ -136,7 +114,7 @@ namespace Enigma_Protocol.Controllers
                     Current_Lives_Puzzle = 3,
                     RoomStartTime = DateTime.Now,
                     CurrentRoomTime = DateTime.Now
-                };
+                }; // creo oggetto player progress per darlo a Room1
 
                 _context.PlayerProgresses.Add(pp);
                 await _context.SaveChangesAsync(); // Save changes asynchronously
@@ -155,13 +133,52 @@ namespace Enigma_Protocol.Controllers
         }
 
         // Method to get the current puzzle for the room
+
+        private async Task<Puzzle> GetCurrentPuzzleAsync(int roomId)
+        {
+            // Query the database to get the puzzle for the specified room
+            var puzzle = await _context.Puzzles
+                .FirstOrDefaultAsync(p => p.RoomId == roomId);
+
+            if (puzzle == null)
+            {
+                // Handle case where no puzzle exists for the room
+                // You can either return null or throw an exception
+                return null;
+            }
+
+            return puzzle;
+        }
         private Puzzle GetCurrentPuzzle(int roomId)
         {
             
 
-            return new Puzzle { Question = "Enter the correct code", RoomId = roomId }; // Placeholder puzzle
+            //var puzzle_new = new Puzzle
+            //{
+            //    //public int Id
+            //    //public string Question
+            //    //public string Answer
+            //    //public int RoomId
+            //    Question = "Inserisci il codice",
+            //    Answer = "4359",
+            //    RoomId = 1
+            //};
+
+            //_context.Puzzles.Add(puzzle_new);
+            // _context.SaveChangesAsync(); // Save changes asynchronously
+            return null; // Placeholder puzzle
         }
 
+
+
+        #endregion GetOBJ for Views
+
+        // Asynchronous method to get player progress from the database
+
+        public IActionResult ImageReorderPuzzle()
+        {
+            return View(); // Load the Image Reorder Puzzle View
+        }
         public IActionResult PuzzleSolved()
         {
             return View("PuzzleSolved"); // Return the solved puzzle view
@@ -180,22 +197,24 @@ namespace Enigma_Protocol.Controllers
         // Method to load the puzzle view
         public async Task<IActionResult> Puzzle()
         {
-            var playerProgress = await GetPlayerProgressAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value));
+            //var playerProgress = await GetPlayerProgressAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value));
 
-            if (playerProgress == null)
-            {
-                return NotFound("Player progress not found."); // Handle null player progress
-            }
+            //if (playerProgress == null)
+            //{
+            //    return NotFound("Player progress not found."); // Handle null player progress
+            //}
 
-            var viewModel = new CurrentRoomViewModel
-            {
-                PlayerProgress = playerProgress,
-                CurrentPuzzle = GetCurrentPuzzle(playerProgress.CurrentRoomId), // Fetch current puzzle
-            };
+            //var viewModel = new CurrentRoomViewModel
+            //{
+            //    PlayerProgress = playerProgress,
+            //    CurrentPuzzle = GetCurrentPuzzle(playerProgress.CurrentRoomId), // Fetch current puzzle
+            //};
 
-            return View(viewModel); // Return the puzzle view with the view model
+            return View(); // Return the puzzle view with the view model
         }
 
+
+        #region View cshtml dei puzzle
         // Other action methods for additional puzzles (you can customize these as needed)
         public IActionResult LetteraScrivania()
         {
@@ -237,6 +256,9 @@ namespace Enigma_Protocol.Controllers
             return View(); // Return the Scudo view
         }
 
+
+        #endregion View cshtml dei puzzle
+
         // Method to validate a word entered by the user
         public IActionResult Correctword(string word)
         {
@@ -267,33 +289,58 @@ namespace Enigma_Protocol.Controllers
             }
         }
 
-        // Methods for the different rooms
-        public async Task<IActionResult> Room1()
+
+        #region RoomsViews
+        public async Task<IActionResult> CompleteImagePuzzle()
+        {
+            // Logic to check if the puzzle is solved (this can also be done in JS, but handled here for confirmation)
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var playerProgress = await GetPlayerProgressAsync(userId);
+
+            playerProgress.CurrentRoomId = 2; // Move to Room 2
+            _context.PlayerProgresses.Update(playerProgress);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("EnterRoom", new { roomId = 2 });
+        }
+        public async Task<IActionResult> EnterRoom(int roomId)
         {
             var playerProgress = await GetPlayerProgressAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value));
 
             if (playerProgress == null)
             {
-                return NotFound("Player progress not found."); // Handle null player progress
+                return NotFound("Player progress not found.");
             }
-
+            var currentPuzzle = await GetCurrentPuzzleAsync(playerProgress.CurrentRoomId); // Fetch current puzzle from DB
+            // Determine which puzzle or resources are relevant for this room
             var viewModel = new CurrentRoomViewModel
             {
                 PlayerProgress = playerProgress,
-                CurrentPuzzle = GetCurrentPuzzle(playerProgress.CurrentRoomId), // Fetch current puzzle
+                CurrentPuzzle = currentPuzzle, // Load the appropriate puzzle
             };
 
-            return View(viewModel); // Return the room view with the view model
+
+
+            // You can customize the background music or jumpscare per room
+            switch (roomId)
+            {
+                case 1:
+                    viewModel.RoomBackgroundMusic = "/Music/Prologo.mp3";
+                    viewModel.RoomImage = "/Images/giphy.gif";
+                    return View("Room1", viewModel); // Render Room1 view
+                case 2:
+                    viewModel.RoomBackgroundMusic = "/Music/Prova_Scream.mp3";
+                    viewModel.RoomImage = "/Images/jumpscare02.gif";
+                    return View("Room2", viewModel); // Render Room2 view
+                case 3:
+                    viewModel.RoomBackgroundMusic = "/Music/Fantasma.mp3";
+                    viewModel.RoomImage = "/Images/ghost.gif";
+                    return View("Room3", viewModel); // Render Room3 view
+                default:
+                    return NotFound("Room not found.");
+            }
         }
 
-        public IActionResult Room2()
-        {
-            return View(); // Return Room 2 view
-        }
-
-        public IActionResult Room3()
-        {
-            return View(); // Return Room 3 view
-        }
+        #endregion RoomsViews
     }
 }

@@ -1,0 +1,162 @@
+﻿// JavaScript logic for safe puzzle
+function enterDigit(digit) {
+    let display = document.getElementById('codeDisplay');
+    display.value += digit;
+}
+
+function clearCode() {
+    document.getElementById('codeDisplay').value = '';
+}
+
+// Function to open the wardrobe and access the safe puzzle
+function openWardrobe() {
+    // Show the wardrobe modal
+    const wardrobeModal = new bootstrap.Modal(document.getElementById('wardrobeModal'));
+    wardrobeModal.show();
+}
+
+// JavaScript logic for image reorder puzzle
+var rows = 3;
+var columns = 3;
+var imgOrder = ["/Images/4", "/Images/2", "/Images/8", "/Images/5", "/Images/1", "/Images/6", "/Images/7", "/Images/9", "/Images/3"];
+var correctOrder = ["/Images/1", "/Images/2", "/Images/3", "/Images/4", "/Images/5", "/Images/6", "/Images/7", "/Images/8", "/Images/9"];
+var turns = 0;
+var currTile, otherTile;
+
+window.onload = function () {
+    setupPuzzle();
+    startTimer();
+}
+
+function setupPuzzle() {
+    let puzzleBoard = document.getElementById('puzzle-board');
+    puzzleBoard.innerHTML = ''; // Clear any existing puzzle
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            let tile = document.createElement("img");
+            tile.id = r.toString() + "-" + c.toString();
+            tile.src = imgOrder.shift() + ".jpg";
+            tile.addEventListener("dragstart", dragStart);
+            tile.addEventListener("dragover", dragOver);
+            tile.addEventListener("dragenter", dragEnter);
+            tile.addEventListener("dragleave", dragLeave);
+            tile.addEventListener("drop", dragDrop);
+            tile.addEventListener("dragend", dragEnd);
+            puzzleBoard.appendChild(tile);
+        }
+    }
+}
+
+function dragStart() {
+    currTile = this;
+}
+
+function dragOver(e) {
+    e.preventDefault();
+}
+
+function dragEnter(e) {
+    e.preventDefault();
+}
+
+function dragLeave() { }
+
+function dragDrop() {
+    otherTile = this;
+}
+
+function dragEnd() {
+    if (!otherTile.src.includes("3.jpg")) {
+        return;
+    }
+
+    let currCoords = currTile.id.split("-");
+    let r = parseInt(currCoords[0]);
+    let c = parseInt(currCoords[1]);
+
+    let otherCoords = otherTile.id.split("-");
+    let r2 = parseInt(otherCoords[0]);
+    let c2 = parseInt(otherCoords[1]);
+
+    let moveLeft = r == r2 && c2 == c - 1;
+    let moveRight = r == r2 && c2 == c + 1;
+    let moveUp = c == c2 && r2 == r - 1;
+    let moveDown = c == c2 && r2 == r + 1;
+
+    let isAdjacent = moveLeft || moveRight || moveUp || moveDown;
+
+    if (isAdjacent) {
+        let currImg = currTile.src;
+        let otherImg = otherTile.src;
+
+        currTile.src = otherImg;
+        otherTile.src = currImg;
+
+        turns += 1;
+        document.getElementById("turns").innerText = turns;
+        checkIfPuzzleSolved();
+    }
+}
+
+function checkIfPuzzleSolved() {
+    let tiles = document.querySelectorAll("#puzzle-board img");
+    for (let i = 0; i < tiles.length; i++) {
+        if (!tiles[i].src.includes(correctOrder[i])) {
+            return;
+        }
+    }
+
+    // All tiles are in the correct order
+    alert("Congratulations! You solved the puzzle!");
+    window.location.href = '/NextRoom'; // Redirect to next room
+}
+
+function startTimer() {
+    let timeLeft = 180; // 3 minutes
+    let timerElement = document.getElementById("timer");
+
+    let timerInterval = setInterval(() => {
+        timeLeft--;
+        timerElement.innerText = `Time Remaining: ${timeLeft} s`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert("Time is up! You failed the puzzle.");
+            window.location.href = '/Puzzle/Fail'; // Redirect to fail page
+        }
+    }, 1000);
+}
+
+function completeReorderPuzzle() {
+    checkIfPuzzleSolved();
+}
+
+// script.js
+
+// Show the wardrobe button when the key is found
+document.getElementById('openChestButton').onclick = function () {
+    // Show the modal for the chest
+    $('#chestModal').modal('show');
+}
+
+// Add an event listener to the modal to show the wardrobe button when it is closed
+$('#chestModal').on('hidden.bs.modal', function () {
+    document.getElementById('wardrobeButton').style.display = 'inline-block'; // Show wardrobe button
+});
+
+// Wardrobe button functionality
+document.getElementById('wardrobeButton').onclick = function () {
+    $('#safeModal').modal('show'); // Show the safe modal for the safe puzzle
+}
+
+// Function to enter a digit into the code display
+function enterDigit(digit) {
+    var codeDisplay = document.getElementById('codeDisplay');
+    codeDisplay.value += digit; // Append the digit to the display
+}
+
+// Function to clear the code display
+function clearCode() {
+    document.getElementById('codeDisplay').value = ''; // Clear the display
+}
