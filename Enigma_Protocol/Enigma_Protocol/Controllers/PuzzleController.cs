@@ -1,4 +1,5 @@
 ﻿using Enigma_Protocol.DB;
+using Enigma_Protocol.Migrations;
 using Enigma_Protocol.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,7 +50,6 @@ namespace Enigma_Protocol.Controllers
             var viewModel = new CurrentRoomViewModel
             {
                 PlayerProgress = playerProgress,
-                CurrentRoom = playerProgress.CurrentRoom,
                 CurrentPuzzle = GetCurrentPuzzle(playerProgress.CurrentRoom.Id)
             };
 
@@ -109,15 +109,49 @@ namespace Enigma_Protocol.Controllers
         // Asynchronous method to get player progress from the database
         private async Task<PlayerProgress> GetPlayerProgressAsync(int userId)
         {
-            return await _context.PlayerProgresses
+
+            var pp = await _context.PlayerProgresses
                 .Include(p => p.CurrentRoom)  // Include navigation property for the room
                 .Include(p => p.User)         // Include navigation property for the user
                 .FirstOrDefaultAsync(p => p.PlayerID == userId);
+
+
+            if (pp == null)
+            {
+                
+                    var max_id = await _context.PlayerProgresses
+                        .Select(pp => pp.Id)
+                        .DefaultIfEmpty(0)  // Return 0 if the list is empty
+                        .ToListAsync();      // Execute the query and get the list
+
+                    int maxIdValue = max_id.Max();  // Now safely get the maximum value from the list
+
+                Console.WriteLine($"\n\n\n\n\nID OF PLAYER PROGRESS = {maxIdValue}\n\n\n\n\n");
+                    pp = new PlayerProgress
+                    {
+                        Id = maxIdValue + 1,
+                        CurrentRoomId = 1,
+                        SolvedPuzzles = 0,
+                        PlayerID = userId,
+                        Current_Lives_Room = 3,
+                        Current_Lives_Puzzle = 3,
+                        RoomStartTime = DateTime.Now,
+                        CurrentRoomTime = DateTime.Now
+                    };
+
+                    _context.PlayerProgresses.Add(pp);
+                    await _context.SaveChangesAsync(); // Save changes asynchronously
+                    return pp;
+            }
+                else
+                    return pp;
         }
 
         // Method to get the current puzzle for the room
         private Puzzle GetCurrentPuzzle(int roomId)
         {
+            
+
             return new Puzzle { Question = "Enter the correct code", RoomId = roomId }; // Placeholder puzzle
         }
 
@@ -149,7 +183,6 @@ namespace Enigma_Protocol.Controllers
             var viewModel = new CurrentRoomViewModel
             {
                 PlayerProgress = playerProgress,
-                CurrentRoom = playerProgress.CurrentRoom,
                 CurrentPuzzle = GetCurrentPuzzle(playerProgress.CurrentRoomId), // Fetch current puzzle
             };
 
@@ -228,9 +261,22 @@ namespace Enigma_Protocol.Controllers
         }
 
         // Methods for the different rooms
-        public IActionResult Room1()
+        public async Task<IActionResult> Room1()
         {
-            return View(); // Return Room 1 view
+            var playerProgress = await GetPlayerProgressAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value));
+
+            if (playerProgress == null)
+            {
+                return NotFound("Player progress not found."); // Handle null player progress
+            }
+
+            var viewModel = new CurrentRoomViewModel
+            {
+                PlayerProgress = playerProgress,
+                CurrentPuzzle = GetCurrentPuzzle(playerProgress.CurrentRoomId), // Fetch current puzzle
+            };
+
+            return View(viewModel); // Return the room view with the view model
         }
 
         public IActionResult Room2()
