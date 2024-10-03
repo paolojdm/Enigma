@@ -109,42 +109,49 @@ namespace Enigma_Protocol.Controllers
         // Asynchronous method to get player progress from the database
         private async Task<PlayerProgress> GetPlayerProgressAsync(int userId)
         {
-
             var pp = await _context.PlayerProgresses
                 .Include(p => p.CurrentRoom)  // Include navigation property for the room
                 .Include(p => p.User)         // Include navigation property for the user
                 .FirstOrDefaultAsync(p => p.PlayerID == userId);
 
-
             if (pp == null)
             {
-                
-                    var max_id = await _context.PlayerProgresses
-                        .Select(pp => pp.Id)
-                        .DefaultIfEmpty(0)  // Return 0 if the list is empty
-                        .ToListAsync();      // Execute the query and get the list
+                //// Fetch the list of all PlayerProgress Ids
+                //var playerProgressIds = await _context.PlayerProgresses
+                //    .Select(pp => pp.Id)
+                //    .ToListAsync();  // Execute the query and get the list
 
-                    int maxIdValue = max_id.Max();  // Now safely get the maximum value from the list
+                // Calculate the max Id safely in memory
+                //int maxIdValue = playerProgressIds.DefaultIfEmpty(0).Max();
 
-                Console.WriteLine($"\n\n\n\n\nID OF PLAYER PROGRESS = {maxIdValue}\n\n\n\n\n");
-                    pp = new PlayerProgress
-                    {
-                        Id = maxIdValue + 1,
-                        CurrentRoomId = 1,
-                        SolvedPuzzles = 0,
-                        PlayerID = userId,
-                        Current_Lives_Room = 3,
-                        Current_Lives_Puzzle = 3,
-                        RoomStartTime = DateTime.Now,
-                        CurrentRoomTime = DateTime.Now
-                    };
+                //Console.WriteLine($"\n\n\n\n\nID OF PLAYER PROGRESS = {maxIdValue}\n\n\n\n\n");
 
-                    _context.PlayerProgresses.Add(pp);
-                    await _context.SaveChangesAsync(); // Save changes asynchronously
-                    return pp;
+                pp = new PlayerProgress
+                {
+                    //Id = maxIdValue + 1,
+                    CurrentRoomId = 1,
+                    SolvedPuzzles = 0,
+                    PlayerID = userId,
+                    Current_Lives_Room = 3,
+                    Current_Lives_Puzzle = 3,
+                    RoomStartTime = DateTime.Now,
+                    CurrentRoomTime = DateTime.Now
+                };
+
+                _context.PlayerProgresses.Add(pp);
+                await _context.SaveChangesAsync(); // Save changes asynchronously
             }
-                else
-                    return pp;
+
+            Console.WriteLine($"\n\n\n\nplayerProgress \n {pp.Id}\n" +
+                $"{pp.CurrentRoomId}\n" +
+                $"{pp.SolvedPuzzles}\n" +
+                $"{pp.PlayerID}\n" +
+                $"{pp.Current_Lives_Room}\n" +
+                $"{pp.Current_Lives_Puzzle}\n" +
+                $"{pp.RoomStartTime}\n" +
+                $"{pp.CurrentRoomTime}\n\n\n\n\n\n");
+
+            return pp;
         }
 
         // Method to get the current puzzle for the room
