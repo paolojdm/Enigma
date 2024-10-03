@@ -191,6 +191,44 @@ namespace Enigma_Protocol.DB
                     RoomDescription = "An ancient armoury."
                 }
             );
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    UserName = "Presentazione_Utente1",
+                    Email = "testemail2@gmail.com",
+                    PasswordHash = "AQAAAAIAAYagAAAAEMhU2fip+YkyWX1Lb9EePrwEBx3DN9pUTDdInCNp1otbhZIilQMpvs4RLsNyoif49w==",
+                    // non has password: paffword
+                    ShippingAddress = null,
+                    CreatedAt = DateTime.Now,
+                    IsAdmin = false,
+                    CardCVC = null,
+                    CardNumber = null,
+                    CardOwner = null,
+                    CardType = null,
+                    ExpirationDate = null
+                },
+                new User
+                {
+                    Id = 2,
+                    UserName = "Presentazione_Admin1",
+                    Email = "testemail3@gmail.com",
+                    PasswordHash = "AQAAAAIAAYagAAAAEF6JuNnjowt+kv+JEecKS5+XYbBvS1E0jcz+iqWiv8HkrqSGGmmwa6QAyA1MN7ZmAQ==",
+                    // non has password: paffword
+                    ShippingAddress = null,
+                    CreatedAt = DateTime.Now,
+                    IsAdmin = true,
+                    CardCVC = null,
+                    CardNumber = null,
+                    CardOwner = null,
+                    CardType = null,
+                    ExpirationDate = null
+                }
+            );
+
+
+
         }
     }
 }
