@@ -251,7 +251,7 @@ namespace Enigma_Protocol.Controllers
 
             if (word.ToLower() == correctWord.ToLower())
             {
-                return Redirect("/Puzzle/Room3"); // Correct word, proceed
+                return RedirectToAction("EnterRoom", "Puzzle", new { roomId = 3 });
             }
             else
             {
@@ -274,6 +274,20 @@ namespace Enigma_Protocol.Controllers
             }
         }
 
+        //public async Task<IActionResult> EnterNextRoom(int nextRoomId)
+        //{
+        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+        //    var playerProgress = await GetPlayerProgressAsync(userId); // Fetch the player's progress
+        //    playerProgress.CurrentRoomId = nextRoomId;
+        //    playerProgress.RoomStartTime = DateTime.UtcNow; // Reset start time for new room
+
+        //    // Save progress and redirect to new room
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction("Room", new { roomId = nextRoomId });
+        //}
+
+
 
         #region RoomsViews
         public async Task<IActionResult> CompleteImagePuzzle()
@@ -288,6 +302,9 @@ namespace Enigma_Protocol.Controllers
 
             return RedirectToAction("EnterRoom", "Puzzle", new { roomId = 2 });
         }
+
+
+
         public async Task<IActionResult> EnterRoom(int roomId)
         {
             var playerProgress = await GetPlayerProgressAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value));

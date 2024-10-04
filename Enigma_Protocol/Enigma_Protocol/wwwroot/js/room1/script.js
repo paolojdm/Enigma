@@ -1,4 +1,26 @@
-﻿// JavaScript logic for safe puzzle
+﻿//room script
+
+
+//let timeRemaining = @Model.GetRemainingRoomTime(); // Server-side calculated time
+
+//const timerElement = document.getElementById("timer");
+
+//setInterval(() => {
+//    if (timeRemaining > 0) {
+//        timeRemaining--;
+//        timerElement.innerText = `Time Remaining: ${timeRemaining} s`;
+//    } else {
+//        alert("Time's up!");
+//        // Optionally redirect to failure page or show modal
+//    }
+//}, 1000);
+
+
+
+
+
+
+// JavaScript logic for safe puzzle
 function enterDigit(digit) {
     let display = document.getElementById('codeDisplay');
     display.value += digit;
@@ -17,7 +39,9 @@ function openWardrobe() {
 // JavaScript logic for image reorder puzzle
 var rows = 3;
 var columns = 3;
+//var imgOrder_NEW = ["/Images/1", "/Images/3", "/Images/2", "/Images/4", "/Images/5", "/Images/6", "/Images/7", "/Images/8", "/Images/9"];
 var imgOrder = ["/Images/1", "/Images/3", "/Images/2", "/Images/4", "/Images/5", "/Images/6", "/Images/7", "/Images/8", "/Images/9"];
+
 var correctOrder = ["/Images/1", "/Images/2", "/Images/3", "/Images/4", "/Images/5", "/Images/6", "/Images/7", "/Images/8", "/Images/9"];
 var turns = 0;
 var currTile, otherTile;
@@ -34,8 +58,8 @@ function setupPuzzle() {
     puzzleBoard.innerHTML = ''; // Clear any existing puzzle
 
     // Create an array of image paths for shuffling
-    var shuffledImages = imgOrder.slice(); // Copy the original order to shuffle
-    shuffledImages.sort(() => Math.random() - 0.5); // Shuffle the array
+    var shuffledImages = imgOrder;//.slice(); // Copy the original order to shuffle
+    //shuffledImages.sort(() => Math.random() - 0.5); // Shuffle the array
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {

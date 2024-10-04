@@ -88,7 +88,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="wordForm" action="/Puzzle/Correctwords" method="post">
+                    <form action="/Puzzle/Correctwords" method="post">
                         <div class="form-group">
                             <label for="word">Inserisci la parola:</label>
                             <input type="text" name="word" id="word" class="form-control" required />
@@ -107,44 +107,18 @@
     <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">    </script>
     <script>
-            // Example fetch-based form submission for Scudo puzzle
-                document.getElementById('wordForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const word = document.getElementById('word').value;
-
-                fetch('/Puzzle/ValidateScudo', {
-                        method: 'POST',
-                    body: JSON.stringify({ word: word }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                    })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Parola corretta! Codice sbloccato.");
-                } else {
-                    alert("Parola errata! Riprova.");
-                }
-                document.getElementById('word').value = '';
-                })
-                .catch(error => {
-                    console.error('Errore nella richiesta:', error);
-                });
-        });
-
         // Handle showing ghost image and sound (ghost.gif and Fantasma.mp3)
-        function mostraImmagine() {
-                let mySound = new Audio("/Music/Fantasma.mp3");
-                document.getElementById('immagine').style.display = 'block';
+            function mostraImmagine() {
+            let mySound = new Audio("/Music/Fantasma.mp3");
+            document.getElementById('immagine').style.display = 'block';
             setTimeout(nascondiImmagine, 4000);
             mySound.play();
-            document.getElementById('button0').disabled = true;
-            }
+                document.getElementById('button0').disabled = true;
+        }
 
         function nascondiImmagine() {
-                document.getElementById('immagine').style.display = 'none';
-        }
+            document.getElementById('immagine').style.display = 'none';
+            }
     </script>
 </body>
 </html>
