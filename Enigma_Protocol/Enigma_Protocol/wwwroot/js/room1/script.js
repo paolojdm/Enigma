@@ -18,7 +18,7 @@ function openWardrobe() {
 // JavaScript logic for image reorder puzzle
 var rows = 3;
 var columns = 3;
-var imgOrder = ["/Images/4", "/Images/2", "/Images/8", "/Images/5", "/Images/1", "/Images/6", "/Images/7", "/Images/9", "/Images/3"];
+var imgOrder = ["/Images/1", "/Images/3", "/Images/2", "/Images/4", "/Images/5", "/Images/6", "/Images/7", "/Images/8", "/Images/9"];
 var correctOrder = ["/Images/1", "/Images/2", "/Images/3", "/Images/4", "/Images/5", "/Images/6", "/Images/7", "/Images/8", "/Images/9"];
 var turns = 0;
 var currTile, otherTile;
@@ -29,14 +29,15 @@ window.onload = function () {
 }
 
 function setupPuzzle() {
-    let puzzleBoard = document.getElementById('puzzle-board');
+    // Update the ID to match your HTML
+    let puzzleBoard = document.getElementById('puzzle-container');
     puzzleBoard.innerHTML = ''; // Clear any existing puzzle
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
             let tile = document.createElement("img");
             tile.id = r.toString() + "-" + c.toString();
-            tile.src = imgOrder.shift() + ".jpg";
+            tile.src = imgOrder.shift() + ".jpg";  // Make sure image paths are correct
             tile.addEventListener("dragstart", dragStart);
             tile.addEventListener("dragover", dragOver);
             tile.addEventListener("dragenter", dragEnter);
