@@ -24,19 +24,24 @@ var turns = 0;
 var currTile, otherTile;
 
 window.onload = function () {
-    setupPuzzle();
-    startTimer();
+    // Ensure that setupPuzzle() is not called here directly, it's called in the modal opening logic
+    startTimer(); // Only start the timer when the modal is opened
 }
 
 function setupPuzzle() {
     let puzzleBoard = document.getElementById('board');  // Correct board element
     puzzleBoard.innerHTML = ''; // Clear any existing puzzle
 
+    // Create an array of image paths for shuffling
+    var shuffledImages = imgOrder.slice(); // Copy the original order to shuffle
+    shuffledImages.sort(() => Math.random() - 0.5); // Shuffle the array
+
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
             let tile = document.createElement("img");
             tile.id = r.toString() + "-" + c.toString();
-            tile.src = imgOrder.shift() + ".jpg";  // Adjust the image path
+            tile.src = shuffledImages.shift() + ".jpg";  // Adjust the image path
+            tile.draggable = true; // Make the tile draggable
             tile.addEventListener("dragstart", dragStart);
             tile.addEventListener("dragover", dragOver);
             tile.addEventListener("dragenter", dragEnter);
@@ -67,10 +72,6 @@ function dragDrop() {
 }
 
 function dragEnd() {
-    if (!otherTile.src.includes("3.jpg")) {
-        return;
-    }
-
     let currCoords = currTile.id.split("-");
     let r = parseInt(currCoords[0]);
     let c = parseInt(currCoords[1]);
@@ -100,7 +101,7 @@ function dragEnd() {
 }
 
 function checkIfPuzzleSolved() {
-    let tiles = document.querySelectorAll("#puzzle-board img");
+    let tiles = document.querySelectorAll("#board img"); // Use the correct board ID
     for (let i = 0; i < tiles.length; i++) {
         if (!tiles[i].src.includes(correctOrder[i])) {
             return;
@@ -136,7 +137,6 @@ function completeReorderPuzzle() {
 
 // script.js
 
-
 document.addEventListener('DOMContentLoaded', function () {
     // Show the wardrobe button when the key is found
     document.getElementById('openChestButton').onclick = function () {
@@ -164,3 +164,30 @@ function enterDigit(digit) {
 function clearCode() {
     document.getElementById('codeDisplay').value = ''; // Clear the display
 }
+
+
+
+// Show the wardrobe button when the key is found
+document.getElementById('openChestButton').onclick = function () {
+    $('#chestModal').modal('show'); //fix the button positioning later
+}
+
+// Ensure the wardrobe button is shown after the chest modal closes
+$('#chestModal').on('hidden.bs.modal', function () {
+    document.getElementById('wardrobeButton').style.display = 'inline-block'; // Show wardrobe button
+});
+
+// Open the safe modal when the wardrobe button is clicked
+document.getElementById('wardrobeButton').onclick = function () {
+    $('#safeModal').modal('show'); // Show the safe puzzle modal
+};
+
+// Open the puzzle modal when the safe code is correctly submitted
+document.getElementById('cassaforteForm').onsubmit = function (event) {
+    event.preventDefault(); // Prevent form submission
+    // Check if the code is correct here
+    // Assuming the correct code is validated and you want to open the puzzle modal
+    $('#safeModal').modal('hide'); // Close the safe modal
+    $('#puzzleModal').modal('show'); // Open the image reorder puzzle modal
+    setupPuzzle(); // Initialize the puzzle when modal opens
+};

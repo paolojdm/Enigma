@@ -14,12 +14,12 @@
     
 }*/
 /* Make the title image smaller and center it */
-#title {
+/*#title {
     display: block;
-    margin: 0 auto; /* Centers the image horizontally */
-    width: 200px; /* Adjust the size as needed */
-    height: auto; /* Keeps the aspect ratio intact */
-}
+    margin: 0 auto;*/ /* Centers the image horizontally */
+    /*width: 200px;*/ /* Adjust the size as needed */
+    /*height: auto;*/ /* Keeps the aspect ratio intact */
+/*}*/
 
 /* Center the board and adjust its appearance */
 #board {
@@ -42,20 +42,20 @@
     border: -5px;
 }
 
-body {
+/*body {
     margin: 0;
     padding: 0;
     font-family: 'Crimson Text', serif;
-    color: #D3D3D3; /* Light gray for contrast /*/
-    height: 100vh; 
+    color: #D3D3D3;*/ /* Light gray for contrast /*/
+    /*height: 100vh; 
 }
 
 h1 {
     align-content: center;
     text-align: center;
     text-decoration-color: inherit;
-    font-family: 'Arial', cursive; /* Font in stile retro /*/
-    font-size: 25px;
+    font-family: 'Arial', cursive;*/ /* Font in stile retro /*/
+    /*font-size: 25px;
     color: whitesmoke;
     text-shadow: 2px 2px 0 #808080;
     background-color: #000;
@@ -78,8 +78,8 @@ h1 {
         width: 100%;
         height: 100%;
         justify-content: center;
-        background-image: url("/Images/Castello1_Prova.jpg"); /* Background image */
-        background-size: cover;
+        background-image: url("/Images/Castello1_Prova.jpg");*/ /* Background image */
+        /*background-size: cover;
         align-items: center;
         background-position: center;
         background-repeat: no-repeat;
@@ -89,4 +89,4 @@ h1 {
 .container {
     text-align: center;
 
-}
+}*/

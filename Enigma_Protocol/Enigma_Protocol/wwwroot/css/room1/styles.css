@@ -46,3 +46,23 @@ body {
     height: 50px;
     margin: 5px;
 }
+
+#board {
+    width: 360px;
+    height: 360px;
+    background-color: lightblue;
+    border: 10px solid #0c67ae;
+    border-radius: 20px 20px 20px 20px;
+    padding: 5px;
+    margin: 30px auto; /* Centers the board horizontally */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+    /* Style the board images */
+    #board img {
+        width: 110px;
+        height: 111px;
+        border: -5px;
+    }
