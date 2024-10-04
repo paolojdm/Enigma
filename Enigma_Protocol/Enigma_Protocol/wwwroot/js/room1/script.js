@@ -134,21 +134,23 @@ function completeReorderPuzzle() {
 
 // script.js
 
-// Show the wardrobe button when the key is found
-document.getElementById('openChestButton').onclick = function () {
-    // Show the modal for the chest
-    $('#chestModal').modal('show');
-}
 
-// Add an event listener to the modal to show the wardrobe button when it is closed
-$('#chestModal').on('hidden.bs.modal', function () {
-    document.getElementById('wardrobeButton').style.display = 'inline-block'; // Show wardrobe button
+document.addEventListener('DOMContentLoaded', function () {
+    // Show the wardrobe button when the key is found
+    document.getElementById('openChestButton').onclick = function () {
+        $('#chestModal').modal('show');
+    }
+
+    // Ensure the wardrobe button is shown after the chest modal closes
+    $('#chestModal').on('hidden.bs.modal', function () {
+        document.getElementById('wardrobeButton').style.display = 'inline-block'; // Show wardrobe button
+    });
+
+    // Open the safe modal when the wardrobe button is clicked
+    document.getElementById('wardrobeButton').onclick = function () {
+        $('#safeModal').modal('show'); // Show the safe puzzle modal
+    };
 });
-
-// Wardrobe button functionality
-document.getElementById('wardrobeButton').onclick = function () {
-    $('#safeModal').modal('show'); // Show the safe modal for the safe puzzle
-}
 
 // Function to enter a digit into the code display
 function enterDigit(digit) {
