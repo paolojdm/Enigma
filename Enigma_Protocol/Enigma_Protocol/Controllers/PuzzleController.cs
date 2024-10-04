@@ -151,21 +151,6 @@ namespace Enigma_Protocol.Controllers
         }
         private Puzzle GetCurrentPuzzle(int roomId)
         {
-            
-
-            //var puzzle_new = new Puzzle
-            //{
-            //    //public int Id
-            //    //public string Question
-            //    //public string Answer
-            //    //public int RoomId
-            //    Question = "Inserisci il codice",
-            //    Answer = "4359",
-            //    RoomId = 1
-            //};
-
-            //_context.Puzzles.Add(puzzle_new);
-            // _context.SaveChangesAsync(); // Save changes asynchronously
             return null; // Placeholder puzzle
         }
 

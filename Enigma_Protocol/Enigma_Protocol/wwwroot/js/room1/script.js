@@ -10,7 +10,6 @@ function clearCode() {
 
 // Function to open the wardrobe and access the safe puzzle
 function openWardrobe() {
-    // Show the wardrobe modal
     const wardrobeModal = new bootstrap.Modal(document.getElementById('wardrobeModal'));
     wardrobeModal.show();
 }
@@ -22,14 +21,14 @@ var imgOrder = ["/Images/1", "/Images/3", "/Images/2", "/Images/4", "/Images/5",
 var correctOrder = ["/Images/1", "/Images/2", "/Images/3", "/Images/4", "/Images/5", "/Images/6", "/Images/7", "/Images/8", "/Images/9"];
 var turns = 0;
 var currTile, otherTile;
-var timerInterval; // Declare a variable to hold the timer interval
+var timerInterval; // Timer variable
 let timeLeft = 180; // Initialize the time left
 
 window.onload = function () {
     // Removed the timer start from here
 }
 
-// Setup puzzle function remains the same
+// Setup puzzle function
 function setupPuzzle() {
     let puzzleBoard = document.getElementById('board');  // Correct board element
     puzzleBoard.innerHTML = ''; // Clear any existing puzzle
@@ -56,17 +55,14 @@ function setupPuzzle() {
 }
 
 function startTimer() {
-    // Reset the timer each time it starts
     timeLeft = 180; // 3 minutes
     let timerElement = document.getElementById("timer");
 
-    // Log to check if the timer element is found
     if (!timerElement) {
         console.error("Timer element not found!");
         return; // Exit if timer element doesn't exist
     }
 
-    // Clear any existing timer to prevent multiple intervals
     if (timerInterval) {
         clearInterval(timerInterval);
     }
@@ -74,9 +70,6 @@ function startTimer() {
     timerInterval = setInterval(() => {
         timeLeft--;
         timerElement.innerText = `Time Remaining: ${timeLeft} s`;
-
-        // Log to check timer status
-        console.log(`Time left: ${timeLeft}`);
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
@@ -106,6 +99,11 @@ function dragDrop() {
 }
 
 function dragEnd() {
+    // Check if the tile with source "3.jpg" is the one being swapped
+    if (!currTile.src.includes("3.jpg") && !otherTile.src.includes("3.jpg")) {
+        return; // Prevent swap if neither tile is "3.jpg"
+    }
+
     let currCoords = currTile.id.split("-");
     let r = parseInt(currCoords[0]);
     let c = parseInt(currCoords[1]);
@@ -121,7 +119,8 @@ function dragEnd() {
 
     let isAdjacent = moveLeft || moveRight || moveUp || moveDown;
 
-    if (isAdjacent) {
+    // Only allow swap if the tile being dragged or the other tile is "3.jpg" and they are adjacent
+    if (isAdjacent && (currTile.src.includes("3.jpg") || otherTile.src.includes("3.jpg"))) {
         let currImg = currTile.src;
         let otherImg = otherTile.src;
 
@@ -142,30 +141,24 @@ function checkIfPuzzleSolved() {
         }
     }
 
-    // All tiles are in the correct order
     alert("Congratulations! You solved the puzzle!");
-
-    // Redirect to the CompleteImagePuzzle method in the Puzzle controller
     window.location.href = '/Puzzle/CompleteImagePuzzle';
 }
+
 function completeReorderPuzzle() {
     checkIfPuzzleSolved();
 }
 
-// script.js
-
+// Remaining code unchanged...
 document.addEventListener('DOMContentLoaded', function () {
-    // Show the wardrobe button when the key is found
     document.getElementById('openChestButton').onclick = function () {
         $('#chestModal').modal('show');
     }
 
-    // Ensure the wardrobe button is shown after the chest modal closes
     $('#chestModal').on('hidden.bs.modal', function () {
         document.getElementById('wardrobeButton').style.display = 'inline-block'; // Show wardrobe button
     });
 
-    // Open the safe modal when the wardrobe button is clicked
     document.getElementById('wardrobeButton').onclick = function () {
         $('#safeModal').modal('show'); // Show the safe puzzle modal
     };
@@ -200,20 +193,12 @@ document.getElementById('wardrobeButton').onclick = function () {
 // Open the puzzle modal when the safe code is correctly submitted
 document.getElementById('cassaforteForm').onsubmit = function (event) {
     event.preventDefault(); // Prevent form submission
-    // Check if the code is correct here
-    // Assuming the correct code is validated and you want to open the puzzle modal
     $('#safeModal').modal('hide'); // Close the safe modal
     $('#puzzleModal').modal('show'); // Open the image reorder puzzle modal
 };
 
 // Ensure to call startTimer() when opening the image reorder puzzle modal
 $('#puzzleModal').on('show.bs.modal', function () {
-    console.log("Opening puzzle modal. Starting timer.");
     setupPuzzle(); // Setup the puzzle when the modal is shown
     startTimer(); // Start the timer when the modal opens
-});
-
-// Include this if you need to set the puzzle up when the modal opens
-$('#puzzleModal').on('shown.bs.modal', function () {
-    setupPuzzle(); // Ensure puzzle setup is called here if needed
 });
