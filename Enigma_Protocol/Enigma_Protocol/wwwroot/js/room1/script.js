@@ -22,12 +22,14 @@ var imgOrder = ["/Images/1", "/Images/3", "/Images/2", "/Images/4", "/Images/5",
 var correctOrder = ["/Images/1", "/Images/2", "/Images/3", "/Images/4", "/Images/5", "/Images/6", "/Images/7", "/Images/8", "/Images/9"];
 var turns = 0;
 var currTile, otherTile;
+var timerInterval; // Declare a variable to hold the timer interval
+let timeLeft = 180; // Initialize the time left
 
 window.onload = function () {
-    // Ensure that setupPuzzle() is not called here directly, it's called in the modal opening logic
-    startTimer(); // Only start the timer when the modal is opened
+    // Removed the timer start from here
 }
 
+// Setup puzzle function remains the same
 function setupPuzzle() {
     let puzzleBoard = document.getElementById('board');  // Correct board element
     puzzleBoard.innerHTML = ''; // Clear any existing puzzle
@@ -52,6 +54,38 @@ function setupPuzzle() {
         }
     }
 }
+
+function startTimer() {
+    // Reset the timer each time it starts
+    timeLeft = 180; // 3 minutes
+    let timerElement = document.getElementById("timer");
+
+    // Log to check if the timer element is found
+    if (!timerElement) {
+        console.error("Timer element not found!");
+        return; // Exit if timer element doesn't exist
+    }
+
+    // Clear any existing timer to prevent multiple intervals
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timerElement.innerText = `Time Remaining: ${timeLeft} s`;
+
+        // Log to check timer status
+        console.log(`Time left: ${timeLeft}`);
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert("Time is up! You failed the puzzle.");
+            window.location.href = '/Puzzle/Fail'; // Redirect to fail page
+        }
+    }, 1000);
+}
+
 
 function dragStart() {
     currTile = this;
@@ -114,23 +148,6 @@ function checkIfPuzzleSolved() {
     // Redirect to the CompleteImagePuzzle method in the Puzzle controller
     window.location.href = '/Puzzle/CompleteImagePuzzle';
 }
-
-function startTimer() {
-    let timeLeft = 180; // 3 minutes
-    let timerElement = document.getElementById("timer");
-
-    let timerInterval = setInterval(() => {
-        timeLeft--;
-        timerElement.innerText = `Time Remaining: ${timeLeft} s`;
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            alert("Time is up! You failed the puzzle.");
-            window.location.href = '/Puzzle/Fail'; // Redirect to fail page
-        }
-    }, 1000);
-}
-
 function completeReorderPuzzle() {
     checkIfPuzzleSolved();
 }
@@ -165,8 +182,6 @@ function clearCode() {
     document.getElementById('codeDisplay').value = ''; // Clear the display
 }
 
-
-
 // Show the wardrobe button when the key is found
 document.getElementById('openChestButton').onclick = function () {
     $('#chestModal').modal('show'); //fix the button positioning later
@@ -189,5 +204,16 @@ document.getElementById('cassaforteForm').onsubmit = function (event) {
     // Assuming the correct code is validated and you want to open the puzzle modal
     $('#safeModal').modal('hide'); // Close the safe modal
     $('#puzzleModal').modal('show'); // Open the image reorder puzzle modal
-    setupPuzzle(); // Initialize the puzzle when modal opens
 };
+
+// Ensure to call startTimer() when opening the image reorder puzzle modal
+$('#puzzleModal').on('show.bs.modal', function () {
+    console.log("Opening puzzle modal. Starting timer.");
+    setupPuzzle(); // Setup the puzzle when the modal is shown
+    startTimer(); // Start the timer when the modal opens
+});
+
+// Include this if you need to set the puzzle up when the modal opens
+$('#puzzleModal').on('shown.bs.modal', function () {
+    setupPuzzle(); // Ensure puzzle setup is called here if needed
+});
