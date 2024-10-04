@@ -16,18 +16,23 @@ body {
 
 #openChestButton {
     position: absolute; /* Position the button absolutely */
-    top: 40%; /* Adjust according to your image */
-    left: 30%; /* Adjust according to your image */
+    top: 79%; /* Adjust according to your image */
+    left: 81%; /* Adjust according to your image */
     transform: translate(-50%, -50%); /* Center the button */
     display: block; /* Show the button */
+    cursor: default;
+    scale: 80%;
 }
 
 #wardrobeButton {
     position: absolute; /* Position the button absolutely */
-    top: 60%; /* Adjust according to your image */
-    left: 70%; /* Adjust according to your image */
+    top: 48%; /* Adjust according to your image */
+    left: 39%; /* Adjust according to your image */
     transform: translate(-50%, -50%); /* Center the button */
     display: none; /* Keep it hidden initially */
+    cursor: default;
+    scale: 75%;
+
 }
 
 #puzzle-board img {
