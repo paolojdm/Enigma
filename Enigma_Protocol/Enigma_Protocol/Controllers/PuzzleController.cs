@@ -58,7 +58,7 @@ namespace Enigma_Protocol.Controllers
         }
 
         // Method to validate the entered code for the puzzle
-        public async Task<IActionResult> ValidaCode(string code)
+        public async Task<IActionResult> ValidaCode(string code) //Only for the safe code in the Room1
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var playerProgress = await GetPlayerProgressAsync(userId);

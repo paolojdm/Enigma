@@ -1,4 +1,35 @@
 ﻿/* Add your custom styles here */
+body {
+    margin: 0; /* Remove default margin */
+}
+
+.container2 {
+    position: relative; /* Position relative for absolute positioning of buttons */
+    width: 100%; /* Full width */
+    height: 0; /* Initial height */
+    padding-bottom: 75%; /* This sets the aspect ratio of the container (e.g., 4:3 ratio) */
+    background-image: url('/Images/Castello1_Prova.jpg'); /* Set your background image */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat;
+}
+
+#openChestButton {
+    position: absolute; /* Position the button absolutely */
+    top: 40%; /* Adjust according to your image */
+    left: 30%; /* Adjust according to your image */
+    transform: translate(-50%, -50%); /* Center the button */
+    display: block; /* Show the button */
+}
+
+#wardrobeButton {
+    position: absolute; /* Position the button absolutely */
+    top: 60%; /* Adjust according to your image */
+    left: 70%; /* Adjust according to your image */
+    transform: translate(-50%, -50%); /* Center the button */
+    display: none; /* Keep it hidden initially */
+}
+
 #puzzle-board img {
     width: 100px;
     height: 100px;

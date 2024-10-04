@@ -1,93 +1,150 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Game - Room 3</title>
     <link rel="stylesheet" href="/css/Rooms/Room3.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
-    <!-- Contenitore dell'immagine di sfondo -->
+    <!-- Room 3 Content -->
     <div class="background-container">
-        <button onclick="mostraImmagine()" id="button0">Mostra Immagine</button>
-        <form action="/Puzzle/Letteravaso" method="post">
-        <button onclick="mostraIndizio()" id="button1">Mostra contenuto del vaso</button>
-        </form>
-        <form action="/Puzzle/Armor" method="post">
-        <button onclick="mostraIndizio1()" id="button2">Leggi l'armatura</button>
-        </form>
-        <form action="/Puzzle/Spada" method="post">
-            <button onclick="mostraIndizio1()" id="button2">Trova La Spada</button>
-        </form>
-        <form action="/Puzzle/Scudo" method="post">
-        <button onclick="mostraPuzzle()" id="button3">Scrivi Soluzione</button>
-        </form>
-
-        <a href="../Images/ghost.gif" id="immagine">
-            <img src="../Images/ghost.gif" alt="Descrizione dell'immagine">
-        </a>
+        <button id="letteraVasoButton" class="btn btn-primary" data-toggle="modal" data-target="#letteraVasoModal">Mostra Lettera Vaso</button>
+        <button id="armorButton" class="btn btn-secondary" data-toggle="modal" data-target="#armorModal">Leggi l'Armatura</button>
+        <button id="spadaButton" class="btn btn-danger" data-toggle="modal" data-target="#spadaModal">Trova La Spada</button>
+        <button id="scudoButton" class="btn btn-warning" data-toggle="modal" data-target="#scudoModal">Scrivi Soluzione per Scudo</button>
     </div>
 
+    <!-- Lettera Vaso Modal -->
+    <div class="modal fade" id="letteraVasoModal" tabindex="-1" role="dialog" aria-labelledby="letteraVasoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="letteraVasoModalLabel">Lettera Vaso</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="/Images/LetteraVaso1.jpg" alt="Lettera Vaso" class="img-fluid" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Armor Modal -->
+    <div class="modal fade" id="armorModal" tabindex="-1" role="dialog" aria-labelledby="armorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="armorModalLabel">Armatura</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="/Images/Armor_2.jpg" alt="Armatura" class="img-fluid" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spada Modal -->
+    <div class="modal fade" id="spadaModal" tabindex="-1" role="dialog" aria-labelledby="spadaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="spadaModalLabel">Spada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="/Images/Sword_2.jpg" alt="Spada" class="img-fluid" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scudo Modal -->
+    <div class="modal fade" id="scudoModal" tabindex="-1" role="dialog" aria-labelledby="scudoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scudoModalLabel">Scudo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="wordForm" action="/Puzzle/Correctwords" method="post">
+                        <div class="form-group">
+                            <label for="word">Inserisci la parola:</label>
+                            <input type="text" name="word" id="word" class="form-control" required />
+                        </div>
+                        <button type="submit" class="btn btn-success">Invia</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">    </script>
+    <script>
+            // Example fetch-based form submission for Scudo puzzle
+                document.getElementById('wordForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const word = document.getElementById('word').value;
+
+                fetch('/Puzzle/ValidateScudo', {
+                        method: 'POST',
+                    body: JSON.stringify({ word: word }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                    })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Parola corretta! Codice sbloccato.");
+                } else {
+                    alert("Parola errata! Riprova.");
+                }
+                document.getElementById('word').value = '';
+                })
+                .catch(error => {
+                    console.error('Errore nella richiesta:', error);
+                });
+        });
+
+        // Handle showing ghost image and sound (ghost.gif and Fantasma.mp3)
+        function mostraImmagine() {
+                let mySound = new Audio("/Music/Fantasma.mp3");
+                document.getElementById('immagine').style.display = 'block';
+            setTimeout(nascondiImmagine, 4000);
+            mySound.play();
+            document.getElementById('button0').disabled = true;
+            }
+
+        function nascondiImmagine() {
+                document.getElementById('immagine').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
-
-<style>
-    #immagine {
-        display: none; /* Hide the image initially */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%; /* Set the width to cover the entire screen */
-        height: 100%; /* Set the height to cover the entire screen */
-        z-index: 1000; /* Ensure the image is above other elements */
-    }
-
-        #immagine img {
-            width: 100%; /* Set the image to take the full width of the viewport */
-            height: 100%; /* Set the image to take the full height of the viewport */
-            object-fit: cover; /* Ensures the image covers the entire area without distortion */
-            z-index: 1000; /* Ensure the image is above other elements */
-        }
-
-
-    button#button0 {
-        opacity: 0; /* Rende il pulsante invisibile ma cliccabile */
-        height: 40%;
-        width: 3%;
-        position: absolute;
-        bottom: 72%; /* Abbassa il pulsante ancora di più */
-        right: 60%; /* Mantieni la posizione a destra o regola a piacere */
-        left: 66.5%; /* Regola per centrare sotto il letto, o usa 'right' se preferisci */
-        transform: translateX(-50%); /* Centra il pulsante orizzontalmente */
-    }
-</style>
-<script>
-    function handleClick() {
-        alert("Immagine mostrata!");
-        document.getElementById("mostraImmagine").style.display = 'none'; // Rimuove il pulsante
-    }
-
-
-
-
-    function mostraImmagine() {
-        let mySound = new Audio("/Music/Fantasma.mp3");
-        // Mostra l'immagine
-        document.getElementById('immagine').style.display = 'block';
-
-
-        // Nasconde l'immagine dopo 2 secondi
-        setTimeout(nascondiImmagine, 4000);
-        mySound.play()
-
-        // Disabilita il pulsante per evitare ulteriori clic
-        document.getElementById('button0').disabled = true;
-
-    }
-
-
-
-    function nascondiImmagine() {
-        document.getElementById('immagine').style.display = 'none';
-    }
-</script>
