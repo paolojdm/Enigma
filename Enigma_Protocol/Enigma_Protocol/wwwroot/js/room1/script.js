@@ -19,7 +19,20 @@
 
 
 
+// Safe Code Puzzle Submission
+function submitSafeCode() {
+    var code = document.getElementById('codeDisplay').value;
 
+    $.post("/Puzzle/ValidatePuzzleAnswer", { puzzleId: 1, answer: code }, function (response) {
+        if (response.success) {
+            alert(response.message);
+            $('#safeModal').modal('hide');
+            $('#puzzleModal').modal('show'); // Show the next puzzle modal
+        } else {
+            alert(response.message);
+        }
+    });
+}
 // JavaScript logic for safe puzzle
 function enterDigit(digit) {
     let display = document.getElementById('codeDisplay');
@@ -215,10 +228,46 @@ document.getElementById('wardrobeButton').onclick = function () {
 };
 
 // Open the puzzle modal when the safe code is correctly submitted
+// Function to handle form submission for the safe puzzle
 document.getElementById('cassaforteForm').onsubmit = function (event) {
-    event.preventDefault(); // Prevent form submission
-    $('#safeModal').modal('hide'); // Close the safe modal
-    $('#puzzleModal').modal('show'); // Open the image reorder puzzle modal
+    event.preventDefault(); // Prevent default form submission behavior
+
+    const code = document.getElementById('codeDisplay').value;
+    if (!code) {
+        alert('Please enter a code.');
+        return;
+    }
+
+    // Send the form data to the backend via AJAX to check the answer
+    $.ajax({
+        type: 'POST',
+        url: '/Puzzle/ValidateCode',
+        data: { code: code },
+        success: function (response) {
+            if (response.correct) {
+                // If correct, proceed to the next puzzle or logic
+                $('#safeModal').modal('hide'); // Close the modal
+                $('#puzzleModal').modal('show'); // Show next puzzle modal
+            } else {
+                // If incorrect, update the player's lives and reset the form
+                alert('Incorrect code! You lost a life.');
+                document.getElementById('codeDisplay').value = ''; // Clear the input
+
+                // Check if lives are remaining
+                if (response.livesRemaining > 0) {
+                    // Re-enable form for another attempt
+                    $('#cassaforteForm button[type="submit"]').prop('disabled', false);
+                } else {
+                    // Handle the game over logic if no lives are left
+                    alert('No lives remaining. Game over.');
+                    window.location.href = '/Puzzle/Fail';
+                }
+            }
+        },
+        error: function () {
+            alert('An error occurred. Please try again.');
+        }
+    });
 };
 
 // Ensure to call startTimer() when opening the image reorder puzzle modal

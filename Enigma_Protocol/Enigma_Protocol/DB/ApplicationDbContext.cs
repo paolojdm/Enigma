@@ -228,6 +228,36 @@ namespace Enigma_Protocol.DB
             );
 
 
+            modelBuilder.Entity<Puzzle>().HasData(
+                new Puzzle
+                {
+                    Id = 1,
+                    Question = "Enter the code",
+                    Answer = "4359",
+                    RoomId = 1
+                },
+                new Puzzle
+                {
+                    Id = 2,
+                    Question = "Reorder the image",
+                    Answer = "true",
+                    RoomId = 1
+                },
+                new Puzzle
+                {
+                    Id = 3,
+                    Question = "Enter the right word",
+                    Answer = "tenebre",
+                    RoomId = 2
+                },
+                new Puzzle
+                {
+                    Id = 4,
+                    Question = "Enter the right word",
+                    Answer = "uscita",
+                    RoomId = 3
+                }
+            );
 
         }
     }

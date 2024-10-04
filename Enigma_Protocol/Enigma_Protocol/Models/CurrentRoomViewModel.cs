@@ -2,10 +2,13 @@
 {
     public class CurrentRoomViewModel
     {
-        public PlayerProgress PlayerProgress { get; set; }
+        public PlayerProgress? PlayerProgress { get; set; }
 
         //public Room CurrentRoom { get; set; } // NOT USED BECAUSE PlayerProgress already has it
-        public Puzzle CurrentPuzzle { get; set; }
+
+        //public Puzzle? CurrentPuzzle { get; set; } // NOT USED BECAUSE THERE ARE MORE PUZZLES IN THE ROOM NOW
+
+        public IEnumerable<Puzzle>? CurrentRoomPuzzles { get; set; }
 
         public string? RoomBackgroundMusic { get; set; }
         public string? RoomImage {  get; set; }

@@ -6,12 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puzzle Game</title>
-    <link rel="stylesheet" href="/css/room1/styles.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="/css/room1/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="/css/Puzzle/puzzle.css">  Link to the puzzle CSS file -->
-    <script src="/js/room1/script.js" defer></script> <!-- Use defer to load the script after the DOM -->
-
-
+    <script src="/js/room1/script.js" defer></script>
 </head>
 <body>
 
@@ -51,7 +48,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="cassaforteForm" method="post" action="/Puzzle/ValidaCode">
+                        <form id="cassaforteForm">
                             <div id="cassaforte">
                                 <div id="display">
                                     <input type="text" id="codeDisplay" name="Code" readonly />
@@ -67,8 +64,7 @@
                                     <button type="button" onclick="enterDigit(8)">8</button>
                                     <button type="button" onclick="enterDigit(9)">9</button>
                                     <button type="button" onclick="clearCode()">Clear</button>
-                                    <button type="button" onclick="enterDigit(0)">0</button>
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="button" class="btn btn-success" onclick="submitSafeCode()">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -86,7 +82,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="puzzleModalLabel">Image Reorder Puzzle</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
