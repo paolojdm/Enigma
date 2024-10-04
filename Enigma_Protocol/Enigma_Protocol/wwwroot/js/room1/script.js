@@ -29,15 +29,14 @@ window.onload = function () {
 }
 
 function setupPuzzle() {
-    // Update the ID to match your HTML
-    let puzzleBoard = document.getElementById('puzzle-container');
+    let puzzleBoard = document.getElementById('board');  // Correct board element
     puzzleBoard.innerHTML = ''; // Clear any existing puzzle
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
             let tile = document.createElement("img");
             tile.id = r.toString() + "-" + c.toString();
-            tile.src = imgOrder.shift() + ".jpg";  // Make sure image paths are correct
+            tile.src = imgOrder.shift() + ".jpg";  // Adjust the image path
             tile.addEventListener("dragstart", dragStart);
             tile.addEventListener("dragover", dragOver);
             tile.addEventListener("dragenter", dragEnter);
