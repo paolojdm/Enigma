@@ -301,7 +301,7 @@ namespace Enigma_Protocol.Controllers
             _context.PlayerProgresses.Update(playerProgress);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("EnterRoom", new { roomId = 2 });
+            return RedirectToAction("EnterRoom", "Puzzle", new { roomId = 2 });
         }
         public async Task<IActionResult> EnterRoom(int roomId)
         {

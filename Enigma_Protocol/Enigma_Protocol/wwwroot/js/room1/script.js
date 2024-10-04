@@ -109,7 +109,9 @@ function checkIfPuzzleSolved() {
 
     // All tiles are in the correct order
     alert("Congratulations! You solved the puzzle!");
-    window.location.href = '/NextRoom'; // Redirect to next room
+
+    // Redirect to the CompleteImagePuzzle method in the Puzzle controller
+    window.location.href = '/Puzzle/CompleteImagePuzzle';
 }
 
 function startTimer() {
