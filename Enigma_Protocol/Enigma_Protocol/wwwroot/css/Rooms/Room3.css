@@ -1,18 +1,75 @@
-﻿.background-container {
-    top: 0;
-    left: 0;
-    content: '';
-    position: absolute; /* Necessario per posizionare eventuali elementi all'interno */
-    width: 100%; /* Larghezza del contenitore */
-    height: 100%; /* Altezza del contenitore */
-    background-image: url('/Images/OIG2.8g8ev.jpg'); /* Percorso dell'immagine di sfondo */
-    background-size: cover; /* L'immagine copre completamente l'area del contenitore */
-    background-position: center; /* Centra l'immagine all'interno del contenitore */
-    color: white; /* Colore del testo */
-    display: flex; /* Permette di centrare il contenuto */
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; /* Centra orizzontalmente */
-    text-align: center; /* Centra il testo */
-    background-repeat: no-repeat;
-    z-index: -1;
+﻿/* General Styles */
+body {
+    margin: 0; /* Remove default margin */
+    background-color: #1b1b1bff !important; /* Consistent background */
+}
+
+.container {
+    margin-left: 200px;
+}
+
+.container2 {
+    /* Ensure the container has a defined height and width */
+    min-width: 1450px; /* Maximum width */
+
+    max-width: 1600px; /* Maximum width */
+    max-height: 835px; /* Maximum height */
+    width: 100%; /* Responsive */
+    height: auto; /* Responsive */
+    margin: 0 auto; /* Center the container */
+    background-image: url('/Images/room3.jpeg'); /* Set your background image here */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    aspect-ratio: 1.9 / 1; /* Set aspect ratio to 1.9:1 */
+    position: relative; /* Ensure children can be positioned relative to this */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #f5f5f5;
+}
+
+
+/* Button Styling */
+button {
+    font-size: 1.2em;
+    margin: 10px;
+}
+
+/* Ghost Image Styling */
+#immagine {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+/* Modal Customization */
+.modal-body img {
+    max-width: 100%;
+    height: auto;
+}
+
+.modal-footer button {
+    font-size: 1.1em;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container2 {
+        min-width: 1000px;
+        max-width: 1200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container2 {
+        min-width: 700px;
+        max-width: 900px;
+    }
+
+    button {
+        font-size: 1em;
+    }
 }

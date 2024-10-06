@@ -4,22 +4,27 @@
     ViewData["Title"] = "Transitioning to Next Room";
 }
 
-@{
-    if(Model.CurrentRoomId == 1)
-    {
-        <h2>Transitioning...</h2>
-        <p>Loading the next room, please wait...</p>
-        <!-- You can use a video element to show a transition video -->
-        <video autoplay muted>
-            <source src="~/videos/transition.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    }
-}
+<h2>Transitioning...</h2>
+<p>Loading the next room, please wait...</p>
+<video autoplay muted>
+    <source src="~/videos/transition.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
 <script>
     // Redirect to the next room after video ends
     const video = document.querySelector('video');
-    video.onended = function() {
-        window.location.href = '@Url.Action("Room2", "Room2")'; // Adjust action and controller names
-    };
+    video.onended = function () {
+        switch (@Model.CurrentRoomId) {
+            case 1:
+                    window.location.href = '@Url.Action("Room2", "Room2")';
+                    break;
+                case 2:
+                    window.location.href = '@Url.Action("Room3", "Room3")';
+                    break;
+                default:
+                    window.location.href = '@Url.Action("Fine", "PrologoeFinale")'; // Game completed
+                    break;
+            }
+        };
 </script>

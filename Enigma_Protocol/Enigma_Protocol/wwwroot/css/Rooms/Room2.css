@@ -2,21 +2,8 @@
 
 body {
     margin: 0; /* Remove default margin */
-    background-color: #f8f9fa; /* Light background color */
+    background-color: #1b1b1bff !important;
 }
-
-/*.container2 {
-
-
-    position: relative;*/ /* Relative positioning */
-    /*width: 100%;*/ /* Full width */
-    /*height: 100vh;*/ /* Full height */
-    /*display: flex;*/ /* Use flexbox */
-    /*flex-direction: column;*/ /* Stack items vertically */
-    /*justify-content: center;*/ /* Center items vertically */
-    /*align-items: center;*/ /* Center items horizontally */
-    /*text-align: center;*/ /* Center text */
-/*}*/
 
 .button-container {
     margin-top: 20px; /* Add some space above buttons */
@@ -42,17 +29,3 @@ body {
     aspect-ratio: 1.9 / 1; /* Set aspect ratio to 1.9:1 */
     position: relative; /* Ensure children can be positioned relative to this */
 }
-
-/*#clueButton, #openChestButton, #wardrobeButton {
-    position: absolute;*/ /* Position the buttons absolutely within .container2 */
-    /*background-color: transparent;*/ /* Make the background transparent */
-    /*border: none;*/ /* Remove borders */
-    /*opacity: 0;*/ /* Make buttons invisible (but still clickable) */
-
-    /*cursor: default;
-}
-
-#clueButton {
-    top: 55%;*/ /* Adjust according to your image */
-    /*left: 77%;*/ /* Adjust according to your image */
-/*}*/

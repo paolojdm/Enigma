@@ -6,20 +6,20 @@ using System.Security.Claims;
 
 namespace Enigma_Protocol.Controllers
 {
-    public class Room2Controller : Controller
+    public class Room3Controller : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public Room2Controller(ApplicationDbContext context)
+        public Room3Controller(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IActionResult> Room2()
+        public async Task<IActionResult> Room3()
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            // Retrieve or initialize player progress for Room 2
+            // Retrieve or initialize player progress for Room 3
             var playerProgress = await _context.PlayerProgresses
                 .Include(pp => pp.User)
                 .FirstOrDefaultAsync(pp => pp.PlayerID == userId);
@@ -31,14 +31,14 @@ namespace Enigma_Protocol.Controllers
                     PlayerID = userId,
                     Current_Lives_Room = 3,
                     SolvedPuzzles = 0,
-                    CurrentRoomId = 2
+                    CurrentRoomId = 3
                 };
                 _context.PlayerProgresses.Add(playerProgress);
             }
             else
             {
                 playerProgress.Current_Lives_Room = 3;
-                playerProgress.CurrentRoomId = 2;
+                playerProgress.CurrentRoomId = 3;
                 _context.PlayerProgresses.Update(playerProgress);
             }
 
@@ -59,7 +59,7 @@ namespace Enigma_Protocol.Controllers
             if (playerProgress == null)
                 return Json(new { correct = false, message = "Player progress not found.", livesRemaining = 0 });
 
-            var puzzle = await _context.Puzzles.FirstOrDefaultAsync(p => p.RoomId == 2); // Room 2 specific puzzle
+            var puzzle = await _context.Puzzles.FirstOrDefaultAsync(p => p.RoomId == 3); // Room 3 specific puzzle
             if (puzzle == null)
                 return Json(new { correct = false, message = "Puzzle not found.", livesRemaining = 0 });
 
@@ -68,7 +68,7 @@ namespace Enigma_Protocol.Controllers
                 playerProgress.SolvedPuzzles += 1;
                 await _context.SaveChangesAsync();
 
-                return Json(new { correct = true, nextRoom = true, message = "Congratulations! Proceed to the next room." });
+                return Json(new { correct = true, nextRoom = false, message = "Congratulations! You've completed the escape room!" });
             }
             else
             {
