@@ -8,7 +8,7 @@
     <title>Puzzle Game</title>
     <link rel="stylesheet" href="/css/room1/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="/js/room1/script.js?v=1.0" defer></script>
+    <script src="/js/room1/script.js?v=1.2" defer></script>
 </head>
 <body>
 
@@ -16,6 +16,7 @@
         <h1>Puzzle Game</h1>
         <div>
             <h2>Lives Remaining: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
+            <h1 id="globalTimer">Time Remaining: 10:00</h1> <!-- 10 minutes = 600 seconds -->
         </div>
         <!-- Clue button -->
         <button id="clueButton" class="btn btn-info">Reveal Clue</button>
@@ -24,6 +25,7 @@
         <!-- Chest and wardrobe buttons -->
         <button id="openChestButton" class="btn btn-primary" style="display:none;">Open Chest</button>
         <button id="wardrobeButton" class="btn btn-secondary" style="display:none;">Open Wardrobe</button>
+
 
         <!-- Chest Modal (Key Reveal) -->
         <div class="modal fade" id="chestModal" tabindex="-1" role="dialog" aria-labelledby="chestModalLabel" aria-hidden="true">

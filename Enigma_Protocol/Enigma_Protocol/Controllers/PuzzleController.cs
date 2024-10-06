@@ -42,7 +42,6 @@ namespace Enigma_Protocol.Controllers
             {
                 // Update existing PlayerProgress with new values
                 playerProgress.Current_Lives_Room = 3;
-                playerProgress.SolvedPuzzles = 0;
 
                 _context.PlayerProgresses.Update(playerProgress); // Ensure to mark it as updated
             }

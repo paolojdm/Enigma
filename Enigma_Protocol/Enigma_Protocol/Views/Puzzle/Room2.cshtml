@@ -66,34 +66,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">    </script>
 </body>
 </html>
-    <!--<script>
-        // Secondo Piatto form handling via JavaScript
-            document.getElementById('wordForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const word = document.getElementById('word').value;
-
-            fetch('/Secondopiatto/ValidateCode', {
-                    method: 'POST',
-                body: JSON.stringify({ word: word }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                    alert("Parola corretta! Codice sbloccato.");
-                } else {
-                    alert("Parola errata! Riprova.");
-                }
-            document.getElementById('word').value = '';
-        })
-        .catch(error => {
-            console.error('Errore nella richiesta:', error);
-            });
-        });
-    </script>
-
-</body>
-</html>
-    -->
