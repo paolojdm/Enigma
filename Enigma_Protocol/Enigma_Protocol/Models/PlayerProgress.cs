@@ -10,7 +10,7 @@
         public int Current_Lives_Puzzle { get; set; } //QUanti tentativi ha rimasti per completare il puzzle (e' quante vite sono rimaste)
 
         public DateTime RoomStartTime { get; set; } //Tempo preso dal momento in cui entra nella stanza
-        public DateTime CurrentRoomTime { get; set; } //Si aggiorna ogni secondo, se la differenza tra il RoomStartTime e il CurrentRooomTime supera il tempo indicato il gioco finisce (gestitevela voi)
+        public DateTime CurrentRoomTime { get; set; } //Si aggiorna ogni secondo, se la differenza tra il RoomStartTime e il CurrentRooomTime supera il tempo indicato il gioco finisce
 
         // Navigation Properties
         public Room CurrentRoom { get; set; }

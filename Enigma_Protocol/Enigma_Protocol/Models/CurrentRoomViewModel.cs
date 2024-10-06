@@ -3,16 +3,10 @@
     public class CurrentRoomViewModel
     {
         public PlayerProgress? PlayerProgress { get; set; }
-
-        //public Room CurrentRoom { get; set; } // NOT USED BECAUSE PlayerProgress already has it
-
-        //public Puzzle? CurrentPuzzle { get; set; } // NOT USED BECAUSE THERE ARE MORE PUZZLES IN THE ROOM NOW
-
         public IEnumerable<Puzzle>? CurrentRoomPuzzles { get; set; }
 
-        public string? RoomBackgroundMusic { get; set; }
-        public string? RoomImage {  get; set; }
-        public string? Var1 {  get; set; } //empty variable to use later
+
+        public string? Var1 {  get; set; } //empty variable to use later if needed
 
         //public int GetRemainingRoomTime()
         //{
@@ -24,7 +18,7 @@
         //    int remainingTime = roomTimeLimit - elapsedSeconds;
 
         //    return remainingTime > 0 ? remainingTime : 0; // Return 0 if time's up
-        //}
+        //} //Time management example
 
 
     }

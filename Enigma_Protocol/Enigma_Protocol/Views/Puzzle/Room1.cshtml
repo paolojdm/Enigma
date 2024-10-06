@@ -1,6 +1,4 @@
-﻿@model Enigma_Protocol.Models.CurrentRoomViewModel
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,10 +12,18 @@
 
     <div class="container2">
         <h1>Puzzle Game</h1>
-        <button id="openChestButton" class="btn btn-primary">Open Chest</button>
-        <button id="wardrobeButton" class="btn btn-secondary" style="display: none;">Open Wardrobe</button>
+        <div>
+            <h2>Lives Remaining: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
+        </div>
+        <!-- Clue button -->
+        <button id="clueButton" class="btn btn-info">Reveal Clue</button>
+        <img id="clueImage" src="/Images/clue.jpg" alt="Clue" style="display:none;" />
 
-        <!-- Chest Modal -->
+        <!-- Chest and wardrobe buttons -->
+        <button id="openChestButton" class="btn btn-primary" style="display:none;">Open Chest</button>
+        <button id="wardrobeButton" class="btn btn-secondary" style="display:none;">Open Wardrobe</button>
+
+        <!-- Chest Modal (Key Reveal) -->
         <div class="modal fade" id="chestModal" tabindex="-1" role="dialog" aria-labelledby="chestModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -48,8 +54,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="cassaforteForm">
-                            <div id="cassaforte">
+                        <form id="safeForm">
+                            <div id="safe">
                                 <div id="display">
                                     <input type="text" id="codeDisplay" name="Code" readonly />
                                 </div>
@@ -106,6 +112,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="/js/room1/script.js"></script>
 </body>
 </html>
