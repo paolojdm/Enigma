@@ -33,13 +33,14 @@ namespace Enigma_Protocol.Controllers
 
             if (playerProgress == null)
             {
-                // Create a new PlayerProgress entry for the user
-                playerProgress = new PlayerProgress
-                {
-                    PlayerID = userId,
-                    Current_Lives_Room = 3,
-                    SolvedPuzzles = 0
-                };
+				// Create a new PlayerProgress entry for the user
+				playerProgress = new PlayerProgress
+				{
+					PlayerID = userId,
+					Current_Lives_Room = 3,
+					SolvedPuzzles = 0,
+					CurrentRoomId = 2
+				};
                 _context.PlayerProgresses.Add(playerProgress);
             }
             else
