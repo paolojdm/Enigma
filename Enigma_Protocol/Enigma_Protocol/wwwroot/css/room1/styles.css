@@ -4,18 +4,27 @@ body {
     background-color: #1b1b1bff !important;
 }
 
+
+.container{
+    margin-left: 200px;
+}
 .container2 {
-    position: relative; /* Position relative for absolute positioning of buttons */
-    width: 100%; /* Full width */
-    height: 0; /* Initial height */
-    padding-bottom: 75%; /* This sets the aspect ratio of the container (e.g., 4:3 ratio) */
-    background-image: url('/Images/Castello1_Prova.jpg'); /* Set your background image */
+    /* Ensure the container has a defined height and width */
+    min-width: 1450px; /* Maximum width */
+
+    max-width: 1600px; /* Maximum width */
+    max-height: 835px; /* Maximum height */
+    width: 100%; /* Responsive */
+    height: auto; /* Responsive */
+    margin: 0 auto; /* Center the container */
+    background-image: url('/Images/DesignerRoom1_(1).jpeg'); /* Set your background image here */
     background-size: cover; /* Cover the entire container */
     background-position: center; /* Center the background image */
-    background-repeat: no-repeat;
+    aspect-ratio: 1.9 / 1; /* Set aspect ratio to 1.9:1 */
+    position: relative; /* Ensure children can be positioned relative to this */
 }
 
-h1,h2,h3{
+h1,h2,h3,h4,h5,h6{
     color: #f5f5f5;
 }
 
@@ -26,36 +35,29 @@ h1,h2,h3{
 
 }
 
-#clueButton {
-    position: absolute; /* Position the button absolutely */
-    top: 55%; /* Adjust according to your image */
-    left: 25%; /* Adjust according to your image */
-    transform: translate(-50%, -50%); /* Center the button */
-    display: block; /* Show the button */
+#clueButton, #openChestButton, #wardrobeButton {
+    position: absolute; /* Position the buttons absolutely within .container2 */
+    background-color: transparent; /* Make the background transparent */
+    border: none; /* Remove borders */
+    opacity: 0; /* Make buttons invisible (but still clickable) */
+    
     cursor: default;
-    scale: 80%;
-
 }
 
+#clueButton {
+    top: 55%; /* Adjust according to your image */
+    left: 77%; /* Adjust according to your image */
+}
+
+
 #openChestButton {
-    position: absolute; /* Position the button absolutely */
-    top: 79%; /* Adjust according to your image */
-    left: 81%; /* Adjust according to your image */
-    transform: translate(-50%, -50%); /* Center the button */
-    display: block; /* Show the button */
-    cursor: default;
-    scale: 80%;
+    top: 75%; /* Adjust according to your image */
+    left: 62%; /* Adjust according to your image */
 }
 
 #wardrobeButton {
-    position: absolute; /* Position the button absolutely */
-    top: 48%; /* Adjust according to your image */
-    left: 39%; /* Adjust according to your image */
-    transform: translate(-50%, -50%); /* Center the button */
-    display: none; /* Keep it hidden initially */
-    cursor: default;
-    scale: 75%;
-
+    top: 46%; /* Adjust according to your image */
+    left: 42%; /* Adjust according to your image */
 }
 
 #puzzle-board img {

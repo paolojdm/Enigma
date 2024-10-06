@@ -183,10 +183,18 @@ namespace Enigma_Protocol.Controllers
             return View();
         }
         // Example method for transitioning to the next room
-        public IActionResult NextRoom()
+        public async Task<IActionResult> NextRoom()
         {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            // Attempt to fetch existing PlayerProgress
+            var playerProgress = await _context.PlayerProgresses
+                .Include(pp => pp.User)
+                .FirstOrDefaultAsync(pp => pp.PlayerID == userId);
+
+
             // Logic to set up next room
-            return View("Transition"); // This will return the Transition.cshtml view
+            return View("Transition",playerProgress); // This will return the Transition.cshtml view
         }
     }
 }

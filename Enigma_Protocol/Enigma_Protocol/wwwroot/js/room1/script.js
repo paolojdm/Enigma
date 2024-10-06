@@ -235,7 +235,7 @@ function checkIfPuzzleSolved() {
     }
 
     alert("Congratulations! You solved the puzzle!");
-    window.location.href = '/Puzzle/CompleteImagePuzzle';
+    window.location.href = '/Puzzle/NextRoom';
 }
 
 function completeReorderPuzzle() {

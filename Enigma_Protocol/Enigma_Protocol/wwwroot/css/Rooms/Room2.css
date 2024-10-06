@@ -5,16 +5,18 @@ body {
     background-color: #f8f9fa; /* Light background color */
 }
 
-.container2 {
-    position: relative; /* Relative positioning */
-    width: 100%; /* Full width */
-    height: 100vh; /* Full height */
-    display: flex; /* Use flexbox */
-    flex-direction: column; /* Stack items vertically */
-    justify-content: center; /* Center items vertically */
-    align-items: center; /* Center items horizontally */
-    text-align: center; /* Center text */
-}
+/*.container2 {
+
+
+    position: relative;*/ /* Relative positioning */
+    /*width: 100%;*/ /* Full width */
+    /*height: 100vh;*/ /* Full height */
+    /*display: flex;*/ /* Use flexbox */
+    /*flex-direction: column;*/ /* Stack items vertically */
+    /*justify-content: center;*/ /* Center items vertically */
+    /*align-items: center;*/ /* Center items horizontally */
+    /*text-align: center;*/ /* Center text */
+/*}*/
 
 .button-container {
     margin-top: 20px; /* Add some space above buttons */
@@ -24,3 +26,33 @@ body {
     margin: 10px; /* Add some space between buttons */
     padding: 10px 20px; /* Padding for buttons */
 }
+
+.container2 {
+    /* Ensure the container has a defined height and width */
+    min-width: 1450px; /* Maximum width */
+
+    max-width: 1600px; /* Maximum width */
+    max-height: 835px; /* Maximum height */
+    width: 100%; /* Responsive */
+    height: auto; /* Responsive */
+    margin: 0 auto; /* Center the container */
+    background-image: url('/Images/DesignerRoom1_(1).jpeg'); /* Set your background image here */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    aspect-ratio: 1.9 / 1; /* Set aspect ratio to 1.9:1 */
+    position: relative; /* Ensure children can be positioned relative to this */
+}
+
+/*#clueButton, #openChestButton, #wardrobeButton {
+    position: absolute;*/ /* Position the buttons absolutely within .container2 */
+    /*background-color: transparent;*/ /* Make the background transparent */
+    /*border: none;*/ /* Remove borders */
+    /*opacity: 0;*/ /* Make buttons invisible (but still clickable) */
+
+    /*cursor: default;
+}
+
+#clueButton {
+    top: 55%;*/ /* Adjust according to your image */
+    /*left: 77%;*/ /* Adjust according to your image */
+/*}*/
