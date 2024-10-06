@@ -4,22 +4,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Puzzle Game - Room 3</title>
-	
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/Rooms/Room3.css">
-	<script src="/js/room3/room3.js?v=1.1" defer></script>
+	<script src="/js/room3/room3.js?v=1.2" defer></script>
 </head>
 <body>
 	<div class="container2">
-		<div>
-			<h2>Lives: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
-			<h1 id="globalTimer">Time: 10:00</h1> <!-- Timer for Room 3 (10 minutes) -->
-		</div>
+
 		<div class="button-container">
-			<button id="letteraVasoButton" class="btn btn-primary" data-toggle="modal" data-target="#letteraVasoModal">Mostra Lettera Vaso</button>
-			<button id="armorButton" class="btn btn-secondary" data-toggle="modal" data-target="#armorModal">Leggi l'Armatura</button>
-			<button id="spadaButton" class="btn btn-danger" data-toggle="modal" data-target="#spadaModal">Trova La Spada</button>
-			<button id="scudoButton" class="btn btn-warning" data-toggle="modal" data-target="#scudoModal">Scrivi Soluzione per Scudo</button>
+			<div>
+				<h2>Lives: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
+				<h1 id="globalTimer">Time: 10:00</h1> <!-- Timer for Room 3 (10 minutes) -->
+			</div>
+			<!-- Buttons are initially hidden and revealed in sequence -->
+			<button id="letteraVasoButton" class="btn btn-primary clue-btn" data-toggle="modal" data-target="#letteraVasoModal">Vaso</button>
+			<button id="armorButton" class="btn btn-secondary clue-btn" data-toggle="modal" data-target="#armorModal">Leggi l'Armatura</button>
+			<button id="spadaButton" class="btn btn-danger clue-btn" data-toggle="modal" data-target="#spadaModal">Trova La Spadaaaaaaa</button>
+			<button id="scudoButton" class="btn btn-warning puzzle-btn" data-toggle="modal" data-target="#scudoModal">Scrivi Soluzione per Scudo</button>
 		</div>
 
 		<!-- Lettera Vaso Modal -->
@@ -93,10 +95,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<!-- Display Scudo Image -->
 						<img src="/Images/Scudo.jpg" alt="Scudo Image" class="img-fluid mb-3" />
-
-						<!-- AJAX Form for Submitting the Puzzle -->
 						<form id="codeForm">
 							<div class="form-group">
 								<label for="word">Inserisci la parola:</label>

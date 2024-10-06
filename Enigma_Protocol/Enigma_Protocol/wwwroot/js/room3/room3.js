@@ -30,7 +30,7 @@ function startGlobalTimer() {
         // Format minutes and seconds with leading zeros if needed
         const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-        timerElement.innerText = `Time Remaining: ${formattedTime}`;
+        timerElement.innerText = `Time: ${formattedTime}`;
 
         if (globalTimeLeft <= 0) {
             clearInterval(globalTimerInterval);
@@ -94,4 +94,31 @@ async function submitCode() {
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+
+window.onload = function () {
+    startGlobalTimer();
+    revealButtonsSequentially();
+};
+
+function revealButtonsSequentially() {
+    const letteraVasoButton = document.getElementById('letteraVasoButton');
+    const armorButton = document.getElementById('armorButton');
+    const spadaButton = document.getElementById('spadaButton');
+    const scudoButton = document.getElementById('scudoButton');
+
+    letteraVasoButton.style.display = 'block'; // First button
+
+    letteraVasoButton.addEventListener('click', () => {
+        armorButton.style.display = 'block'; // Reveal second button
+    });
+
+    armorButton.addEventListener('click', () => {
+        spadaButton.style.display = 'block'; // Reveal third button
+    });
+
+    spadaButton.addEventListener('click', () => {
+        scudoButton.style.display = 'block'; // Reveal final solution button
+    });
 }

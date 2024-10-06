@@ -6,9 +6,12 @@ body {
 }
 
 .button-container {
-    margin-top: 20px; /* Add some space above buttons */
+    margin-top: 1px; /* Add some space above buttons */
 }
 
+.container{
+    margin-left: 100px;
+}
 .btn {
     margin: 10px; /* Add some space between buttons */
     padding: 10px 20px; /* Padding for buttons */
@@ -16,10 +19,10 @@ body {
 
 .container2 {
     /* Ensure the container has a defined height and width */
-    min-width: 1450px; /* Maximum width */
+    min-width: 1510px; /* Maximum width */
 
-    max-width: 1600px; /* Maximum width */
-    max-height: 835px; /* Maximum height */
+    max-width: 1690px; /* Maximum width */
+    max-height: 880px; /* Maximum height */
     width: 100%; /* Responsive */
     height: auto; /* Responsive */
     margin: 0 auto; /* Center the container */
@@ -28,4 +31,72 @@ body {
     background-position: center; /* Center the background image */
     aspect-ratio: 1.9 / 1; /* Set aspect ratio to 1.9:1 */
     position: relative; /* Ensure children can be positioned relative to this */
+    border-radius: 10px;
+}
+
+h2, h3, h4, h5, h6 {
+    padding-top: 15px;
+    padding-left: 15px;
+
+    color: #f5f5f5;
+    text-shadow: 5px 3px 5px black, 0 0 0.5em black, 0 0 0.9em black;
+}
+h1 {
+    padding-top: 1px;
+    padding-left: 15px;
+    color: #f5f5f5;
+    text-shadow: 5px 3px 5px black, 0 0 0.5em black, 0 0 0.9em black;
+}
+.modal-title {
+    color: #fff;
+}
+
+.modal-content {
+    background-color: #1b1b1bff
+}
+/* Make the container relative to position buttons */
+
+
+/* Absolute positioning for buttons relative to container2 */
+#primoPiattoButton {
+    position: absolute;
+    top: 475px;
+    left: 620px;
+    padding: 10px;
+    border: 0px;
+    margin: 0px;
+    opacity: 70%;
+}
+
+#napkin2Button {
+    position: absolute;
+    top: 410px;
+    left: 840px;
+    padding: 3px;
+    border: 0px;
+    margin: 0px;
+    opacity: 70%;
+}
+
+#secondoPiattoButton {
+    position: absolute;
+    top: 30px;
+    left: 700px;
+    opacity: 85%;
+    background-color: green;
+    border:none;
+
+
+
+}
+
+/* Hide clue buttons initially for sequential reveal */
+.clue-btn, .puzzle-btn {
+    display: none;
+}
+
+/* Show buttons for testing */
+#primoPiattoButton, #napkin2Button, #secondoPiattoButton {
+    
+    cursor: default;
 }

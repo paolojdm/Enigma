@@ -4,32 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puzzle Game - Room 2</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/Rooms/Room2.css">
-    <script src="/js/room2/room2scr.js?v=1.0" defer></script>
+    <script src="/js/room2/room2scr.js?v=1.3" defer></script>
 </head>
 <body>
 
 
     <div class="container2">
-        <div>
-            <h2>Lives: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
-            <h1 id="globalTimer">Time: 10:00</h1> <!-- 10 minutes = 600 seconds -->
-        </div>
-        <!-- Button container -->
         <div class="button-container">
-            <button id="primoPiattoButton" class="btn btn-primary" data-toggle="modal" data-target="#primoPiattoModal">Show First Dish</button>
-            <button id="secondoPiattoButton" class="btn btn-danger" data-toggle="modal" data-target="#secondoPiattoModal">Submit Solution</button>
+            <div>
+                <h2>Lives: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
+                <h1 id="globalTimer">Time: 10:00</h1>
+            </div>
+            <button id="primoPiattoButton" class="btn btn-primary clue-btn" data-toggle="modal" data-target="#primoPiattoModal">1</button>
+            <button id="secondoPiattoButton" class="btn btn-danger puzzle-btn" data-toggle="modal" data-target="#secondoPiattoModal">3</button>
+            <button id="napkin2Button" class="btn btn-info clue-btn" data-toggle="modal" data-target="#secondNapkinModal">2</button>
         </div>
     </div>
 
-    <!-- Modals for clues and puzzles -->
-    <!-- First Dish Modal -->
+    <!-- Existing Modals -->
     <div class="modal fade" id="primoPiattoModal" tabindex="-1" role="dialog" aria-labelledby="primoPiattoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="primoPiattoModalLabel">First Dish</h5>
+                    <h5 class="modal-title" id="primoPiattoModalLabel">Primo Piatto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -38,39 +37,58 @@
                     <img src="/Images/Napkin1.jpg" alt="Napkin Puzzle" class="img-fluid" />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Second Dish Puzzle Modal -->
+    <div class="modal fade" id="secondNapkinModal" tabindex="-1" role="dialog" aria-labelledby="secondNapkinModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="secondNapkinModalLabel">Secondo Piatto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="/Images/Napkin.jpg" alt="Second Napkin Puzzle" class="img-fluid" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="secondoPiattoModal" tabindex="-1" role="dialog" aria-labelledby="secondoPiattoModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="secondoPiattoModalLabel">Second Dish Puzzle</h5>
+                    <h5 class="modal-title" id="secondoPiattoModalLabel">Secondo Piatto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="codeForm">
+                    <form id="codeForm" method="post">
                         <div class="form-group">
-                            <label for="word">Enter the word:</label>
-                            <input type="text" id="word" class="form-control" required />
+                            <label for="word">Inserisci la parola:</label>
+                            <input type="text" name="word" id="word" class="form-control" required />
                         </div>
-                        <button type="button" class="btn btn-success" onclick="submitCode()">Submit</button>
+                        <button type="button" class="btn btn-success" onclick="submitCode()">Invia</button>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

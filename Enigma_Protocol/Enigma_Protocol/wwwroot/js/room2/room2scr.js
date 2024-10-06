@@ -1,6 +1,5 @@
 ﻿console.log('Room2 JS file loaded'); // Ensure the script is running
 
-
 //TIME LOGIC
 
 let globalTimeLeft;
@@ -31,7 +30,7 @@ function startGlobalTimer() {
         // Format minutes and seconds with leading zeros if needed
         const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-        timerElement.innerText = `Time Remaining: ${formattedTime}`;
+        timerElement.innerText = `Time: ${formattedTime}`;
 
         if (globalTimeLeft <= 0) {
             clearInterval(globalTimerInterval);
@@ -45,6 +44,7 @@ function startGlobalTimer() {
 // Start the global timer when the page loads
 window.onload = function () {
     startGlobalTimer();
+    revealButtonsSequentially();
 };
 //---------------------------------------------------------------------
 
@@ -82,4 +82,20 @@ async function submitCode() {
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+function revealButtonsSequentially() {
+    const primoPiattoButton = document.getElementById('primoPiattoButton');
+    const napkin2Button = document.getElementById('napkin2Button');
+    const secondoPiattoButton = document.getElementById('secondoPiattoButton');
+
+    primoPiattoButton.style.display = 'block'; // First clue button
+
+    primoPiattoButton.addEventListener('click', () => {
+        napkin2Button.style.display = 'block'; // Reveal second clue button
+    });
+
+    napkin2Button.addEventListener('click', () => {
+        secondoPiattoButton.style.display = 'block'; // Reveal final solution button
+    });
 }

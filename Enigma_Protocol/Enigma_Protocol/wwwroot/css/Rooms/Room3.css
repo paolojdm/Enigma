@@ -4,34 +4,9 @@ body {
     background-color: #1b1b1bff !important; /* Consistent background */
 }
 
-.container {
-    margin-left: 200px;
-}
-
-.container2 {
-    /* Ensure the container has a defined height and width */
-    min-width: 1450px; /* Maximum width */
-
-    max-width: 1600px; /* Maximum width */
-    max-height: 835px; /* Maximum height */
-    width: 100%; /* Responsive */
-    height: auto; /* Responsive */
-    margin: 0 auto; /* Center the container */
-    background-image: url('/Images/room3.jpeg'); /* Set your background image here */
-    background-size: cover; /* Cover the entire container */
-    background-position: center; /* Center the background image */
-    aspect-ratio: 1.9 / 1; /* Set aspect ratio to 1.9:1 */
-    position: relative; /* Ensure children can be positioned relative to this */
-}
-
-h1, h2, h3, h4, h5, h6 {
-    color: #f5f5f5;
-}
-
-
 /* Button Styling */
 button {
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 10px;
 }
 
@@ -80,4 +55,103 @@ button {
 
 .modal-content {
     background-color: #1b1b1bff
+}
+
+.button-container {
+    margin-top: 1px; /* Add some space above buttons */
+}
+
+.container {
+    margin-left: 100px;
+}
+
+.btn {
+    margin: 10px; /* Add some space between buttons */
+    padding: 10px 20px; /* Padding for buttons */
+}
+
+.container2 {
+    /* Ensure the container has a defined height and width */
+    min-width: 1510px; /* Maximum width */
+    background-image: url('/Images/room3.jpeg'); /* Set your background image here */
+    max-width: 1690px; /* Maximum width */
+    max-height: 880px; /* Maximum height */
+    width: 100%; /* Responsive */
+    height: auto; /* Responsive */
+    margin: 0 auto; /* Center the container */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    aspect-ratio: 1.9 / 1; /* Set aspect ratio to 1.9:1 */
+    position: relative; /* Ensure children can be positioned relative to this */
+    border-radius: 10px;
+}
+
+h2, h3, h4, h5, h6 {
+    padding-top: 15px;
+    padding-left: 15px;
+    color: #f5f5f5;
+    text-shadow: 5px 3px 5px black, 0 0 0.5em black, 0 0 0.9em black;
+}
+
+h1 {
+    padding-top: 1px;
+    padding-left: 15px;
+    color: #f5f5f5;
+    text-shadow: 5px 3px 5px black, 0 0 0.5em black, 0 0 0.9em black;
+}
+
+.modal-title {
+    color: #fff;
+}
+
+.modal-content {
+    background-color: #1b1b1bff
+}
+
+/* Hide clue and puzzle buttons initially for sequential reveal */
+.clue-btn, .puzzle-btn {
+    display: none;
+}
+
+#spadaButton {
+    position: absolute;
+    rotate: z 90deg;
+    top: 280px;
+    left: 860px;
+    border: 0px;
+    margin: 0px;
+    padding: 1px;
+}
+
+#letteraVasoButton {
+    position: absolute;
+    top: 570px;
+    left: 600px;
+    border: 0px;
+    margin: 0px;
+    padding: 12px;
+    rotate: z -10deg;
+}
+#armorButton {
+    position: absolute;
+    top: 340px;
+    left: 310px;
+    border: 0px;
+    margin: 0px;
+    padding: 28px;
+    rotate: z 90deg;
+}
+
+#scudoButton {
+    position: absolute;
+    top: 580px;
+    left: 170px;
+    border: 0px;
+    margin: 0px;
+    padding: 28px;
+    rotate: z 63deg;
+}
+#letteraVasoButton, #armorButton, #spadaButton, #scudoButton {
+    opacity: 70%;
+    cursor: default;
 }
