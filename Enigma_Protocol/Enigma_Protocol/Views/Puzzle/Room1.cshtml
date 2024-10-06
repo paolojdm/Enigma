@@ -6,22 +6,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puzzle Game</title>
-    <link rel="stylesheet" href="/css/room1/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/room1/styles.css">
     <script src="/js/room1/script.js?v=1.2" defer></script>
 </head>
 <body>
-
+    <div>
+        <h2>Lives: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
+        <h1 id="globalTimer">Time: 10:00</h1> <!-- 10 minutes = 600 seconds -->
+    </div>
     <div class="container2">
-        <h1>Puzzle Game</h1>
-        <div>
-            <h2>Lives Remaining: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
-            <h1 id="globalTimer">Time Remaining: 10:00</h1> <!-- 10 minutes = 600 seconds -->
-        </div>
-        <!-- Clue button -->
-        <button id="clueButton" class="btn btn-info">Reveal Clue</button>
-        <img id="clueImage" src="/Images/clue.jpg" alt="Clue" style="display:none;" />
 
+        <!-- Clue button with modal trigger -->
+        <button id="clueButton" class="btn btn-info" data-toggle="modal" data-target="#clueModal">Reveal Clue</button>
+
+        <!-- Clue Modal -->
+        <div class="modal fade" id="clueModal" tabindex="-1" role="dialog" aria-labelledby="clueModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="clueModalLabel">Clue</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="clueImage" src="/Images/clue.jpg" alt="Clue" class="img-fluid" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Chest and wardrobe buttons -->
         <button id="openChestButton" class="btn btn-primary" style="display:none;">Open Chest</button>
         <button id="wardrobeButton" class="btn btn-secondary" style="display:none;">Open Wardrobe</button>
