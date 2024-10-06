@@ -89,3 +89,67 @@ h1,h2,h3{
         height: 111px;
         border: -5px;
     }
+
+
+
+/* SAFE CSS*/
+.modal-title{
+    color: #fff;
+}
+
+.modal-content {
+    background-color: #1b1b1bff
+}
+#cassaforte {
+    background-color: #333;
+    color: white;
+    width: 220px;
+    padding: 2px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative; /* Changed from absolute to relative */
+    margin: 0 auto; /* Center the element horizontally */
+    border: 2px solid #555;
+    z-index: 10;
+}
+
+#display {
+    margin-bottom: 15px;
+}
+
+#codeDisplay {
+    background-color: green;
+    color: black;
+    font-size: 25px; /* Increased for better readability */
+    width: 140px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+
+
+}
+
+#keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1px;
+}
+
+    #keypad button {
+        width: 80px;
+        height: 60px;
+        background-color: #585858;
+        color: #fff;
+        border: none;
+        font-size: 20px; /* Increased for better readability */
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        #keypad button:hover {
+            background-color: #777;
+        }
