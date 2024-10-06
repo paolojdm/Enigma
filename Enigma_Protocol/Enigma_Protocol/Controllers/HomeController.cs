@@ -30,11 +30,11 @@ namespace Enigma_Protocol.Controllers
                 {
                     var userId = int.Parse(userIdClaim.Value);
 
-                var user = await _context.Users
-                  .Include(u => u.Orders)
-                      .ThenInclude(o => o.OrderDetails)
-                          .ThenInclude(od => od.Product)
-                  .FirstOrDefaultAsync(u => u.Id == userId);
+                    var user = await _context.Users
+                      .Include(u => u.Orders)
+                          .ThenInclude(o => o.OrderDetails)
+                              .ThenInclude(od => od.Product)
+                      .FirstOrDefaultAsync(u => u.Id == userId);
 
 
                 if (user != null)
