@@ -48,3 +48,38 @@ window.onload = function () {
 };
 //---------------------------------------------------------------------
 
+
+//alert("Congratulations! You solved the puzzle!");
+//window.location.href = '/Puzzle/NextRoom';
+
+// Assuming you are submitting the form with an AJAX request
+async function submitCode() {
+    const code = document.getElementById('word').value; // Get the input value from the form
+    const submission = { Code: code };
+
+    try {
+        const response = await fetch('/Room2/ValidateCode', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(submission)
+        });
+
+        const result = await response.json();
+
+        if (result.correct) {
+            if (result.nextRoom) {
+                alert("Congratulations! You solved the puzzle!");
+                window.location.href = '/Puzzle/NextRoom'; // Redirect to next room
+            }
+        } else {
+            alert(`Incorrect code! Lives remaining: ${result.livesRemaining}`);
+            if (result.livesRemaining === 0) {
+                alert("You lost all your lives in this room!");
+            }
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
