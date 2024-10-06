@@ -11,6 +11,7 @@
     @RenderSection("Styles", required: false) <!-- This allows you to include CSS only on certain pages -->
 </head>
 <body>
+    <div class="a">
     <header style="font-family: 'Crimson Text';">
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -61,6 +62,7 @@
         </main>
     </div>
 
+
     <!-- Load Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -74,5 +76,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    </div>
 </body>
 </html>
