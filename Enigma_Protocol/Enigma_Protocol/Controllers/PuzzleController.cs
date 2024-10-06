@@ -84,6 +84,7 @@ namespace Enigma_Protocol.Controllers
             {
                 // Correct answer logic
                 playerProgress.SolvedPuzzles += 1; // Increment solved puzzles count
+                playerProgress.CurrentRoomId = 2;
                 await _context.SaveChangesAsync();
 
                 return Json(new { success = true, message = "Correct! Proceed to the next puzzle." });
