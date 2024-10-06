@@ -2,10 +2,14 @@
 
 // Handle the deduction of lives and game over scenario
 function handleLives(response) {
+    // Update the lives remaining in the UI
+    document.getElementById('currentLives').innerText = response.livesRemaining;
+
     if (response.livesRemaining <= 0) {
-        alert("No lives remaining. Game over.");
+        // Game over scenario
         window.location.href = '/Puzzle/Fail'; // Redirect to fail page
     } else {
+        // Incorrect code scenario, but still have lives remaining
         alert("Incorrect! You lost a life. Lives remaining: " + response.livesRemaining);
     }
 }
@@ -88,16 +92,20 @@ async function submitSafeCode() {
 
     console.log('Response from server:', result); // Debug log to check the server response
 
+
     if (result.correct) {
+        // Correct code scenario
         alert('Correct code! Proceed to the next puzzle.');
-        // Handle transition to the next puzzle or update UI
+
+        // Show the Image Reorder Puzzle Modal
+        $('#puzzleModal').modal('show'); // Show the puzzle modal
+
+        // Optionally start the puzzle setup and timer if needed
+        setupPuzzle(); // Assuming you have a function to set up the puzzle
+        startTimer();  // Assuming you have a timer function
     } else {
-        alert(`Incorrect code! Lives remaining: ${result.livesRemaining}`);
-        document.getElementById('currentLives').innerText = result.livesRemaining; // Update lives in UI
-        if (result.livesRemaining <= 0) {
-            // Redirect to fail page or show fail message
-            window.location.href = '/Puzzle/Fail';
-        }
+        // Incorrect code scenario, handle lives deduction
+        handleLives(result);
     }
 
     clearCode(); // Clear code display after submission

@@ -107,49 +107,74 @@ namespace Enigma_Protocol.Controllers
 
         // POST: Validate Code for the Safe Puzzle
         [HttpPost]
-        public async Task<IActionResult> ValidateCode(string code)
+        public async Task<IActionResult> ValidateCode([FromBody] CodeSubmissionModel submission)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = await _context.Users
-                         .Include(u => u.playerProgresses) // Assuming PlayerProgress is a related entity
-                         .FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
-
-
-            var playerProgress = await _context.PlayerProgresses
-                                    .Include(p => p.User) // Ensure User is included
-                                    .FirstOrDefaultAsync(p => p.User.Id == user.Id);
-
-            if (playerProgress == null)
+            try
             {
-                return BadRequest("Player progress not found.");
-            }
 
-            var puzzle = await _context.Puzzles.FindAsync(1); // Assuming ID 1 is the safe puzzle
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-
-            var correctCode = puzzle.Answer; // Assuming the correct answer is stored in the 'Answer' field
-
-            Console.WriteLine($"\n\n\n\n\n\n\n\t\tCORRECT CODE VALUE: {correctCode}\n\n\n\n\n\n\n\n");
-
-            if (code == correctCode) // Check if the code matches
-            {
-                playerProgress.SolvedPuzzles += 1; // Increment solved puzzles count
-                await _context.SaveChangesAsync();
-
-                return Json(new { correct = true });
-            }
-            else
-            {
-                playerProgress.Current_Lives_Room -= 1; // Subtract a life
-
-                if (playerProgress.Current_Lives_Room <= 0)
+                if (string.IsNullOrEmpty(userId))
                 {
-                    await _context.SaveChangesAsync();
-                    return Json(new { correct = false, livesRemaining = 0 });
+                    return BadRequest("User ID not found.");
+                }
+                var user = await _context.Users
+                             .Include(u => u.playerProgresses) // Assuming PlayerProgress is a related entity
+                             .FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+                if (user == null)
+                {
+                    return BadRequest("User not found.");
                 }
 
-                await _context.SaveChangesAsync();
-                return Json(new { correct = false, livesRemaining = playerProgress.Current_Lives_Room });
+
+                var playerProgress = await _context.PlayerProgresses
+                                        .Include(p => p.User) // Ensure User is included
+                                        .FirstOrDefaultAsync(p => p.User.Id == user.Id);
+
+                if (playerProgress == null)
+                {
+                    return BadRequest("Player progress not found.");
+                }
+
+                var puzzle = await _context.Puzzles.FindAsync(1); // Assuming ID 1 is the safe puzzle
+                if (puzzle == null)
+                {
+                    return NotFound("Puzzle not found.");
+                }
+
+                var correctCode = puzzle.Answer; // Assuming the correct answer is stored in the 'Answer' field
+
+                Console.WriteLine($"\n\n\n\n\n\n\n\t\tCORRECT CODE VALUE: {correctCode}\n\n\n\n\n\n\n\n");
+
+                // Validate code
+                if (string.Equals(submission.Code.Trim(), correctCode.Trim(), StringComparison.OrdinalIgnoreCase))// Check if the code matches
+                {
+                    playerProgress.SolvedPuzzles += 1; // Increment solved puzzles count
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { correct = true });
+                }
+                else
+                {
+                    playerProgress.Current_Lives_Room -= 1; // Subtract a life
+
+                    if (playerProgress.Current_Lives_Room <= 0)
+                    {
+                        await _context.SaveChangesAsync();
+                        return Json(new { correct = false, livesRemaining = 0 });
+                    }
+
+                    await _context.SaveChangesAsync();
+                    return Json(new { correct = false, livesRemaining = playerProgress.Current_Lives_Room, message = $"Submitted code {submission.Code} does not match {correctCode}" });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error (you could log this to a file or a logging service)
+                Console.WriteLine($"An error occurred: {ex.Message}");
+
+                // Return 500 error with the error message
+                return StatusCode(500, new { error = ex.Message });
             }
         }
 
