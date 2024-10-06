@@ -51,6 +51,7 @@ namespace Enigma_Protocol.Controllers
         [HttpPost]
         public async Task<IActionResult> ValidateCode([FromBody] CodeSubmissionModel submission)
         {
+            Console.WriteLine($"\n\n\n\nROOM3 - Validating the code...\n\n\n\n");
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var playerProgress = await _context.PlayerProgresses
                                         .Include(p => p.User)
@@ -62,6 +63,8 @@ namespace Enigma_Protocol.Controllers
             var puzzle = await _context.Puzzles.FirstOrDefaultAsync(p => p.RoomId == 3); // Room 3 specific puzzle
             if (puzzle == null)
                 return Json(new { correct = false, message = "Puzzle not found.", livesRemaining = 0 });
+
+
 
             if (string.Equals(submission.Code.Trim(), puzzle.Answer.Trim(), StringComparison.OrdinalIgnoreCase))
             {

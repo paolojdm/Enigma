@@ -62,8 +62,10 @@ function nascondiImmagine() {
 
 // AJAX Puzzle Submission
 async function submitCode() {
+    
     const code = document.getElementById('word').value; // Get the input value from the form
     const submission = { Code: code };
+    console.log('Submitting Code:', code); // Debug log to check what is submitted
 
     try {
         const response = await fetch('/Room3/ValidateCode', {
@@ -71,13 +73,14 @@ async function submitCode() {
             headers: {
                 'Content-Type': 'application/json'
             },
+            
             body: JSON.stringify(submission)
         });
-
+        console.log('sending the packet...');
         const result = await response.json();
 
         if (result.correct) {
-            if (result.nextRoom) {
+            if (result.nextRoom === false) {
                 alert("Congratulations! You've completed the escape room!");
                 window.location.href = '/PrologoeFinale/Fine'; // Redirect to the finale
             }

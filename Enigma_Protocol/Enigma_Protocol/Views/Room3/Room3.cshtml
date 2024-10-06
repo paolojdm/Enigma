@@ -4,18 +4,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Puzzle Game - Room 3</title>
-	<link rel="stylesheet" href="/css/Rooms/Room3.css">
+	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/Rooms/Room3.css">
 	<script src="/js/room3/room3.js?v=1.1" defer></script>
 </head>
 <body>
-
-	<div>
-		<h2>Lives: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
-		<h1 id="globalTimer">Time: 10:00</h1> <!-- Timer for Room 3 (10 minutes) -->
-	</div>
-
 	<div class="container2">
+		<div>
+			<h2>Lives: <span id="currentLives">@ViewBag.CurrentLives</span></h2>
+			<h1 id="globalTimer">Time: 10:00</h1> <!-- Timer for Room 3 (10 minutes) -->
+		</div>
 		<div class="button-container">
 			<button id="letteraVasoButton" class="btn btn-primary" data-toggle="modal" data-target="#letteraVasoModal">Mostra Lettera Vaso</button>
 			<button id="armorButton" class="btn btn-secondary" data-toggle="modal" data-target="#armorModal">Leggi l'Armatura</button>

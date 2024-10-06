@@ -73,3 +73,11 @@ button {
         font-size: 1em;
     }
 }
+
+.modal-title {
+    color: #fff;
+}
+
+.modal-content {
+    background-color: #1b1b1bff
+}
