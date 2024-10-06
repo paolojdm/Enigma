@@ -1,12 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Transitioning to Next Room";
 }
+
 @{
-    if(Model.CurrentRoomId = 1)
+    if (Model.CurrentRoomId == 1 || Model.CurrentRoomId == 2 || Model.CurrentRoomId == 3)
     {
-        
+        // Code for handling the transition when the room ID is 1, 2, or 3
     }
 }
+
 <h2>Transitioning...</h2>
 <p>Loading the next room, please wait...</p>
 
