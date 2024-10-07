@@ -81,7 +81,7 @@ namespace Enigma_Protocol.Migrations
                         new
                         {
                             Id = 1,
-                            LastUpdated = new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(834),
+                            LastUpdated = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9482),
                             ProductID = 1,
                             QuantityAvailable = 102,
                             QuantityReserved = 30
@@ -89,23 +89,23 @@ namespace Enigma_Protocol.Migrations
                         new
                         {
                             Id = 2,
-                            LastUpdated = new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(837),
-                            ProductID = 3,
+                            LastUpdated = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9485),
+                            ProductID = 2,
                             QuantityAvailable = 95,
                             QuantityReserved = 28
                         },
                         new
                         {
                             Id = 3,
-                            LastUpdated = new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(839),
-                            ProductID = 4,
+                            LastUpdated = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9487),
+                            ProductID = 3,
                             QuantityAvailable = 69,
                             QuantityReserved = 16
                         },
                         new
                         {
                             Id = 4,
-                            LastUpdated = new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(840),
+                            LastUpdated = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9489),
                             ProductID = 4,
                             QuantityAvailable = 9832,
                             QuantityReserved = 312
@@ -480,7 +480,7 @@ namespace Enigma_Protocol.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(641),
+                            CreatedAt = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9343),
                             Email = "testemail2@gmail.com",
                             IsAdmin = false,
                             PasswordHash = "AQAAAAIAAYagAAAAEMhU2fip+YkyWX1Lb9EePrwEBx3DN9pUTDdInCNp1otbhZIilQMpvs4RLsNyoif49w==",
@@ -489,7 +489,7 @@ namespace Enigma_Protocol.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(700),
+                            CreatedAt = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9402),
                             Email = "testemail3@gmail.com",
                             IsAdmin = true,
                             PasswordHash = "AQAAAAIAAYagAAAAEF6JuNnjowt+kv+JEecKS5+XYbBvS1E0jcz+iqWiv8HkrqSGGmmwa6QAyA1MN7ZmAQ==",

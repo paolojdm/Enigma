@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Enigma_Protocol.Migrations
 {
     /// <inheritdoc />
-    public partial class AutoProductAdd : Migration
+    public partial class AutoProdAdd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,24 +29,24 @@ namespace Enigma_Protocol.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(641));
+                value: new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9343));
 
             migrationBuilder.UpdateData(
                 table: "Users",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(700));
+                value: new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9402));
 
             migrationBuilder.InsertData(
                 table: "Inventory",
                 columns: new[] { "Id", "LastUpdated", "ProductID", "QuantityAvailable", "QuantityReserved" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(834), 1, 102, 30 },
-                    { 2, new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(837), 3, 95, 28 },
-                    { 3, new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(839), 4, 69, 16 },
-                    { 4, new DateTime(2024, 10, 7, 7, 22, 47, 777, DateTimeKind.Local).AddTicks(840), 4, 9832, 312 }
+                    { 1, new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9482), 1, 102, 30 },
+                    { 2, new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9485), 2, 95, 28 },
+                    { 3, new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9487), 3, 69, 16 },
+                    { 4, new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9489), 4, 9832, 312 }
                 });
         }
 
@@ -76,12 +76,12 @@ namespace Enigma_Protocol.Migrations
             migrationBuilder.DeleteData(
                 table: "Products",
                 keyColumn: "Id",
-                keyValue: 2);
+                keyValue: 1);
 
             migrationBuilder.DeleteData(
                 table: "Products",
                 keyColumn: "Id",
-                keyValue: 1);
+                keyValue: 2);
 
             migrationBuilder.DeleteData(
                 table: "Products",

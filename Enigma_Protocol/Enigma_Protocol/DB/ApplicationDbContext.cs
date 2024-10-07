@@ -324,7 +324,7 @@ namespace Enigma_Protocol.DB
                 new Inventory
                 {
                     Id = 2,
-                    ProductID = 3,
+                    ProductID = 2,
                     QuantityAvailable = 95,
                     QuantityReserved = 28,
                     LastUpdated = DateTime.Now
@@ -332,7 +332,7 @@ namespace Enigma_Protocol.DB
                 new Inventory
                 {
                     Id = 3,
-                    ProductID = 4,
+                    ProductID = 3,
                     QuantityAvailable = 69,
                     QuantityReserved = 16,
                     LastUpdated = DateTime.Now
