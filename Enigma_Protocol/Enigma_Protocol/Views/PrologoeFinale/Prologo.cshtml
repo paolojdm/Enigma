@@ -1,31 +1,68 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prologo</title>
-    <link href="~/css/PrologoeFinale/Prologo.css" rel="stylesheet" />
+    <link href="/css/PrologoeFinale/Prologo.css" rel="stylesheet" />
 </head>
 <body>
-    <video autoplay muted>
-  <source src="~/video/Prologo.mp4"  type="video/mp4" />
-</video>
-    <audio id="myAudio" autoplay>
-        <source src="~/audio/Prologo.mp3" type="audio/mp3">
-    </audio>
-    <script>
-        var video = document.getElementById('myVideo');
-        var audio = document.getElementById('myAudio');
+    <div class="video-wrapper">
+        <div class="video-container">
+            <!-- Fullscreen Video with Skip Button -->
+            <video id="prologueVideo" class="prologue-video" autoplay muted>
+                <source src="/video/Prologo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
 
-        video.onplay = function () {
-            audio.play();
-        };
+            <!-- Skip Button -->
+            <button id="skipButton" class="skip-btn">Skip Prologue</button>
+        </div>
+    </div>
+
+    <!-- Background Audio -->
+    <audio id="myAudio" autoplay>
+        <source src="/Music/Prologo.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+           document.addEventListener('DOMContentLoaded', function () {
+        var video = document.getElementById('prologueVideo');
+                var audio = document.getElementById('myAudio');
+        var skipButton = document.getElementById('skipButton');
+
+        // Set audio volume to 100%
+            audio.volume = 1.0;
+
+                // Wait for user interaction to play the audio and video
+                document.addEventListener('click', () => {
+                    if (audio.paused) {
+                    audio.play().catch(error => console.error('Audio play failed:', error));
+                    }
+            });
+
+                // Ensure audio plays when the video starts playing
+                video.onplay = function () {
+                    if (audio.paused) {
+                        audio.play().catch(error => console.error('Audio play failed:', error));
+                    }
+                };
+
+                // Reveal skip button after 10 seconds
+                setTimeout(function () {
+                    skipButton.style.display = 'block';
+                }, 10000);
+
+                // Handle skip button click
+                skipButton.addEventListener('click', function () {
+                    window.location.href = '/Puzzle/Room1';
+                });
+
+                // Automatically redirect to Room 1 after video ends
+                setTimeout(function () {
+                    window.location.href = '/Puzzle/Room1';
+                }, 62000); // Adjust this timing if the video duration changes
+            });
     </script>
 </body>
 </html>
-<script>
-
-    setTimeout(function () {
-
-        window.location.href = '/Puzzle/EnterRoom/1';
-    }, 62000); i
-</script>

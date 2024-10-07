@@ -1,0 +1,43 @@
+﻿/* Transition Container Styling */
+.transition-container {
+    width: 100%; /* Use full width of the container */
+    height: 100%; /* Use full height of the container */
+    display: flex; /* Center content */
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    position: relative; /* Needed for absolute positioning of elements inside */
+}
+
+/* Transition Image Styling */
+.transition-image {
+    width: 100%; /* Fill the width of the container */
+    max-height: 80vh; /* Keep image height within 80% of the view height */
+    object-fit: contain; /* Maintain aspect ratio */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 2s ease-in-out; /* Smooth fade-in and fade-out effect */
+}
+
+    /* Apply the fade-in and fade-out effect */
+    .transition-image.fade-in-out {
+        opacity: 1; /* Make image fully visible */
+        animation: fadeInOut 4s ease-in-out; /* Use animation to handle fade */
+    }
+
+/* Fade In and Fade Out Animation Keyframes */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0; /* Start with the image hidden */
+    }
+
+    25% {
+        opacity: 1; /* Fade in the image */
+    }
+
+    75% {
+        opacity: 1; /* Keep image visible for some time */
+    }
+
+    100% {
+        opacity: 0; /* Fade out the image */
+    }
+}

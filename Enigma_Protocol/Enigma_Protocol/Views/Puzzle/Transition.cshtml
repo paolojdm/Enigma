@@ -4,27 +4,48 @@
     ViewData["Title"] = "Transitioning to Next Room";
 }
 
+@section Styles {
+    <link href="~/css/PrologoeFinale/Transition.css" rel="stylesheet" />
+}
+
 <h2>Transitioning...</h2>
 <p>Loading the next room, please wait...</p>
-<video autoplay muted>
-    <source src="~/videos/transition.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
+
+<!-- Container for the transition image -->
+<div class="transition-container">
+    <img id="transitionImage" class="transition-image" src="~/Images/transitionroom2.png" alt="Transition Image">
+</div>
+
+<!-- Background Audio Element -->
+<audio id="transitionAudio" autoplay>
+    <source src="~/Music/transitiondoor.mp3" type="audio/mp3"> <!-- Change to the appropriate audio file path -->
+    Your browser does not support the audio element.
+</audio>
 
 <script>
-    // Redirect to the next room after video ends
-    const video = document.querySelector('video');
-    video.onended = function () {
-        switch (@Model.CurrentRoomId) {
-            case 1:
-                    window.location.href = '@Url.Action("Room2", "Room2")';
-                    break;
-                case 2:
-                    window.location.href = '@Url.Action("Room3", "Room3")';
-                    break;
-                default:
-                    window.location.href = '@Url.Action("Fine", "PrologoeFinale")'; // Game completed
-                    break;
-            }
-        };
+    document.addEventListener('DOMContentLoaded', function () {
+        const transitionImage = document.getElementById('transitionImage');
+        const transitionAudio = document.getElementById('transitionAudio');
+
+        // Set initial volume
+            transitionAudio.volume = 1.0;
+
+            // Start fading in the image
+            transitionImage.classList.add('fade-in-out');
+
+            // Redirect to the next room after 5 seconds (adjust timing as needed)
+            setTimeout(function () {
+                switch (@Model.CurrentRoomId) {
+                    case 1:
+                        window.location.href = '@Url.Action("Room2", "Room2")';
+                        break;
+                    case 2:
+                        window.location.href = '@Url.Action("Room3", "Room3")';
+                        break;
+                    default:
+                        window.location.href = '@Url.Action("Fine", "PrologoeFinale")'; // Game completed
+                        break;
+                }
+            }, 5000); // Adjust this timing based on the duration of the audio and transition effect
+        });
 </script>

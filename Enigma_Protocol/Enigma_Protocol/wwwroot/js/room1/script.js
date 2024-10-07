@@ -163,7 +163,7 @@ function startTimer() {
 
     timerInterval = setInterval(() => {
         timeLeft--;
-        timerElement.innerText = `Time Remaining: ${timeLeft} s`;
+        timerElement.innerText = `Time: ${timeLeft} s`;
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
@@ -290,3 +290,23 @@ function startGlobalTimer() {
 window.onload = function () {
     startGlobalTimer();
 };
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var audio = document.getElementById('backgroundAudio');
+    var playButton = document.getElementById('playButton');
+    var pauseButton = document.getElementById('pauseButton');
+
+    // Set initial volume (adjust as needed)
+    audio.volume = 0.5;
+
+    // Optional: Play/Pause button event listeners
+    playButton.addEventListener('click', function () {
+        audio.play();
+    });
+
+    pauseButton.addEventListener('click', function () {
+        audio.pause();
+    });
+});

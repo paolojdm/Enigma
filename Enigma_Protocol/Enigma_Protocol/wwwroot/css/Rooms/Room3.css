@@ -72,9 +72,9 @@ button {
 
 .container2 {
     /* Ensure the container has a defined height and width */
-    min-width: 1510px; /* Maximum width */
+    min-width: 1660px !important; /* Maximum width */
     background-image: url('/Images/room3.jpeg'); /* Set your background image here */
-    max-width: 1690px; /* Maximum width */
+    max-width: 1700px; /* Maximum width */
     max-height: 880px; /* Maximum height */
     width: 100%; /* Responsive */
     height: auto; /* Responsive */
@@ -116,8 +116,8 @@ h1 {
 #spadaButton {
     position: absolute;
     rotate: z 90deg;
-    top: 280px;
-    left: 860px;
+    top: 315px;
+    left: 950px;
     border: 0px;
     margin: 0px;
     padding: 1px;
@@ -125,8 +125,8 @@ h1 {
 
 #letteraVasoButton {
     position: absolute;
-    top: 570px;
-    left: 600px;
+    top: 630px;
+    left: 650px;
     border: 0px;
     margin: 0px;
     padding: 12px;
@@ -134,21 +134,21 @@ h1 {
 }
 #armorButton {
     position: absolute;
-    top: 340px;
-    left: 310px;
+    top: 380px;
+    left: 350px;
     border: 0px;
     margin: 0px;
-    padding: 28px;
+    padding: 30px;
     rotate: z 90deg;
 }
 
 #scudoButton {
     position: absolute;
-    top: 580px;
-    left: 170px;
+    top: 620px;
+    left: 190px;
     border: 0px;
     margin: 0px;
-    padding: 28px;
+    padding: 32px;
     rotate: z 63deg;
 }
 #letteraVasoButton, #armorButton, #spadaButton, #scudoButton {

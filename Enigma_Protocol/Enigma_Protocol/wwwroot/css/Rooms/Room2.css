@@ -19,7 +19,7 @@ body {
 
 .container2 {
     /* Ensure the container has a defined height and width */
-    min-width: 1510px; /* Maximum width */
+    min-width: 1660px !important; /* Maximum width */
 
     max-width: 1690px; /* Maximum width */
     max-height: 880px; /* Maximum height */

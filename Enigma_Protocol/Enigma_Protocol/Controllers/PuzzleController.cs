@@ -192,6 +192,10 @@ namespace Enigma_Protocol.Controllers
                 .Include(pp => pp.User)
                 .FirstOrDefaultAsync(pp => pp.PlayerID == userId);
 
+            if (playerProgress == null)
+            {
+                return RedirectToAction("Error", "Home"); // Or handle the error appropriately
+            }
 
             // Logic to set up next room
             return View("Transition",playerProgress); // This will return the Transition.cshtml view
