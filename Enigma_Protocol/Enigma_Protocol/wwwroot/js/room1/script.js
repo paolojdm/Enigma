@@ -260,7 +260,7 @@ function startGlobalTimer() {
     }
 
     // Retrieve remaining time from localStorage, or start at 600 seconds (10 minutes)
-    globalTimeLeft = localStorage.getItem('globalTimeLeft') ? parseInt(localStorage.getItem('globalTimeLeft')) : 600;
+    globalTimeLeft = localStorage.getItem('globalTimeLeft') ? parseInt(localStorage.getItem('globalTimeLeft')) : 1800;
 
     globalTimerInterval = setInterval(() => {
         globalTimeLeft--;
@@ -275,7 +275,7 @@ function startGlobalTimer() {
         // Format minutes and seconds with leading zeros if needed
         const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-        timerElement.innerText = `Time Remaining: ${formattedTime}`;
+        timerElement.innerText = `Time: ${formattedTime}`;
 
         if (globalTimeLeft <= 0) {
             clearInterval(globalTimerInterval);

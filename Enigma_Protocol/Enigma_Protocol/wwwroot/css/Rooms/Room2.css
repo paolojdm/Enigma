@@ -60,34 +60,31 @@ h1 {
 /* Absolute positioning for buttons relative to container2 */
 #primoPiattoButton {
     position: absolute;
-    top: 475px;
-    left: 620px;
-    padding: 10px;
+    top: 520px;
+    left: 700px;
+    padding: 15px;
     border: 0px;
     margin: 0px;
-    opacity: 70%;
 }
 
 #napkin2Button {
     position: absolute;
-    top: 410px;
-    left: 840px;
-    padding: 3px;
+    top: 455px;
+    left: 930px;
+    padding: 10px;
     border: 0px;
     margin: 0px;
-    opacity: 70%;
+    cursor: default;
 }
 
 #secondoPiattoButton {
     position: absolute;
     top: 30px;
     left: 700px;
-    opacity: 85%;
     background-color: green;
-    border:none;
-
-
-
+    border: none;
+    cursor: default;
+    opacity: 87%;
 }
 
 /* Hide clue buttons initially for sequential reveal */
@@ -96,7 +93,7 @@ h1 {
 }
 
 /* Show buttons for testing */
-#primoPiattoButton, #napkin2Button, #secondoPiattoButton {
-    
+#primoPiattoButton, #napkin2Button {
+    opacity: 0%;
     cursor: default;
 }

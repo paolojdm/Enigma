@@ -152,6 +152,6 @@ h1 {
     rotate: z 63deg;
 }
 #letteraVasoButton, #armorButton, #spadaButton, #scudoButton {
-    opacity: 70%;
+    opacity: 0%;
     cursor: default;
 }

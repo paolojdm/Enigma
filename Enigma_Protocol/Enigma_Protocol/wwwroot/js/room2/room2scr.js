@@ -15,7 +15,7 @@ function startGlobalTimer() {
     }
 
     // Retrieve remaining time from localStorage, or start at 600 seconds (10 minutes)
-    globalTimeLeft = localStorage.getItem('globalTimeLeft') ? parseInt(localStorage.getItem('globalTimeLeft')) : 600;
+    globalTimeLeft = localStorage.getItem('globalTimeLeft') ? parseInt(localStorage.getItem('globalTimeLeft')) : 1800;
 
     globalTimerInterval = setInterval(() => {
         globalTimeLeft--;
