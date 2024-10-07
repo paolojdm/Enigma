@@ -27,12 +27,17 @@
 		<form>
         <a class="btn btn-primary" href="/Cart">View Cart</a>
         </form>
+        <form>
+            <a class="btn btn-primary" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+        </form>
 		<form>
         <a class="btn btn-secondary" asp-action="EditProfile" asp-controller="Account">Edit Profile</a>
         </form>
         <form id="logoutbtn" class="btn-lgt" asp-action="Logout" asp-controller="Account" method="post">
             <button class="btn btn-logout" type="submit">Logout</button>
         </form>
+
+        
 
     </div>
 </body>

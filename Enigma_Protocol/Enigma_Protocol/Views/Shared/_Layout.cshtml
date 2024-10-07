@@ -44,13 +44,6 @@
                                 <a class="nav-link text-dark" href="/Account/Login">Login</a>
                             </li>
                         }
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Admin Panel</a>
-                            </li>
-                        }
                     </ul>
                 </div>
             </div>

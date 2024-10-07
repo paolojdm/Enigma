@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var pauseButton = document.getElementById('pauseButton');
 
     // Set initial volume (adjust as needed)
-    audio.volume = 0.5;
+    audio.volume = 1.0;
 
     // Optional: Play/Pause button event listeners
     playButton.addEventListener('click', function () {

@@ -34,7 +34,9 @@ namespace Enigma_Protocol.Controllers
                 {
                     PlayerID = userId,
                     Current_Lives_Room = 3,
-                    SolvedPuzzles = 0
+                    SolvedPuzzles = 0,
+                    CurrentRoomId = 1
+                    
                 };
                 _context.PlayerProgresses.Add(playerProgress);
             }
@@ -42,7 +44,8 @@ namespace Enigma_Protocol.Controllers
             {
                 // Update existing PlayerProgress with new values
                 playerProgress.Current_Lives_Room = 3;
-
+                playerProgress.CurrentRoomId = 1;
+                Console.WriteLine($"\n\n\n\n \t\t CURRENT ROOM ID: {playerProgress.CurrentRoomId}\n\n\n\n\n");
                 _context.PlayerProgresses.Update(playerProgress); // Ensure to mark it as updated
             }
 
@@ -192,6 +195,7 @@ namespace Enigma_Protocol.Controllers
                 .Include(pp => pp.User)
                 .FirstOrDefaultAsync(pp => pp.PlayerID == userId);
 
+            Console.WriteLine($"\n\n\n\n \t\t CURRENT ROOM ID (transition): {playerProgress.CurrentRoomId}\n\n\n\n\n");
             if (playerProgress == null)
             {
                 return RedirectToAction("Error", "Home"); // Or handle the error appropriately
