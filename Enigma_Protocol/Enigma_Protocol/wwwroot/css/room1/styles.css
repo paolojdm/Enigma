@@ -46,13 +46,17 @@ h1 {
     height: 596px;
 }
 
-#clueButton, #openChestButton, #wardrobeButton {
+#clueButton,#clueButtonBed, #openChestButton, #wardrobeButton {
     position: absolute; /* Position the buttons absolutely within .container2 */
     background-color: transparent; /* Make the background transparent */
     border: none; /* Remove borders */
-    opacity: 0; /* Make buttons invisible (but still clickable) */
+    opacity: 100; /* Make buttons invisible (but still clickable) */
     
     cursor: default;
+}
+#clueButtonBed {
+    top: 60%; /* Adjust according to your image */
+    left: 40%; /* Adjust according to your image */
 }
 
 #clueButton {
