@@ -33,7 +33,9 @@ body {
     position: relative; /* Ensure children can be positioned relative to this */
     border-radius: 10px;
 }
-
+.modal-body {
+    color: #f5f5f5;
+}
 h2, h3, h4, h5, h6 {
     padding-top: 15px;
     padding-left: 15px;
@@ -60,18 +62,20 @@ h1 {
 /* Absolute positioning for buttons relative to container2 */
 #primoPiattoButton {
     position: absolute;
-    top: 520px;
-    left: 700px;
-    padding: 15px;
+    top: 510px;
+    left: 630px;
+    padding-top: 15px;
+    padding-right: 22px;
+    padding-left: 22px;
     border: 0px;
     margin: 0px;
 }
 
 #napkin2Button {
     position: absolute;
-    top: 455px;
-    left: 930px;
-    padding: 10px;
+    top: 435px;
+    left: 950px;
+    padding: 14px;
     border: 0px;
     margin: 0px;
     cursor: default;

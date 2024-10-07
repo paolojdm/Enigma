@@ -24,7 +24,9 @@ body {
     position: relative; /* Ensure children can be positioned relative to this */
     border-radius: 10px;
 }
-
+.modal-body {
+    color: #f5f5f5;
+}
 h2, h3, h4, h5, h6 {
     padding-top: 15px;
     padding-left: 15px;
@@ -50,13 +52,13 @@ h1 {
     position: absolute; /* Position the buttons absolutely within .container2 */
     background-color: transparent; /* Make the background transparent */
     border: none; /* Remove borders */
-    opacity: 100; /* Make buttons invisible (but still clickable) */
+    opacity: 0; /* Make buttons invisible (but still clickable) */
     
     cursor: default;
 }
 #clueButtonBed {
-    top: 60%; /* Adjust according to your image */
-    left: 40%; /* Adjust according to your image */
+    top: 65%; /* Adjust according to your image */
+    left: 47%; /* Adjust according to your image */
 }
 
 #clueButton {
