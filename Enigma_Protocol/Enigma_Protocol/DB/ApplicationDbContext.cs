@@ -259,6 +259,93 @@ namespace Enigma_Protocol.DB
                 }
             );
 
-        }
+            //Id { get; set; }
+
+            //ProductName { get; set; }
+            //ProductDescription { get; set; }
+            //Price { get; set; }
+            //ProductType { get; set; }
+            //ImageUrl { get; set; }
+
+            modelBuilder.Entity<Product>().HasData(
+                    new Product
+                    {
+                        Id = 1,
+                        ProductName = "T-Shirt - Black",
+                        ProductDescription = "A black T-shirt, sizes S-M-L, with high quality printing.",
+                        Price = 24.99,
+                        ProductType = "T-Shirt",
+                        ImageUrl = "/Images/tshirt2.jpg"
+
+                    },
+                    new Product
+                    {
+                        Id = 2,
+                        ProductName = "Cup - White",
+                        ProductDescription = "A white coffee cup, with high quality printing.",
+                        Price = 14.99,
+                        ProductType = "Cup",
+                        ImageUrl = "/Images/tazza2.jpg"
+                    },
+                    new Product
+                    {
+                        Id = 3,
+                        ProductName = "Cap - Black",
+                        ProductDescription = "A black cap, sizes size M, with high quality printing.",
+                        Price = 19.99,
+                        ProductType = "Cap",
+                        ImageUrl = "/Images/cap2.jpg"
+                    },
+                    new Product
+                    {
+                        Id = 4,
+                        ProductName = "Escape Room",
+                        ProductDescription = "A one time access to the Horror Escape Room.",
+                        Price = 19.99,
+                        ProductType = "Game",
+                        ImageUrl = "/Images/zzgame.jpg"
+                    });
+
+            //int Id 
+            //int ProductID 
+            //int QuantityAvailable
+            //int QuantityReserved 
+            //DateTime LastUpdated 
+
+            modelBuilder.Entity<Inventory>().HasData(
+                new Inventory
+                {
+                    Id = 1,
+                    ProductID = 1,
+                    QuantityAvailable = 102,
+                    QuantityReserved = 30,
+                    LastUpdated = DateTime.Now
+                },
+                new Inventory
+                {
+                    Id = 2,
+                    ProductID = 3,
+                    QuantityAvailable = 95,
+                    QuantityReserved = 28,
+                    LastUpdated = DateTime.Now
+                },
+                new Inventory
+                {
+                    Id = 3,
+                    ProductID = 4,
+                    QuantityAvailable = 69,
+                    QuantityReserved = 16,
+                    LastUpdated = DateTime.Now
+                },
+                new Inventory
+                {
+                    Id = 4,
+                    ProductID = 4,
+                    QuantityAvailable = 9832,
+                    QuantityReserved = 312,
+                    LastUpdated = DateTime.Now
+                });
+
+    }
     }
 }
