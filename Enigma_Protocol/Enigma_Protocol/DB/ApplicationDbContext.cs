@@ -191,6 +191,161 @@ namespace Enigma_Protocol.DB
                     RoomDescription = "An ancient armoury."
                 }
             );
-        }
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    UserName = "Presentazione_Utente1",
+                    Email = "testemail2@gmail.com",
+                    PasswordHash = "AQAAAAIAAYagAAAAEMhU2fip+YkyWX1Lb9EePrwEBx3DN9pUTDdInCNp1otbhZIilQMpvs4RLsNyoif49w==",
+                    // non has password: paffword
+                    ShippingAddress = null,
+                    CreatedAt = DateTime.Now,
+                    IsAdmin = false,
+                    CardCVC = null,
+                    CardNumber = null,
+                    CardOwner = null,
+                    CardType = null,
+                    ExpirationDate = null
+                },
+                new User
+                {
+                    Id = 2,
+                    UserName = "Presentazione_Admin1",
+                    Email = "testemail3@gmail.com",
+                    PasswordHash = "AQAAAAIAAYagAAAAEF6JuNnjowt+kv+JEecKS5+XYbBvS1E0jcz+iqWiv8HkrqSGGmmwa6QAyA1MN7ZmAQ==",
+                    // non has password: paffword
+                    ShippingAddress = null,
+                    CreatedAt = DateTime.Now,
+                    IsAdmin = true,
+                    CardCVC = null,
+                    CardNumber = null,
+                    CardOwner = null,
+                    CardType = null,
+                    ExpirationDate = null
+                }
+            );
+
+
+            modelBuilder.Entity<Puzzle>().HasData(
+                new Puzzle
+                {
+                    Id = 1,
+                    Question = "Enter the code",
+                    Answer = "4359",
+                    RoomId = 1
+                },
+                new Puzzle
+                {
+                    Id = 2,
+                    Question = "Reorder the image",
+                    Answer = "true",
+                    RoomId = 1
+                },
+                new Puzzle
+                {
+                    Id = 3,
+                    Question = "Enter the right word",
+                    Answer = "tenebre",
+                    RoomId = 2
+                },
+                new Puzzle
+                {
+                    Id = 4,
+                    Question = "Enter the right word",
+                    Answer = "uscita",
+                    RoomId = 3
+                }
+            );
+
+            //Id { get; set; }
+
+            //ProductName { get; set; }
+            //ProductDescription { get; set; }
+            //Price { get; set; }
+            //ProductType { get; set; }
+            //ImageUrl { get; set; }
+
+            modelBuilder.Entity<Product>().HasData(
+                    new Product
+                    {
+                        Id = 1,
+                        ProductName = "T-Shirt - Black",
+                        ProductDescription = "A black T-shirt, sizes S-M-L, with high quality printing.",
+                        Price = 24.99,
+                        ProductType = "T-Shirt",
+                        ImageUrl = "/Images/tshirt2.jpg"
+
+                    },
+                    new Product
+                    {
+                        Id = 2,
+                        ProductName = "Cup - White",
+                        ProductDescription = "A white coffee cup, with high quality printing.",
+                        Price = 14.99,
+                        ProductType = "Cup",
+                        ImageUrl = "/Images/tazza2.jpg"
+                    },
+                    new Product
+                    {
+                        Id = 3,
+                        ProductName = "Cap - Black",
+                        ProductDescription = "A black cap, sizes size M, with high quality printing.",
+                        Price = 19.99,
+                        ProductType = "Cap",
+                        ImageUrl = "/Images/cap2.jpg"
+                    },
+                    new Product
+                    {
+                        Id = 4,
+                        ProductName = "Escape Room",
+                        ProductDescription = "A one time access to the Horror Escape Room.",
+                        Price = 19.99,
+                        ProductType = "Game",
+                        ImageUrl = "/Images/zzgame.jpg"
+                    });
+
+            //int Id 
+            //int ProductID 
+            //int QuantityAvailable
+            //int QuantityReserved 
+            //DateTime LastUpdated 
+
+            modelBuilder.Entity<Inventory>().HasData(
+                new Inventory
+                {
+                    Id = 1,
+                    ProductID = 1,
+                    QuantityAvailable = 102,
+                    QuantityReserved = 30,
+                    LastUpdated = DateTime.Now
+                },
+                new Inventory
+                {
+                    Id = 2,
+                    ProductID = 2,
+                    QuantityAvailable = 95,
+                    QuantityReserved = 28,
+                    LastUpdated = DateTime.Now
+                },
+                new Inventory
+                {
+                    Id = 3,
+                    ProductID = 3,
+                    QuantityAvailable = 69,
+                    QuantityReserved = 16,
+                    LastUpdated = DateTime.Now
+                },
+                new Inventory
+                {
+                    Id = 4,
+                    ProductID = 4,
+                    QuantityAvailable = 9832,
+                    QuantityReserved = 312,
+                    LastUpdated = DateTime.Now
+                });
+
+    }
     }
 }

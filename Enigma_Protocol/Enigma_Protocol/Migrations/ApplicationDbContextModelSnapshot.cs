@@ -76,6 +76,40 @@ namespace Enigma_Protocol.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("Inventory", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LastUpdated = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9482),
+                            ProductID = 1,
+                            QuantityAvailable = 102,
+                            QuantityReserved = 30
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LastUpdated = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9485),
+                            ProductID = 2,
+                            QuantityAvailable = 95,
+                            QuantityReserved = 28
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LastUpdated = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9487),
+                            ProductID = 3,
+                            QuantityAvailable = 69,
+                            QuantityReserved = 16
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LastUpdated = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9489),
+                            ProductID = 4,
+                            QuantityAvailable = 9832,
+                            QuantityReserved = 312
+                        });
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Order", b =>
@@ -219,6 +253,44 @@ namespace Enigma_Protocol.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImageUrl = "/Images/tshirt2.jpg",
+                            Price = 24.989999999999998,
+                            ProductDescription = "A black T-shirt, sizes S-M-L, with high quality printing.",
+                            ProductName = "T-Shirt - Black",
+                            ProductType = "T-Shirt"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImageUrl = "/Images/tazza2.jpg",
+                            Price = 14.99,
+                            ProductDescription = "A white coffee cup, with high quality printing.",
+                            ProductName = "Cup - White",
+                            ProductType = "Cup"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImageUrl = "/Images/cap2.jpg",
+                            Price = 19.989999999999998,
+                            ProductDescription = "A black cap, sizes size M, with high quality printing.",
+                            ProductName = "Cap - Black",
+                            ProductType = "Cap"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImageUrl = "/Images/zzgame.jpg",
+                            Price = 19.989999999999998,
+                            ProductDescription = "A one time access to the Horror Escape Room.",
+                            ProductName = "Escape Room",
+                            ProductType = "Game"
+                        });
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Puzzle", b =>
@@ -245,6 +317,36 @@ namespace Enigma_Protocol.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Puzzles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Answer = "4359",
+                            Question = "Enter the code",
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Answer = "true",
+                            Question = "Reorder the image",
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Answer = "tenebre",
+                            Question = "Enter the right word",
+                            RoomId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Answer = "uscita",
+                            Question = "Enter the right word",
+                            RoomId = 3
+                        });
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Review", b =>
@@ -373,6 +475,26 @@ namespace Enigma_Protocol.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9343),
+                            Email = "testemail2@gmail.com",
+                            IsAdmin = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEMhU2fip+YkyWX1Lb9EePrwEBx3DN9pUTDdInCNp1otbhZIilQMpvs4RLsNyoif49w==",
+                            UserName = "Presentazione_Utente1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2024, 10, 7, 7, 41, 38, 673, DateTimeKind.Local).AddTicks(9402),
+                            Email = "testemail3@gmail.com",
+                            IsAdmin = true,
+                            PasswordHash = "AQAAAAIAAYagAAAAEF6JuNnjowt+kv+JEecKS5+XYbBvS1E0jcz+iqWiv8HkrqSGGmmwa6QAyA1MN7ZmAQ==",
+                            UserName = "Presentazione_Admin1"
+                        });
                 });
 
             modelBuilder.Entity("Enigma_Protocol.Models.Cart", b =>

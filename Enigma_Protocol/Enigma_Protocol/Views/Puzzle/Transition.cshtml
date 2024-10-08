@@ -1,0 +1,50 @@
+﻿@model Enigma_Protocol.Models.PlayerProgress
+
+@{
+    ViewData["Title"] = "Transitioning to Next Room";
+}
+
+@section Styles {
+    <link href="~/css/PrologoeFinale/Transition.css" rel="stylesheet" />
+}
+
+<div class="transition-background">
+    <!-- Use the new fixed container for better control over image dimensions -->
+    <div class="fixed-container">
+        <img id="transitionImage" class="transition-image" src="~/Images/transitionroom2.png" alt="Transition Image">
+    </div>
+
+    <!-- Background Audio Element -->
+    <audio id="transitionAudio" autoplay>
+        <source src="~/Music/transitiondoor.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const transitionImage = document.getElementById('transitionImage');
+        const transitionAudio = document.getElementById('transitionAudio');
+
+        // Set initial volume
+            transitionAudio.volume = 1.0;
+
+            // Start fading in the image
+            transitionImage.classList.add('fade-in-out');
+
+            // Redirect to the next room after 6 seconds
+            setTimeout(function () {
+                switch (@Model.CurrentRoomId) {
+                    case 1:
+                        window.location.href = '@Url.Action("Room2", "Room2")';
+                        break;
+                    case 2:
+                        window.location.href = '@Url.Action("Room3", "Room3")';
+                        break;
+                    default:
+                        window.location.href = '@Url.Action("Fine", "PrologoeFinale")'; // Game completed
+                        break;
+                }
+            }, 6000);
+        });
+</script>

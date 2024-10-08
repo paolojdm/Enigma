@@ -1,0 +1,84 @@
+﻿/* Add your custom styles here */
+body {
+    margin: 0; /* Remove default margin */
+    background-color: #000 !important;
+    height: 100%;
+}
+
+/* Transition Background Container */
+.transition-background {
+    background-color: #1b1b1b; /* Dark gray color */
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    border: none;
+    padding: 0px;
+}
+.container{
+    margin-left: 100px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+/* Container for the Image with Fixed Dimensions */
+.fixed-container {
+    min-width: 1660px; /* Fixed width of the container */
+    min-height: 450px; /* Fixed height of the container */
+    position: relative;
+    background-color: #000; /* Set a dark background for the container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevent image overflow */
+    aspect-ratio: 1.9/1;
+    /*border: 2px solid #333;*/ /* Optional border for visual distinction */
+    margin: 0px;
+    border: none;
+    padding: 0px;
+    max-width: fit-content;
+    max-height: fit-content;
+}
+
+/* Image Styling Inside the Container */
+.transition-image {
+    max-width: 100%; /* Scale image width to fit within the container */
+    max-height: 100%; /* Scale image height to fit within the container */
+    object-fit: contain; /* Maintain aspect ratio */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 3s ease-in-out; /* Smooth fade-in and fade-out effect */
+    margin: 0px;
+    padding: 0px;
+}
+
+    /* Apply the fade-in and fade-out effect */
+    .transition-image.fade-in-out {
+        opacity: 1; /* Make image fully visible */
+        animation: fadeInOut 6s ease-in-out; /* Use animation to handle fade for 6 seconds */
+    }
+
+/* Fade In and Fade Out Animation Keyframes */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0; /* Start with the image hidden */
+    }
+
+    25% {
+        opacity: 1; /* Fade in the image */
+    }
+
+    75% {
+        opacity: 1; /* Keep image visible for some time */
+    }
+
+    100% {
+        opacity: 0; /* Fade out the image */
+    }
+}
+
+/* Optional Styling for Audio Player */
+audio {
+    display: none; /* Hide the audio player UI */
+}

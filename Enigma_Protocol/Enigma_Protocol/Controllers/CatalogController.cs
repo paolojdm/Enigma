@@ -45,7 +45,7 @@ namespace Enigma_Protocol.Controllers
                     Price = i.Product.Price,
                     ProductType = i.Product.ProductType,
                     QuantityAvailable = i.QuantityAvailable,
-                    ImageUrl = "/Images/Designer1.jpg"  // You can change this dynamically later
+                    ImageUrl = i.Product.ImageUrl  // You can change this dynamically later
                 }).FirstOrDefaultAsync();
 
             if (product == null)

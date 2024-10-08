@@ -1,18 +1,159 @@
-﻿.background-container {
-    top: 0;
-    left: 0;
-    content: '';
-    position: absolute; /* Necessario per posizionare eventuali elementi all'interno */
-    width: 100%; /* Larghezza del contenitore */
-    height: 100%; /* Altezza del contenitore */
-    background-image: url('/Images/OIG2.8g8ev.jpg'); /* Percorso dell'immagine di sfondo */
-    background-size: cover; /* L'immagine copre completamente l'area del contenitore */
-    background-position: center; /* Centra l'immagine all'interno del contenitore */
-    color: white; /* Colore del testo */
-    display: flex; /* Permette di centrare il contenuto */
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; /* Centra orizzontalmente */
-    text-align: center; /* Centra il testo */
-    background-repeat: no-repeat;
-    z-index: -1;
+﻿/* General Styles */
+body {
+    margin: 0; /* Remove default margin */
+    background-color: #1b1b1bff !important; /* Consistent background */
+}
+
+/* Button Styling */
+button {
+    font-size: 1em;
+    margin: 10px;
+}
+
+/* Ghost Image Styling */
+#immagine {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+/* Modal Customization */
+.modal-body img {
+    max-width: 100%;
+    height: auto;
+}
+
+.modal-footer button {
+    font-size: 1.1em;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container2 {
+        min-width: 1000px;
+        max-width: 1200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container2 {
+        min-width: 700px;
+        max-width: 900px;
+    }
+
+    button {
+        font-size: 1em;
+    }
+}
+
+.modal-title {
+    color: #fff;
+}
+
+.modal-content {
+    background-color: #1b1b1bff
+}
+
+.button-container {
+    margin-top: 1px; /* Add some space above buttons */
+}
+
+.container {
+    margin-left: 100px;
+}
+
+.btn {
+    margin: 10px; /* Add some space between buttons */
+    padding: 10px 20px; /* Padding for buttons */
+}
+
+.container2 {
+    /* Ensure the container has a defined height and width */
+    min-width: 1660px !important; /* Maximum width */
+    background-image: url('/Images/room3.jpeg'); /* Set your background image here */
+    max-width: 1700px; /* Maximum width */
+    max-height: 880px; /* Maximum height */
+    width: 100%; /* Responsive */
+    height: auto; /* Responsive */
+    margin: 0 auto; /* Center the container */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    aspect-ratio: 1.9 / 1; /* Set aspect ratio to 1.9:1 */
+    position: relative; /* Ensure children can be positioned relative to this */
+    border-radius: 10px;
+}
+.modal-body {
+    color: #f5f5f5;
+}
+h2, h3, h4, h5, h6 {
+    padding-top: 15px;
+    padding-left: 15px;
+    color: #f5f5f5;
+    text-shadow: 5px 3px 5px black, 0 0 0.5em black, 0 0 0.9em black;
+}
+
+h1 {
+    padding-top: 1px;
+    padding-left: 15px;
+    color: #f5f5f5;
+    text-shadow: 5px 3px 5px black, 0 0 0.5em black, 0 0 0.9em black;
+}
+
+.modal-title {
+    color: #fff;
+}
+
+.modal-content {
+    background-color: #1b1b1bff
+}
+
+/* Hide clue and puzzle buttons initially for sequential reveal */
+.clue-btn, .puzzle-btn {
+    display: none;
+}
+
+#spadaButton {
+    position: absolute;
+    rotate: z 90deg;
+    top: 315px;
+    left: 950px;
+    border: 0px;
+    margin: 0px;
+    padding: 1px;
+}
+
+#letteraVasoButton {
+    position: absolute;
+    top: 630px;
+    left: 650px;
+    border: 0px;
+    margin: 0px;
+    padding: 20px;
+    rotate: z -10deg;
+}
+#armorButton {
+    position: absolute;
+    top: 380px;
+    left: 350px;
+    border: 0px;
+    margin: 0px;
+    padding: 30px;
+    rotate: z 90deg;
+}
+
+#scudoButton {
+    position: absolute;
+    top: 620px;
+    left: 190px;
+    border: 0px;
+    margin: 0px;
+    padding: 32px;
+    rotate: z 63deg;
+}
+#letteraVasoButton, #armorButton, #spadaButton, #scudoButton {
+    opacity: 0%;
+    cursor: default;
 }

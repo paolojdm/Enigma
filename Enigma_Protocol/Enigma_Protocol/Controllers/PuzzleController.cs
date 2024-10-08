@@ -1,246 +1,208 @@
-﻿using Enigma_Protocol.DB;
-using Enigma_Protocol.Models;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Enigma_Protocol.Models;
+using Enigma_Protocol.DB;
 using System.Security.Claims;
-using System.Timers;
 
 namespace Enigma_Protocol.Controllers
 {
+    [Authorize]
     public class PuzzleController : Controller
     {
-        private static System.Timers.Timer _timer;
-        private readonly ApplicationDbContext _context; // Adjust to your DbContext name
+        private readonly ApplicationDbContext _context;
 
         public PuzzleController(ApplicationDbContext context)
         {
             _context = context;
-
-            _timer = new System.Timers.Timer(1000); // Update every second
-
-            _timer.Elapsed += UpdateRoomTime;
-            _timer.AutoReset = true;
         }
 
-        #region GPT methods
-
-        public PuzzleController()
+        // GET: Room1
+        public async Task<IActionResult> Room1()
         {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-        }
-
-        // Method to initialize puzzle
-        public IActionResult Cassaforte()
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
-
-            var playerProgress = GetPlayerProgress();
-            playerProgress.RoomStartTime = DateTime.Now;
-
-            var viewModel = new CurrentRoomViewModel
-            {
-                PlayerProgress = playerProgress,
-                CurrentRoom = playerProgress.CurrentRoom,
-                CurrentPuzzle = GetCurrentPuzzle(playerProgress.CurrentRoom.Id)
-            };
-
-            _timer.Start();
-            return View(viewModel);
-        }
-
-        // Method to validate the code entered for puzzle
-        public IActionResult ValidaCode(string code)
-        {
-            var playerProgress = GetPlayerProgress();
-
-            // Stop the timer
-            _timer.Stop();
-
-            // Update room time one last time
-            playerProgress.CurrentRoomTime = DateTime.Now;
-
-            if ((playerProgress.CurrentRoomTime - playerProgress.RoomStartTime).TotalMinutes > 10)
-            {
-                // Fail scenario
-                ViewBag.Message = "You Failed! Time exceeded 10 minutes.";
-                return RedirectToAction("Fail");
-            }
-
-            // Validate the puzzle
-            string correctCode = "4359";
-            if (code == correctCode)
-            {
-                playerProgress.SolvedPuzzles++;
-                // Proceed to the next puzzle or room
-                return RedirectToAction("PuzzleSolved");
-            }
-            else
-            {
-                // Code incorrect, retry
-                return RedirectToAction("Cassaforte");
-            }
-        }
-
-        private void UpdateRoomTime(object sender, ElapsedEventArgs e)
-        {
-            var playerProgress = GetPlayerProgress();
-            playerProgress.CurrentRoomTime = DateTime.Now;
-            // You could save this to the database periodically if needed
-        }
-
-        private PlayerProgress GetPlayerProgress()
-        {
-            // Fetch player progress from database or session
-
-            // Get the user ID from the claims
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
-            // Fetch the PlayerProgress object for the current user
-            var playerProgress = _context.PlayerProgresses
-                .Include(p => p.CurrentRoom)  // Include navigation property for the room
-                .Include(p => p.User)         // Include navigation property for the user
-                .FirstOrDefault(p => p.PlayerID == userId);
-
-            return playerProgress;
-        }
-
-        private Puzzle GetCurrentPuzzle(int roomId)
-        {
-            // Fetch current puzzle for the room
-            return new Puzzle { Question = "Enter the correct code", RoomId = roomId };
-        }
-
-        public IActionResult PuzzleSolved()
-        {
-            return View("PuzzleSolved");
-        }
-
-        public IActionResult Fail()
-        {
-            return View("Fail");
-        }
-
-
-
-
-        #endregion  GPT methods
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        //GET
-        public IActionResult Puzzle()
-        {
-            var playerProgress = GetPlayerProgress(); //metodo che prende l'oggetto
+            // Attempt to fetch existing PlayerProgress
+            var playerProgress = await _context.PlayerProgresses
+                .Include(pp => pp.User)
+                .FirstOrDefaultAsync(pp => pp.PlayerID == userId);
 
             if (playerProgress == null)
             {
-                return NotFound("Player progress not found.");
-            } //semplice check
-
-            // Create the ViewModel and populate its properties
-            var viewModel = new CurrentRoomViewModel
-            {
-                PlayerProgress = playerProgress,
-                CurrentRoom = playerProgress.CurrentRoom,  // The current room of the player
-                CurrentPuzzle = GetCurrentPuzzle(playerProgress.CurrentRoomId), // Fetch the current puzzle
-            };
-            return View(viewModel);
-            //Quando l'utente passa da un stanza all'altra, la roomId deve cambiare, quindi prima bisgona assegnare un id ad ogni stanza (aggiungerle al db in base)
-        }
-        public IActionResult LetteraScrivania()
-        {
-            return View();
-        }
-        public IActionResult Baule()
-        {
-            return View();
-        }
-        //public IActionResult Cassaforte()
-        //{
-        //    return View();
-        //} //Deprecated
-
-        //public string Code { get; set; }
-
-
-        //public IActionResult ValidaCode(string code)
-        //{
-
-        //    string correctCode = "4359";
-
-        //    if (code == correctCode)
-        //    {
-        //        return Redirect("/Puzzle/Puzzle");
-        //    }
-        //    else
-        //    {
-        //        return Redirect("/Puzzle/Cassaforte");
-        //    }
-        //} //Deprecated
-        public IActionResult Primopiatto()
-        {
-            return View();
-        }
-        public IActionResult Secondopiatto()
-        {
-            return View();
-        }
-        public IActionResult Correctword(string word)
-        {
-            string correctWord = "tenebre";
-
-            if (word.ToLower() == correctWord.ToLower())
-            {
-                return Redirect("/Puzzle/Puzzle");
+                // Create a new PlayerProgress entry for the user
+                playerProgress = new PlayerProgress
+                {
+                    PlayerID = userId,
+                    Current_Lives_Room = 3,
+                    SolvedPuzzles = 0,
+                    CurrentRoomId = 1
+                    
+                };
+                _context.PlayerProgresses.Add(playerProgress);
             }
             else
             {
-                return Redirect("/Puzzle/Secondopiatto");
+                // Update existing PlayerProgress with new values
+                playerProgress.Current_Lives_Room = 3;
+                playerProgress.CurrentRoomId = 1;
+                Console.WriteLine($"\n\n\n\n \t\t CURRENT ROOM ID: {playerProgress.CurrentRoomId}\n\n\n\n\n");
+                _context.PlayerProgresses.Update(playerProgress); // Ensure to mark it as updated
             }
-        }
-        public IActionResult LetteraVaso()
-        {
-            return View();
-        }
-        public IActionResult Spada()
-        {
-            return View();
-        }
-        public IActionResult Armor()
-        {
-            return View();
-        }
-        public IActionResult Scudo()
-        {
-            return View();
-        }
-        public IActionResult Correctwords(string word)
-        {
-            string correctWord = "uscita";
 
-            if (word.ToLower() == correctWord.ToLower())
+            await _context.SaveChangesAsync(); // Save changes to the database
+
+            // Pass the current lives to the view
+            ViewBag.CurrentLives = playerProgress.Current_Lives_Room;
+
+            return View(playerProgress);
+        }
+
+        // POST: Validate Puzzle Answer
+        [HttpPost]
+        public async Task<IActionResult> ValidatePuzzleAnswer(int puzzleId, string answer)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _context.Users
+                         .Include(u => u.playerProgresses) // Assuming PlayerProgress is a related entity
+                         .FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+
+
+            var playerProgress = await _context.PlayerProgresses
+                                    .Include(p => p.User) // Ensure User is included
+                                    .FirstOrDefaultAsync(p => p.User.Id == user.Id);
+
+            if (playerProgress == null)
             {
-                return Redirect("/Puzzle/Puzzle");
+                return BadRequest("Player progress not found.");
+            }
+
+            var puzzle = await _context.Puzzles.FindAsync(puzzleId);
+
+            if (puzzle == null)
+            {
+                return NotFound("Puzzle not found.");
+            }
+
+            if (answer == puzzle.Answer.ToString()) // Check if the answer matches
+            {
+                // Correct answer logic
+                playerProgress.SolvedPuzzles += 1; // Increment solved puzzles count
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Correct! Proceed to the next puzzle." });
             }
             else
             {
-                return Redirect("/Puzzle/Secondopiatto");
+                // Incorrect answer logic
+                playerProgress.Current_Lives_Room -= 1; // Subtract a life
+
+                if (playerProgress.Current_Lives_Room <= 0)
+                {
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = false, message = "Incorrect! No lives remaining.", redirectUrl = "/Puzzle/Fail" });
+                }
+
+                await _context.SaveChangesAsync();
+                return Json(new { success = false, message = $"Incorrect! Lives remaining: {playerProgress.Current_Lives_Room}" });
             }
         }
-        public IActionResult Room1()
+
+        // POST: Validate Code for the Safe Puzzle
+        [HttpPost]
+        public async Task<IActionResult> ValidateCode([FromBody] CodeSubmissionModel submission)
+        {
+            try
+            {
+
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return BadRequest("User ID not found.");
+                }
+                var user = await _context.Users
+                             .Include(u => u.playerProgresses) // Assuming PlayerProgress is a related entity
+                             .FirstOrDefaultAsync(u => u.Id == int.Parse(userId));
+                if (user == null)
+                {
+                    return BadRequest("User not found.");
+                }
+
+
+                var playerProgress = await _context.PlayerProgresses
+                                        .Include(p => p.User) // Ensure User is included
+                                        .FirstOrDefaultAsync(p => p.User.Id == user.Id);
+
+                if (playerProgress == null)
+                {
+                    return BadRequest("Player progress not found.");
+                }
+
+                var puzzle = await _context.Puzzles.FindAsync(1); // Assuming ID 1 is the safe puzzle
+                if (puzzle == null)
+                {
+                    return NotFound("Puzzle not found.");
+                }
+
+                var correctCode = puzzle.Answer; // Assuming the correct answer is stored in the 'Answer' field
+
+                Console.WriteLine($"\n\n\n\n\n\n\n\t\tCORRECT CODE VALUE: {correctCode}\n\n\n\n\n\n\n\n");
+
+                // Validate code
+                if (string.Equals(submission.Code.Trim(), correctCode.Trim(), StringComparison.OrdinalIgnoreCase))// Check if the code matches
+                {
+                    playerProgress.SolvedPuzzles += 1; // Increment solved puzzles count
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { correct = true });
+                }
+                else
+                {
+                    playerProgress.Current_Lives_Room -= 1; // Subtract a life
+
+                    if (playerProgress.Current_Lives_Room <= 0)
+                    {
+                        await _context.SaveChangesAsync();
+                        return Json(new { correct = false, livesRemaining = 0 });
+                    }
+
+                    await _context.SaveChangesAsync();
+                    return Json(new { correct = false, livesRemaining = playerProgress.Current_Lives_Room, message = $"Submitted code {submission.Code} does not match {correctCode}" });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error (you could log this to a file or a logging service)
+                Console.WriteLine($"An error occurred: {ex.Message}");
+
+                // Return 500 error with the error message
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+        // GET: Fail
+        public IActionResult Fail()
         {
             return View();
         }
-        public IActionResult Room2()
+        // Example method for transitioning to the next room
+        public async Task<IActionResult> NextRoom()
         {
-            return View();
-        }
-        public IActionResult Room3()
-        {
-            return View();
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            // Attempt to fetch existing PlayerProgress
+            var playerProgress = await _context.PlayerProgresses
+                .Include(pp => pp.User)
+                .FirstOrDefaultAsync(pp => pp.PlayerID == userId);
+
+            Console.WriteLine($"\n\n\n\n \t\t CURRENT ROOM ID (transition): {playerProgress.CurrentRoomId}\n\n\n\n\n");
+            if (playerProgress == null)
+            {
+                return RedirectToAction("Error", "Home"); // Or handle the error appropriately
+            }
+
+            // Logic to set up next room
+            return View("Transition",playerProgress); // This will return the Transition.cshtml view
         }
     }
 }

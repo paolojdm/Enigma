@@ -11,6 +11,7 @@
     @RenderSection("Styles", required: false) <!-- This allows you to include CSS only on certain pages -->
 </head>
 <body>
+    <div class="a">
     <header style="font-family: 'Crimson Text';">
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -34,20 +35,13 @@
                                 <a class="nav-link text-dark" href="/Account/MyAccount" >@User.Identity.Name</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Puzzle/Puzzle">Puzzle</a>
+                                <a class="nav-link text-dark" href="/Catalog/Index">Shop</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="/Account/Login">Login</a>
-                            </li>
-                        }
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Admin Panel</a>
                             </li>
                         }
                     </ul>
@@ -60,6 +54,7 @@
             @RenderBody()
         </main>
     </div>
+
 
     <!-- Load Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -74,5 +69,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    </div>
 </body>
 </html>

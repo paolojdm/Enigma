@@ -27,6 +27,13 @@
 		<form>
         <a class="btn btn-primary" href="/Cart">View Cart</a>
         </form>
+        @if (User.IsInRole("Admin"))
+        {
+            <form>
+                <a class="btn btn-primary" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+            </form>
+        }
+
 		<form>
         <a class="btn btn-secondary" asp-action="EditProfile" asp-controller="Account">Edit Profile</a>
         </form>
@@ -34,14 +41,9 @@
             <button class="btn btn-logout" type="submit">Logout</button>
         </form>
 
+        
+
     </div>
 </body>
 </html>
 
-<!-- Agigungere un bottone che porta ad una pagina (che non esiste ancora) che fa vedere il metodo di pagamento dell'utente (solo readonly).
-        Il metodo di pagamento sara' solo aggiungere una carta di credito/debito.
-
-
-     Nella pagina (visualizza metodo di pagamento) inserire bottone che porta alla pagina Modifica Pagamento/Aggiungi Pagamento (che non esiste ancora)
-         in modo da potere aggiungere o modificare il metodo di pagamento.
--->

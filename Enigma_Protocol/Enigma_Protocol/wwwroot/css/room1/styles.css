@@ -1,0 +1,174 @@
+﻿/* Add your custom styles here */
+body {
+    margin: 0; /* Remove default margin */
+    background-color: #1b1b1bff !important;
+}
+
+
+.container {
+    margin-left: 100px;
+}
+.container2 {
+    /* Ensure the container has a defined height and width */
+    min-width: 1660px !important; /* Maximum width */
+
+    max-width: 1700px; /* Maximum width */
+    max-height: 880px; /* Maximum height */
+    width: 100%; /* Responsive */
+    height: auto; /* Responsive */
+    margin: 0 auto; /* Center the container */
+    background-image: url('/Images/DesignerRoom1_(1).jpeg'); /* Set your background image here */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    aspect-ratio: 1.9 / 1; /* Set aspect ratio to 1.9:1 */
+    position: relative; /* Ensure children can be positioned relative to this */
+    border-radius: 10px;
+}
+.modal-body {
+    color: #f5f5f5;
+}
+h2, h3, h4, h5, h6 {
+    padding-top: 15px;
+    padding-left: 15px;
+    color: #f5f5f5;
+    text-shadow: 5px 3px 5px black, 0 0 0.5em black, 0 0 0.9em black;
+}
+
+h1 {
+    padding-top: 1px;
+    padding-left: 15px;
+    color: #f5f5f5;
+    text-shadow: 5px 3px 5px black, 0 0 0.5em black, 0 0 0.9em black;
+}
+
+#clueImage {
+    min-width: 250px;
+    min-height: 250px;
+    width: 418px;
+    height: 596px;
+}
+
+#clueButton,#clueButtonBed, #openChestButton, #wardrobeButton {
+    position: absolute; /* Position the buttons absolutely within .container2 */
+    background-color: transparent; /* Make the background transparent */
+    border: none; /* Remove borders */
+    opacity: 0; /* Make buttons invisible (but still clickable) */
+    
+    cursor: default;
+}
+#clueButtonBed {
+    top: 65%; /* Adjust according to your image */
+    left: 47%; /* Adjust according to your image */
+}
+
+#clueButton {
+    top: 55%; /* Adjust according to your image */
+    left: 77%; /* Adjust according to your image */
+}
+
+
+#openChestButton {
+    top: 75%; /* Adjust according to your image */
+    left: 62%; /* Adjust according to your image */
+}
+
+#wardrobeButton {
+    top: 46%; /* Adjust according to your image */
+    left: 42%; /* Adjust according to your image */
+}
+
+#puzzle-board img {
+    width: 100px;
+    height: 100px;
+    margin: 2px;
+}
+
+#keypad button {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+}
+
+#board {
+    width: 360px;
+    height: 360px;
+    background-color: lightblue;
+    border: 10px solid #0c67ae;
+    border-radius: 20px 20px 20px 20px;
+    padding: 5px;
+    margin: 30px auto; /* Centers the board horizontally */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+    /* Style the board images */
+    #board img {
+        width: 110px;
+        height: 111px;
+        border: -5px;
+    }
+
+
+
+/* SAFE CSS*/
+.modal-title{
+    color: #fff;
+}
+
+.modal-content {
+    background-color: #1b1b1bff
+}
+#cassaforte {
+    background-color: #333;
+    color: white;
+    width: 220px;
+    padding: 2px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative; /* Changed from absolute to relative */
+    margin: 0 auto; /* Center the element horizontally */
+    border: 2px solid #555;
+    z-index: 10;
+}
+
+#display {
+    margin-bottom: 15px;
+}
+
+#codeDisplay {
+    background-color: green;
+    color: black;
+    font-size: 25px; /* Increased for better readability */
+    width: 140px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+
+
+}
+
+#keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1px;
+}
+
+    #keypad button {
+        width: 80px;
+        height: 60px;
+        background-color: #585858;
+        color: #fff;
+        border: none;
+        font-size: 20px; /* Increased for better readability */
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        #keypad button:hover {
+            background-color: #777;
+        }
