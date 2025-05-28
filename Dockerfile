@@ -14,4 +14,4 @@ COPY --from=build /app/out .
 ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
 
-ENTRYPOINT ["dotnet", "NomeDelTuoProgetto.dll"]
+ENTRYPOINT ["dotnet", "Enigma_Protocol.dll"]
